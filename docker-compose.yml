@@ -10,36 +10,34 @@ services:
       - '19006:19006'
     environment:
       - EXPO_DEVTOOLS_LISTEN_ADDRESS=0.0.0.0
-      - CHOKIDAR_USEPOLLING=true
+      - REACT_NATIVE_PACKAGER_HOSTNAME=192.168.1.175
     command: 'npm run expo:web'
     volumes:
       - ./front:/app
-      - node_modules:/app/node_modules
+#      - node_modules:/app/node_modules
 
-  back:
-    build:
-      context: back
-    ports:
-      - '3000:3000'
-    depends_on:
-      - db
+#  back:
+#    build:
+#      context: back
+#    ports:
+#      - '3000:3000'
+#    depends_on:
+#      - db
+#
+#  db:
+#    image: mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: takeme@2023
+#      MYSQL_DATABASE: takeme
+#      MYSQL_USER: takeMeAdmin
+#      MYSQL_PASSWORD: takeMe@2023
+#
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    ports:
+#      - '8080:80'
+#    environment:
+#      PMA_HOST: db
+#      PMA_USER: takeMeAdmin
+#      PMA_PASSWORD: takeMe@2023
 
-  db:
-    image: mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: takeme@2023
-      MYSQL_DATABASE: takeme
-      MYSQL_USER: takeMeAdmin
-      MYSQL_PASSWORD: takeMe@2023
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - '8080:80'
-    environment:
-      PMA_HOST: db
-      PMA_USER: takeMeAdmin
-      PMA_PASSWORD: takeMe@2023
-
-volumes:
-  node_modules:

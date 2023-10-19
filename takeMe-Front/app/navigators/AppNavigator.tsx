@@ -39,6 +39,8 @@ export type AppStackParamList = {
   Login: undefined // @demo remove-current-line
   Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
   NewPage: undefined // @demo remove-current-line
+  AdList: undefined
+  AddAd: undefined
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
@@ -77,6 +79,8 @@ const AppStack = observer(function AppStack() {
           {/* @demo remove-block-start */}
           <Stack.Screen name="Demo" component={DemoNavigator} />
           <Stack.Screen name="NewPage" component={Screens.NewPage} />
+          <Stack.Screen name="AdList" component={Screens.AdList} />
+          <Stack.Screen name="AddAd" component={Screens.AddAd} />
         </>
       ) : (
         <>

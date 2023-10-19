@@ -2,8 +2,7 @@
 
 The application contains a Nest API, a React-native front end and a MySQL database. 
 
-## Installation
-
+## Installation (api & db)
 > Have Docker installed & a version of docker compose 2.22 or higher
 
 ```bash
@@ -11,11 +10,25 @@ The application contains a Nest API, a React-native front end and a MySQL databa
 docker compose build
 ```
 
-## Running the app
+## Running the app (api & db)
 ```bash
-# development watch mode
-docker compose watch
+# development
+docker compose up
 ```
+
+## Installation (api & db)
+
+```bash
+# install dependencies
+cd taskeMe-Front
+npm install
+```
+
+## Running the front
+```bash
+npm run expo:start
+```
+
 
 ## Testing the app
 @TODO

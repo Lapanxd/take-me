@@ -16,7 +16,7 @@ docker compose build
 docker compose up
 ```
 
-## Installation (api & db)
+## Installation (front)
 
 ```bash
 # install dependencies

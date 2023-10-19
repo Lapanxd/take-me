@@ -20,7 +20,7 @@ docker compose up
 
 ```bash
 # install dependencies
-cd taskeMe-Front
+cd takeMe-Front
 npm install
 ```
 

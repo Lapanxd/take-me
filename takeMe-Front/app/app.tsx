@@ -39,7 +39,6 @@ const config = {
       path: "",
     },
     NewPage: 'newpage',
-    AdvertListScreen: 'advertlist',
     AddAdvertScreens: 'addadvert',
     Welcome: "welcome",
     Demo: {
@@ -54,9 +53,7 @@ const config = {
     },
     Advert: {
       screens: {
-        DemoDebug: "debug",
-        AdvertList: "advert",
-        DemoCommunity: "community",
+        AdvertList: "advertlist",
       },
     },
   },

@@ -38,6 +38,7 @@ const config = {
     Login: {
       path: "",
     },
+    connexion: 'connexion',
     Welcome: "welcome",
     Demo: {
       screens: {

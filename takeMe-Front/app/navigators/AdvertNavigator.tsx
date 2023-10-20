@@ -5,13 +5,12 @@ import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
 import { translate } from "../i18n"
-import { AdvertListScreen, DemoCommunityScreen, DemoShowroomScreen, DemoDebugScreen } from "../screens"
+import { AdvertListScreen, DemoCommunityScreen, DemoDebugScreen } from "../screens"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 
 export type AdvertTabParamList = {
     DemoCommunity: undefined
-    DemoShowroom: { queryIndex?: string; itemIndex?: string }
     DemoDebug: undefined
     AdvertList: undefined
   }
@@ -38,17 +37,6 @@ export function AdvertNavigator() {
           tabBarItemStyle: $tabBarItem,
         }}
       >
-        <Tab.Screen
-          name="DemoShowroom"
-          component={DemoShowroomScreen}
-          options={{
-            tabBarLabel: translate("advertNavigator.componentsTab"),
-            tabBarIcon: ({ focused }) => (
-              <Icon icon="components" color={focused && colors.tint} size={30} />
-            ),
-          }}
-        />
-  
         <Tab.Screen
           name="DemoCommunity"
           component={DemoCommunityScreen}

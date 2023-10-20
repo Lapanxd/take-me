@@ -50,6 +50,13 @@ const fr: Translations = {
     communityTab: "Communauté",
     podcastListTab: "Podcasts",
   },
+  advertNavigator: {
+    componentsTab: "Composants",
+    debugTab: "Debug",
+    communityTab: "Community",
+    advertListTab: "Advert",
+    addAdvertTab: "Ajouter une annonce",
+  },
   demoCommunityScreen: {
     title: "Connectez-vous avec la communauté",
     tagLine:
@@ -124,7 +131,7 @@ const fr: Translations = {
     },
   },
   advertListScreen: {
-    title: "Épisodes de Radio React Native",
+    title: "Toutes les annonces",
     onlyFavorites: "Afficher uniquement les favoris",
     favoriteButton: "Favori",
     unfavoriteButton: "Non favori",

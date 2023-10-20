@@ -5,12 +5,13 @@ import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
 import { translate } from "../i18n"
-import { AdvertListScreen} from "../screens"
+import { AddAdvertScreen, AdvertListScreen} from "../screens"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 
 export type AdvertTabParamList = {
     AdvertList: undefined
+    AddAdvert: undefined
   }
 
 export type AdvertTabScreenProps<T extends keyof AdvertTabParamList> = CompositeScreenProps<
@@ -35,6 +36,17 @@ export function AdvertNavigator() {
           tabBarItemStyle: $tabBarItem,
         }}
       > 
+           <Tab.Screen
+        name="AddAdvert"
+        component={AddAdvertScreen}
+        options={{
+          tabBarAccessibilityLabel: translate("advertNavigator.addAdvertTab"),
+          tabBarLabel: translate("advertNavigator.addAdvertTab"),
+          tabBarIcon: ({ focused }) => (
+            <Icon icon="community" color={focused && colors.tint} size={30} />
+          ),
+        }}
+      />
         <Tab.Screen
           name="AdvertList"
           component={AdvertListScreen}

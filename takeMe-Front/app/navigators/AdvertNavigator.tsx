@@ -5,13 +5,11 @@ import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
 import { Icon } from "../components"
 import { translate } from "../i18n"
-import { AdvertListScreen, DemoCommunityScreen, DemoDebugScreen } from "../screens"
+import { AdvertListScreen} from "../screens"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 
 export type AdvertTabParamList = {
-    DemoCommunity: undefined
-    DemoDebug: undefined
     AdvertList: undefined
   }
 
@@ -36,18 +34,7 @@ export function AdvertNavigator() {
           tabBarLabelStyle: $tabBarLabel,
           tabBarItemStyle: $tabBarItem,
         }}
-      >
-        <Tab.Screen
-          name="DemoCommunity"
-          component={DemoCommunityScreen}
-          options={{
-            tabBarLabel: translate("advertNavigator.communityTab"),
-            tabBarIcon: ({ focused }) => (
-              <Icon icon="community" color={focused && colors.tint} size={30} />
-            ),
-          }}
-        />
-  
+      > 
         <Tab.Screen
           name="AdvertList"
           component={AdvertListScreen}
@@ -56,17 +43,6 @@ export function AdvertNavigator() {
             tabBarLabel: translate("advertNavigator.advertListTab"),
             tabBarIcon: ({ focused }) => (
               <Icon icon="podcast" color={focused && colors.tint} size={30} />
-            ),
-          }}
-        />
-  
-        <Tab.Screen
-          name="DemoDebug"
-          component={DemoDebugScreen}
-          options={{
-            tabBarLabel: translate("advertNavigator.debugTab"),
-            tabBarIcon: ({ focused }) => (
-              <Icon icon="debug" color={focused && colors.tint} size={30} />
             ),
           }}
         />

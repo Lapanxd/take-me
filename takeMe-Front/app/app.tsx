@@ -39,8 +39,8 @@ const config = {
       path: "",
     },
     NewPage: 'newpage',
-    AdList: 'adlist',
-    AddAd: 'addad',
+    AdvertListScreen: 'adlist',
+    AddAdvertScreens: 'addad',
     Welcome: "welcome",
     Demo: {
       screens: {

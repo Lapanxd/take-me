@@ -123,6 +123,27 @@ const fr: Translations = {
         "Aucun favori n'a été ajouté pour le moment. Appuyez sur le cœur d'un épisode pour l'ajouter à vos favoris !",
     },
   },
+  advertListScreen: {
+    title: "Épisodes de Radio React Native",
+    onlyFavorites: "Afficher uniquement les favoris",
+    favoriteButton: "Favori",
+    unfavoriteButton: "Non favori",
+    accessibility: {
+      cardHint:
+        "Double-cliquez pour écouter l'épisode. Double-cliquez et maintenez pour {{action}} cet épisode.",
+      switch: "Activez pour afficher uniquement les favoris",
+      favoriteAction: "Basculer en favori",
+      favoriteIcon: "Épisode non favori",
+      unfavoriteIcon: "Épisode favori",
+      publishLabel: "Publié le {{date}}",
+      durationLabel: "Durée : {{hours}} heures {{minutes}} minutes {{seconds}} secondes",
+    },
+    noFavoritesEmptyState: {
+      heading: "C'est un peu vide ici",
+      content:
+        "Aucun favori n'a été ajouté pour le moment. Appuyez sur le cœur d'un épisode pour l'ajouter à vos favoris !",
+    },
+  },
   // @demo remove-block-end
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import AdForm from './AdvertFormScreen';
 
-export const AddAd = () => {
+export const AddAdvertScreen = () => {
   const handleOnSubmit = (advert) => {
     console.log(advert);
   };
@@ -13,4 +13,4 @@ export const AddAd = () => {
   );
 };
 
-export default AddAd;
+export default AddAdvertScreen;

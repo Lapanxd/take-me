@@ -49,6 +49,12 @@ const ar: Translations = {
     communityTab: "واصل اجتماعي",
     podcastListTab: "البودكاست",
   },
+  advertNavigator: {
+    componentsTab: "عناصر",
+    debugTab: "تصحيح",
+    communityTab: "واصل اجتماعي",
+    advertListTab: "البودكاست",
+  },
   demoCommunityScreen: {
     title: "تواصل مع المجتمع",
     tagLine:
@@ -98,6 +104,26 @@ const ar: Translations = {
       "اذا لم ينجح ذلك، فتأكد من تشغيل الحاسوب ب Reactotron وأعد تحميل التطبيق",
   },
   demoPodcastListScreen: {
+    title: "حلقات إذاعية React Native",
+    onlyFavorites: "المفضلة فقط",
+    favoriteButton: "المفضل",
+    unfavoriteButton: "غير مفضل",
+    accessibility: {
+      cardHint: "انقر مرّتين للاستماع على الحلقة. انقر مرّتين وانتظر لتفعيل {{action}} هذه الحلقة.",
+      switch: "قم بالتبديل لاظهار المفضّلة فقط.",
+      favoriteAction: "تبديل المفضلة",
+      favoriteIcon: "الحلقة الغير مفضّلة",
+      unfavoriteIcon: "الحلقة المفضّلة",
+      publishLabel: "نشرت {{date}}",
+      durationLabel: "المدّة: {{hours}} ساعات {{minutes}} دقائق {{seconds}} ثواني",
+    },
+    noFavoritesEmptyState: {
+      heading: "هذا يبدو فارغاً بعض الشيء.",
+      content:
+        "لم تتم اضافة اي مفضلات حتى الان. اضغط على القلب في إحدى الحلقات لإضافته الى المفضلة.",
+    },
+  },
+  advertListScreen: {
     title: "حلقات إذاعية React Native",
     onlyFavorites: "المفضلة فقط",
     favoriteButton: "المفضل",

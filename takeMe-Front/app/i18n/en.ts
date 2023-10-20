@@ -52,6 +52,7 @@ const en = {
     debugTab: "Debug",
     communityTab: "Community",
     advertListTab: "Advert",
+    addAdvertTab: "Add an advert",
   },
   demoCommunityScreen: {
     title: "Connect with the community",
@@ -126,7 +127,7 @@ const en = {
     },
   },
   advertListScreen: {
-    title: "React Native Radio episodes",
+    title: "All adverts",
     onlyFavorites: "Only Show Favorites",
     favoriteButton: "Favorite",
     unfavoriteButton: "Unfavorite",

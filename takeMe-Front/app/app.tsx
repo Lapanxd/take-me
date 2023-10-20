@@ -39,7 +39,7 @@ const config = {
       path: "",
     },
     NewPage: 'newpage',
-    AddAdvertScreens: 'addadvert',
+    AddAdvert: 'addadvert',
     Welcome: "welcome",
     Demo: {
       screens: {

@@ -8,5 +8,5 @@ export * from "./DemoShowroomScreen/DemoShowroomScreen"
 export * from "./ErrorScreen/ErrorBoundary"
 // export other screens here
 export * from "./NewPage"
-export * from "./AdList"
-export * from "./AddAd"
+export * from "./AdvertListScreen"
+export * from "./AddAdvertScreen"

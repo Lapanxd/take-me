@@ -1,5 +1,5 @@
 import React from 'react';
-import AdForm from './AdForm';
+import AdForm from './AdvertFormScreen';
 
 export const AddAd = () => {
   const handleOnSubmit = (advert) => {

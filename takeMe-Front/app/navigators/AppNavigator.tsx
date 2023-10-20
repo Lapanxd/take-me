@@ -18,6 +18,7 @@ import * as Screens from "app/screens"
 import Config from "../config"
 import { useStores } from "../models" // @demo remove-current-line
 import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
+import { AdvertNavigator, AdvertTabParamList } from "./AdvertNavigator" 
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
 
@@ -39,8 +40,8 @@ export type AppStackParamList = {
   Login: undefined // @demo remove-current-line
   Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
   NewPage: undefined // @demo remove-current-line
-  AdvertList: undefined
-  AddAd: undefined
+  Advert: NavigatorScreenParams<AdvertTabParamList>
+  AddAdvert: undefined
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
@@ -79,8 +80,8 @@ const AppStack = observer(function AppStack() {
           {/* @demo remove-block-start */}
           <Stack.Screen name="Demo" component={DemoNavigator} />
           <Stack.Screen name="NewPage" component={Screens.NewPage} />
-          <Stack.Screen name="AdvertList" component={Screens.AdvertList} />
-          <Stack.Screen name="AddAd" component={Screens.AddAd} />
+          <Stack.Screen name="Advert" component={AdvertNavigator} />
+          <Stack.Screen name="AddAdvert" component={Screens.AddAdvertScreen} />
         </>
       ) : (
         <>

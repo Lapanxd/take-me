@@ -38,6 +38,7 @@ const config = {
     Login: {
       path: "",
     },
+    Insciption: 'Inscription',
     connexion: 'connexion',
     Welcome: "welcome",
     Demo: {

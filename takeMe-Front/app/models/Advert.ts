@@ -25,6 +25,8 @@ export const AdvertModel = types
     thumbnail: "",
     description: "",
     content: "",
+    longitude: "",
+    latitude: "",
     enclosure: types.frozen<Enclosure>(),
     categories: types.array(types.string),
   })

@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, ImageStyle, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { FigureImage } from 'react-bootstrap';
 import { colors, spacing } from "../theme"
 import { useNavigation } from '@react-navigation/native';
 const userConn = require("../../assets/images/users.png")
 
-export const connexion = () => {
+export const Connect = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [isHovered, setHovered] = useState(false);
 
   const handleLogin = () => {
-    if (username === 'mehdi' && password === '123') {
-      alert('Connexion réussie');
-    } 
-  };
+    if (username === "user" && password === "123") {
+      alert('connexion réussie');
+    } else {
+      setError('Nom d\'utilisateur ou mot de passe incorrect');
+    }
+  }
+  
 
   const navigation = useNavigation() as any;
 
@@ -23,6 +27,16 @@ export const connexion = () => {
   {
     navigation.navigate('Inscription');
   }
+
+  const handleHoverIn = () => {
+    setHovered(true);
+  }
+
+  const handleHoverOut = () => {
+    setHovered(false);
+  }
+
+  const buttonStyle = isHovered ? styles.hoveredButton : styles.btn;
 
   return (
     <View style={styles.container}>
@@ -32,18 +46,25 @@ export const connexion = () => {
       <TextInput
         style={styles.input}
         placeholder='Email'
+        placeholderTextColor='rgba(128, 128, 128, .5)'
+
+        value={username}
+        onChangeText={(text) => setUsername(text)}
         
-      />
-     <Text style={styles.errorText}>{username}</Text>
+        />
+     <Text style={styles.errorText}></Text>
 
       <TextInput
         style={styles.input}
         placeholder='Mot de passe'
+        placeholderTextColor='rgba(128, 128, 128, .5)'
+        value={password}
+        onChangeText={(text) => setPassword(text)}
         
-        secureTextEntry
       />
-     <Text style={styles.error}>{error}</Text>
+    
 
+        <View style={styles.btnView}>
         {/* Bouton Connecter, MDP_O, Inscription*/}
       <TouchableOpacity style={[styles.btn]} onPress={handleLogin}>
         <Text style={styles.txtBtn}>Se connecter</Text>
@@ -57,8 +78,9 @@ export const connexion = () => {
       <TouchableOpacity style={styles.btnReg} onPress={handleInscription}>
         <Text style={styles.txtReg}> S'inscrire</Text>
       </TouchableOpacity>
-      </View>
 
+      </View>
+      </View>
       </View>
     </View>
   );
@@ -72,6 +94,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  btnView:
+  {
+    
+  },
  
   btn:
   {
@@ -109,6 +135,10 @@ const styles = StyleSheet.create({
     top: 20,
   },
 
+  hoveredButton: {
+    color: 'grey',
+  },
+
   txtReg:
   {
     
@@ -118,7 +148,7 @@ const styles = StyleSheet.create({
   {
     backgroundColor: '#E5E5E5',
     width: '40%',
-    height: '60%',
+    height: '70%',
     borderRadius: 7
   },
 
@@ -139,11 +169,8 @@ const styles = StyleSheet.create({
     height: 35,
     borderWidth: 1,
     borderRadius: 7,
-    marginBottom: 10,
-    backgroundColor: 'white',
-    color:'rgba(128, 128, 128, 0.4)',
-    padding: 8,
-    marginTop: 15
+    padding: 10,
+    marginTop: 10
   },
 
   errorText:
@@ -176,4 +203,4 @@ const $userConn: ImageStyle =
 
 
 
-export default connexion;
+export default Connect;

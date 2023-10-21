@@ -40,6 +40,7 @@ const config = {
     },
     Insciption: 'Inscription',
     connexion: 'connexion',
+    Connect: 'Connect',
     Welcome: "welcome",
     Demo: {
       screens: {

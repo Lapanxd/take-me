@@ -1,3 +1,5 @@
+import Connect from "./Connect"
+
 export * from "./WelcomeScreen"
 // @demo remove-block-start
 export * from "./LoginScreen"
@@ -7,5 +9,5 @@ export * from "./DemoShowroomScreen/DemoShowroomScreen"
 // @demo remove-block-end
 export * from "./ErrorScreen/ErrorBoundary"
 // export other screens here
-export * from "./connexion"
 export * from "./Inscription"
+export * from "./Connect"

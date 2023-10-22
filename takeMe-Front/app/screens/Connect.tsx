@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, ImageStyle, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 import { FigureImage } from 'react-bootstrap';
 import { colors, spacing } from "../theme"
 import { useNavigation } from '@react-navigation/native';
+import LinearGradient from 'react-native-linear-gradient';
 const userConn = require("../../assets/images/users.png")
 
 export const Connect = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [isHovered, setHovered] = useState(false);
 
   const handleLogin = () => {
     if (username === "user" && password === "123") {
@@ -28,18 +28,19 @@ export const Connect = () => {
     navigation.navigate('Inscription');
   }
 
-  const handleHoverIn = () => {
-    setHovered(true);
-  }
-
-  const handleHoverOut = () => {
-    setHovered(false);
-  }
-
-  const buttonStyle = isHovered ? styles.hoveredButton : styles.btn;
-
+  useEffect(() => {
+    // Réinitialise les champs d'entrée lors du montage du composant
+    setUsername('');
+    setPassword('');
+  }, []);
+ 
   return (
     <View style={styles.container}>
+        <View style={styles.nav}>
+            <Text>sqbjkbfkqsjfb</Text>
+        </View>
+
+
       <View style={styles.$form}>
         <Image style={$userConn} source={userConn} resizeMode='contain' />
         <View style={styles.contain}>
@@ -60,9 +61,10 @@ export const Connect = () => {
         placeholderTextColor='rgba(128, 128, 128, .5)'
         value={password}
         onChangeText={(text) => setPassword(text)}
+        secureTextEntry={true}
         
       />
-    
+     <Text style={styles.error}>{error}</Text>
 
         <View style={styles.btnView}>
         {/* Bouton Connecter, MDP_O, Inscription*/}
@@ -79,6 +81,7 @@ export const Connect = () => {
         <Text style={styles.txtReg}> S'inscrire</Text>
       </TouchableOpacity>
 
+      
       </View>
       </View>
       </View>
@@ -90,13 +93,20 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  nav:
+  {
+    
+    width: '100%',
+    height: '10%',
+    backgroundColor: 'grey'
   },
 
   btnView:
   {
-    
+    padding: 8,
   },
  
   btn:
@@ -149,7 +159,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#E5E5E5',
     width: '40%',
     height: '70%',
-    borderRadius: 7
+    borderRadius: 7,
+    marginTop:'5%'
   },
 
   contain:

@@ -63,22 +63,22 @@ export const AdForm = (props) => {
           }));
         }
         break;
-        case 'latitude':
-          if (value === '' || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
-            setAd((prevState) => ({
-              ...prevState,
-              [name]: value
-            }));
-          }
-          break;
-        case 'longitude':
-            if (value === '' || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
-              setAd((prevState) => ({
-                ...prevState,
-                [name]: value
-              }));
-            }
-            break; 
+      case 'latitude':
+        if (value === '' || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
+          setAd((prevState) => ({
+            ...prevState,
+            [name]: value
+          }));
+        }
+        break;
+      case 'longitude':
+        if (value === '' || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
+          setAd((prevState) => ({
+            ...prevState,
+            [name]: value
+          }));
+        }
+        break;
       default:
         setAd((prevState) => ({
           ...prevState,
@@ -156,13 +156,13 @@ export const AdForm = (props) => {
             placeholder="Enter price of Ad"
             onChange={handleInputChange}
           />
-          
+
         </Form.Group>
         <Button variant="primary" type="submit" className="submit-btn">
           Submit
         </Button>
       </Form>
-      
+
     </div>
   );
 };

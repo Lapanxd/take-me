@@ -12,7 +12,7 @@ export const AddAdvertScreen = () => {
   return (
     <React.Fragment>
         <View style={$container}>
-        <Card style={{ width: 300 }}>
+        <Card style={{ width: 400 }}>
       <Card.Body>
         <Card.Title>Ajouter une annonce</Card.Title>
         <AdForm handleOnSubmit={handleOnSubmit} />

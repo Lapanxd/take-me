@@ -46,6 +46,15 @@ const Menu = () => {
                     Ajouter une annonce
                 </Text>
             </TouchableOpacity>
+            <TouchableOpacity
+                onPress={() => {
+                    //go to add annonce
+                    navigation.navigate("NewPage");
+                }}>
+                <Text style={$link}>
+                   New Page
+                </Text>
+            </TouchableOpacity>
         </View>
     )
 }

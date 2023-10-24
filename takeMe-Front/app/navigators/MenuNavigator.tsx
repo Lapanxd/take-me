@@ -1,13 +1,15 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "react-navigation/native-stack"
+import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import React from "react"
-import { AddAdvertScreen, AdvertListScreen } from "../screens"
+import { AddAdvertScreen, AdvertListScreen, NewPage } from "../screens"
 import Adverts from "app/screens/Adverts";
 import AdvertDetailScreen from "app/screens/AdvertDetailScreen";
+
 
 export type RootStackParams = {
     AdvertList: undefined
     AddAdvert: undefined
+    NewPage: undefined
     Adverts: undefined
     AdvertDetailScreen: {
         name: string;
@@ -33,9 +35,12 @@ export function MenuNavigator() {
                 <RootStack.Screen
                     name="AdvertList"
                     component={AdvertListScreen} />
-                <RootStack.Screen
+                            <RootStack.Screen
+                    name="NewPage"
+                    component={NewPage} />
+                {/* <RootStack.Screen
                     name="AdvertDetail"
-                    component={AdvertDetailScreen} />
+                    component={AdvertDetailScreen} /> */}
             </RootStack.Navigator>
         </NavigationContainer>
 

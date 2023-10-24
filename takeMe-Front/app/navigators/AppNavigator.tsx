@@ -42,6 +42,7 @@ export type AppStackParamList = {
   NewPage: undefined // @demo remove-current-line
   Advert: NavigatorScreenParams<AdvertTabParamList>
   AddAdvert: undefined
+  Adverts: undefined
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
@@ -82,6 +83,7 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="NewPage" component={Screens.NewPage} />
           <Stack.Screen name="Advert" component={AdvertNavigator} />
           <Stack.Screen name="AddAdvert" component={Screens.AddAdvertScreen} />
+          <Stack.Screen name="Adverts" component={Screens.Adverts} />
         </>
       ) : (
         <>

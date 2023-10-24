@@ -3,8 +3,14 @@ import { View, ViewStyle, Text } from "react-native";
 import { colors } from "../theme";
 import { Card } from 'react-bootstrap'
 import Menu from 'app/components/Menu';
+import AdvertCard from 'app/components/AdvertCard';
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParams } from "app/navigators/MenuNavigator";
 
-export const NewPage = () => {
+
+type Props = NativeStackScreenProps<RootStackParams, "NewPage">
+
+export const NewPage = ({ navigation }: Props) => {
   return (
     <React.Fragment>
       <View style={$container}>
@@ -14,6 +20,12 @@ export const NewPage = () => {
             <Text>Ceci est ma nouvelle page</Text>
           </Card.Body>
         </Card>
+        <AdvertCard
+          name="Annonce objet 1"
+          onPress={name => {
+            navigation.navigate('AdvertDetailScreen', { name });
+          }}
+        />
         <Menu />
       </View>
     </React.Fragment>

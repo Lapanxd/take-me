@@ -3,6 +3,7 @@ import AdForm from './AdvertFormScreen';
 import { View, ViewStyle } from "react-native";
 import { colors } from "../theme";
 import { Card } from 'react-bootstrap'
+import Menu from 'app/components/Menu';
 
 export const AddAdvertScreen = () => {
   const handleOnSubmit = (advert) => {
@@ -18,7 +19,7 @@ export const AddAdvertScreen = () => {
         <AdForm handleOnSubmit={handleOnSubmit} />
       </Card.Body>
     </Card>
-
+    <Menu />
       </View>
     </React.Fragment>
   );

@@ -2,18 +2,19 @@ import React from 'react';
 import { View, ViewStyle, Text } from "react-native";
 import { colors } from "../theme";
 import { Card } from 'react-bootstrap'
+import Menu from 'app/components/Menu';
 
 export const NewPage = () => {
   return (
     <React.Fragment>
-        <View style={$container}>
+      <View style={$container}>
         <Card style={{ width: 400 }}>
-      <Card.Body>
-        <Card.Title>Test affichageune annonce</Card.Title>
-        <Text>Ceci est ma nouvelle page</Text>
-      </Card.Body>
-    </Card>
-
+          <Card.Body>
+            <Card.Title>Test affichageune annonce</Card.Title>
+            <Text>Ceci est ma nouvelle page</Text>
+          </Card.Body>
+        </Card>
+        <Menu />
       </View>
     </React.Fragment>
   );

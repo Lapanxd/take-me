@@ -50,3 +50,25 @@ export function MenuNavigator() {
     )
 }
 
+
+export type AdsStackParams = {
+    Adverts: undefined;
+    AdvertDetailScreen: {
+      name: string;
+    };
+  };
+  const AdsStack = createNativeStackNavigator<AdsStackParams>();
+
+  const AdScreenStack = () => {
+    return (
+      <AdsStack.Navigator initialRouteName="Adverts" screenOptions={{
+        headerShown: false,
+      }}>
+        <AdsStack.Screen
+          name="Adverts"
+          component={Adverts}
+        />
+        <AdsStack.Screen name="AdvertDetailScreen" component={AdvertDetailScreen} />
+      </AdsStack.Navigator>
+    );
+  };

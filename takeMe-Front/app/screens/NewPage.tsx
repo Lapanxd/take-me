@@ -23,7 +23,7 @@ export const NewPage = ({ navigation }: Props) => {
         <AdvertCard
           name="Annonce objet 1"
           onPress={name => {
-            navigation.navigate('AdvertDetailScreen', { name });
+            navigation.navigate('AdvertDetailScreen', {name});
           }}
         />
         <Menu />

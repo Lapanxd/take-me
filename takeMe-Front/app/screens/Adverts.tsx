@@ -28,7 +28,7 @@ export const Adverts = ({ navigation }: Props) => {
         <AdvertCard
           name="Annonce objet 2"
           onPress={name => {
-            navigation.navigate('AdvertDetailScreen', { name });
+            navigation.navigate('AdvertDetailScreen', {name});
           }}
         />
         <AdvertCard

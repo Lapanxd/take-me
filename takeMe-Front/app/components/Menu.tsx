@@ -21,15 +21,6 @@ const Menu = () => {
             </Text>
             <TouchableOpacity
                 onPress={() => {
-                    //go to annonces
-                    navigation.navigate("AdvertList");
-                }}>
-                <Text style={$link}>
-                    Annonces
-                </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                onPress={() => {
                     //go to add annonce
                     navigation.navigate("Adverts");
                 }}>

@@ -8,7 +8,7 @@ import { RootStackParams } from "app/navigators/MenuNavigator";
 
 type Props = NativeStackScreenProps<RootStackParams, "AdvertDetailScreen">;
 
-const AdvertDetailScreen = ({route, navigation}: Props) => {
+const AdvertDetailScreen = ( {route}: Props )=> {
     return (
         <View style={$container}>
         <Card style={{ width: 400 }}>

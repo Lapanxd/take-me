@@ -18,7 +18,7 @@ interface Props {
     return (
       <TouchableOpacity onPress={() => onPress(name)}>
         <View style={$container}>
-          <Text>{name}</Text>
+          <Text style={$name}>{name}</Text>
         </View>
       </TouchableOpacity>
     );

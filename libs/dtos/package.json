@@ -1,5 +1,5 @@
 {
-  "name": "@takeme/models",
+  "name": "@takeme/dtos",
   "version": "1.0.0",
   "description": "",
   "main": "index.ts",
@@ -8,5 +8,10 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "@takeme/models": "workspace:^1.0.0",
+    "class-validator": "^0.14.0",
+    "class-transformer": "^0.5.1"
+  }
 }

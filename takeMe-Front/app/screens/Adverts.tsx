@@ -12,12 +12,11 @@ import { RootStackParams } from "app/navigators/MenuNavigator";
 import Menu from "app/components/Menu";
 
 
-type Props = NativeStackScreenProps<RootStackParams, "Adverts">
+type Props = NativeStackScreenProps<RootStackParams, "AdsStack">
 
 export const Adverts = ({ navigation }: Props) => {
   return (
     <View style={$container}>
-
       <ScrollView>
         <AdvertCard
           name="Annonce objet 1"

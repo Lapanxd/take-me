@@ -13,6 +13,7 @@ import { useHeader } from "../utils/useHeader" // @demo remove-current-line
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Card } from 'react-bootstrap'
+import Menu from "app/components/Menu"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
@@ -68,14 +69,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
         />
         {/* @demo remove-block-end */}
       </View>
-      <Card style={{ width: 300 }}>
-      <Card.Body>
-        <Card.Title>React Bootstrap card</Card.Title>
-        <Card.Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        </Card.Text>
-      </Card.Body>
-    </Card>
+      <Menu/>
     </View>
   )
 })

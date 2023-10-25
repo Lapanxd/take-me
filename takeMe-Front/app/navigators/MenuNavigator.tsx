@@ -4,6 +4,7 @@ import React from "react"
 import { AddAdvertScreen, AdvertListScreen, NewPage } from "../screens"
 import Adverts from "app/screens/Adverts";
 import AdvertDetailScreen from "app/screens/AdvertDetailScreen";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 
 export type RootStackParams = {
@@ -18,11 +19,9 @@ export type RootStackParams = {
 }
 
 
-const RootStack = createNativeStackNavigator<RootStackParams>()
+const RootStack = createBottomTabNavigator<RootStackParams>()
 
 export function MenuNavigator() {
-
-
     return (
         <NavigationContainer>
             <RootStack.Navigator>
@@ -35,7 +34,7 @@ export function MenuNavigator() {
                 <RootStack.Screen
                     name="AdvertList"
                     component={AdvertListScreen} />
-                            <RootStack.Screen
+                <RootStack.Screen
                     name="NewPage"
                     component={NewPage} />
                 {/* <RootStack.Screen
@@ -52,23 +51,24 @@ export function MenuNavigator() {
 
 
 export type AdsStackParams = {
-    Adverts: undefined;
+    Adverts;
     AdvertDetailScreen: {
-      name: string;
+        name: string;
     };
-  };
-  const AdsStack = createNativeStackNavigator<AdsStackParams>();
+};
+const AdsStack = createNativeStackNavigator<AdsStackParams>();
 
-  const AdScreenStack = () => {
+const AdScreenStack = () => {
     return (
-      <AdsStack.Navigator initialRouteName="Adverts" screenOptions={{
-        headerShown: false,
-      }}>
-        <AdsStack.Screen
-          name="Adverts"
-          component={Adverts}
-        />
-        <AdsStack.Screen name="AdvertDetailScreen" component={AdvertDetailScreen} />
-      </AdsStack.Navigator>
+        <AdsStack.Navigator>
+            <AdsStack.Screen
+                name="Adverts"
+                component={Adverts}
+            />
+            <AdsStack.Screen
+                name="AdvertDetailScreen"
+                component={AdvertDetailScreen}
+            />
+        </AdsStack.Navigator>
     );
-  };
+};

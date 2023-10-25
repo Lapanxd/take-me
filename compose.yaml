@@ -1,21 +1,47 @@
 services:
-  api:
-    container_name: takeme.api
-    build:
-      context: .
-      dockerfile: api.dockerfile
-    # develop:
-    #   watch:
-    #     - action: sync
-    #       path: ./apps/api
-    #       target: /app/apps/api
-    #       ignore:
-    #         - node_modules/
-    #     - action: rebuild
-    #       path: package.json
+  db:
+    image: mysql
+    container_name: takeme.db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: takeme
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
     ports:
-      - '3000:3000'
-    command: pnpm run start:dev
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: takeme.phpmyadmin
+    restart: always
+    ports:
+      - '8080:80'
+    environment:
+      PMA_HOST: db
+      PMA_USER: admin
+      PMA_PASSWORD: admin
+    depends_on:
+      - db
+
+#  api:
+#   container_name: takeme.api
+#   build:
+#     context: .
+#     dockerfile: api.dockerfile
+#   develop:
+#     watch:
+#       - action: sync
+#         path: ./apps/api
+#         target: /app/apps/api
+#         ignore:
+#           - node_modules/
+#       - action: rebuild
+#         path: package.json
+#   ports:
+#     - '3000:3000'
+#   command: pnpm run start:dev
+
 
   # front:
     # container_name: takeme.front
@@ -37,27 +63,3 @@ services:
     #  - '19002:19002'
     #  - '19006:19006'
     # command: 'pnpm run expo:web'
-
-  db:
-    image: mysql
-    container_name: takeme.db
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: admin
-      MYSQL_DATABASE: takeme
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: takeme.phpmyadmin
-    restart: always
-    ports:
-      - '8080:80'
-    environment:
-      PMA_HOST: db
-      PMA_USER: admin@takeme
-      PMA_PASSWORD: admin
-    depends_on:
-      - db
-

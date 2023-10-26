@@ -6,6 +6,7 @@ import Menu from "app/components/Menu"
 import AdvertCard from "app/components/AdvertCard"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { RootStackParams } from "app/navigators/MenuNavigator"
+import TopDrawerNavigation from "app/components/TopDrawerNavigation"
 
 type Props = NativeStackScreenProps<RootStackParams, "NewPage">
 
@@ -13,6 +14,7 @@ export const NewPage = ({ navigation }: Props) => {
   return (
     <React.Fragment>
       <View style={$container}>
+      <TopDrawerNavigation />
         <Card style={{ width: 400 }}>
           <Card.Body>
             <Card.Title>Test affichage card</Card.Title>

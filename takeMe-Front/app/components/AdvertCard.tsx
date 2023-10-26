@@ -14,7 +14,8 @@ interface Props {
     onPress: (name: string) => void;
   }
 
- export const AdvertCard: React.FC<Props> = ({name, onPress}) => {
+const AdvertCard: React.FC<Props> = ({name, onPress}) => {
+  
     return (
       <TouchableOpacity onPress={() => onPress(name)}>
         <View style={$container}>
@@ -28,7 +29,7 @@ interface Props {
 
 const $container: ViewStyle = {
     flex: 1,
-    backgroundColor: colors.background,
+    backgroundColor: colors.cardbg,
     padding: 16,
     marginTop: 8,
 }

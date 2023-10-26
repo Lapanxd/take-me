@@ -22,7 +22,7 @@ const Menu = () => {
             <TouchableOpacity
                 onPress={() => {
                     //go to add annonce
-                    navigation.navigate("AdsStack");
+                    navigation.navigate("Adverts");
                 }}>
                 <Text style={$link}>
                     Toutes les annonces

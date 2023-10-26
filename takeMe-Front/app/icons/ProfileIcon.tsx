@@ -8,11 +8,7 @@ interface Props {
 
 function ProfileIcon(props: Props) {
   return (
-    <Svg
-      viewBox="0 0 512 512"
-      width={props.size}
-      height={props.size}
-    >
+    <Svg viewBox="0 0 512 512" width={props.size} height={props.size}>
       <Path
         d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z"
         fill="none"

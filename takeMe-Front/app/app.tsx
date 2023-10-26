@@ -38,8 +38,8 @@ const config = {
     Login: {
       path: "",
     },
-    NewPage: 'newpage',
-    AddAdvert: 'addadvert',
+    NewPage: "newpage",
+    AddAdvert: "addadvert",
     Welcome: "welcome",
     Demo: {
       screens: {

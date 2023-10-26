@@ -11,8 +11,8 @@ import { AppStackScreenProps } from "../navigators" // @demo remove-current-line
 import { colors, spacing } from "../theme"
 import { useHeader } from "../utils/useHeader" // @demo remove-current-line
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card } from 'react-bootstrap'
+import "bootstrap/dist/css/bootstrap.min.css"
+import { Card } from "react-bootstrap"
 import Menu from "app/components/Menu"
 
 const welcomeLogo = require("../../assets/images/logo.png")
@@ -69,7 +69,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
         />
         {/* @demo remove-block-end */}
       </View>
-      <Menu/>
+      <Menu />
     </View>
   )
 })

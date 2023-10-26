@@ -289,7 +289,6 @@ const AdvertCard = observer(function AdvertCard({
   )
 })
 
-
 // #region Styles
 const $screenContentContainer: ViewStyle = {
   flex: 1,

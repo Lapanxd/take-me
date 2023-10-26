@@ -20,13 +20,7 @@ import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
     TypeOrmModule.forFeature([User]),
   ],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    UsersService,
-    LocalStrategy,
-    JwtStrategy,
-    RefreshTokenStrategy,
-  ],
+  providers: [AuthService, UsersService, LocalStrategy, JwtStrategy, RefreshTokenStrategy],
   exports: [AuthService],
 })
 export class AuthModule {}

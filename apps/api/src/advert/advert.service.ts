@@ -37,14 +37,14 @@ export class AdvertService {
       advert.latitude = advertDto.latitude;
       advert.longitude = advertDto.latitude;
 
-      return this.advertRepository.save(advert);
+      return await this.advertRepository.save(advert);
     } catch (err) {
       throw new InternalServerErrorException();
     }
   }
 
   async findAll(): Promise<Advert[]> {
-    return this.advertRepository.find();
+    return await this.advertRepository.find();
   }
 
   async findById(id: number): Promise<Advert> {
@@ -80,4 +80,13 @@ export class AdvertService {
       throw new InternalServerErrorException();
     }
   }
+
+  async delete(id: number): Promise<void> {
+    try {
+      await this.advertRepository.delete({ id });
+    } catch (err) {
+      throw new InternalServerErrorException();
+    }
+  }
+  
 }

@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  Param,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { AdvertService } from './advert.service';
 import { Advert } from '../core/entities/advert.entity';
 import { CreateAdvertDto } from '../core/dtos/create-advert.dto';
@@ -28,15 +19,22 @@ export class AdvertController {
   async findAll(): Promise<Advert[]> {
     return await this.advertService.findAll();
   }
-  
+
   @Get(':id')
   async findById(@Param('id') id: number): Promise<Advert> {
     return await this.advertService.findById(id);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @HttpCode(204)
   async update(@Body() advert: AdvertDto) {
     await this.advertService.update(advert);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete(':id')
+  async delete(@Param('id') id: number) {
+    await this.advertService.delete(id);
   }
 }

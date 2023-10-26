@@ -7,7 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
-    "prettier:fix": "prettier --config ./.prettierrc.js src --write",
+    "format": "prettier --config ./.prettierrc.js src --write",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",

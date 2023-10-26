@@ -1,7 +1,9 @@
 import { IUser } from '@takeme/models';
-import { IsDefined, IsString } from 'class-validator';
+import { isDefined, IsDefined, IsString } from "class-validator";
 
 export class SignUpUserDto implements IUser {
+  @IsDefined()
+  @IsString()
   firstname: string;
   lastname: string;
   email: string;

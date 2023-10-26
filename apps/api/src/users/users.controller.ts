@@ -13,7 +13,7 @@ export class UsersController {
     return await this.usersService.findByCredentials(email);
   }
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get()
   async findById(id: number): Promise<User> {
     return await this.usersService.findById(id);

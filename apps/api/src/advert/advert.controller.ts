@@ -1,0 +1,42 @@
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  Param,
+  Patch,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+import { AdvertService } from './advert.service';
+import { Advert } from '../core/entities/advert.entity';
+import { CreateAdvertDto } from '../core/dtos/create-advert.dto';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { AdvertDto } from '../core/dtos/advert.dto';
+
+@Controller('advert')
+export class AdvertController {
+  constructor(private readonly advertService: AdvertService) {}
+
+  @UseGuards(JwtAuthGuard)
+  @Post()
+  async create(@Body() createAdvertDto: CreateAdvertDto): Promise<Advert> {
+    return await this.advertService.create(createAdvertDto);
+  }
+
+  @Get()
+  async findAll(): Promise<Advert[]> {
+    return await this.advertService.findAll();
+  }
+  
+  @Get(':id')
+  async findById(@Param('id') id: number): Promise<Advert> {
+    return await this.advertService.findById(id);
+  }
+
+  @Patch(':id')
+  @HttpCode(204)
+  async update(@Body() advert: AdvertDto) {
+    await this.advertService.update(advert);
+  }
+}

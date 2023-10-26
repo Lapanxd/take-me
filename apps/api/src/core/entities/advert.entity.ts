@@ -1,4 +1,11 @@
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from 'typeorm';
 import { IAdvert } from '@takeme/models/advert.model';
 import { IObjectImage } from '@takeme/models/objectImage.model';
 import { IObjectType } from '@takeme/models/objectType.model';

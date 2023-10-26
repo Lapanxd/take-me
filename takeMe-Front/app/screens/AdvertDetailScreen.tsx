@@ -5,6 +5,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { RootStackParams } from "app/navigators/MenuNavigator"
 import Menu from "app/components/Menu"
 import TopBackNavigation from "app/components/TopBackNavigation"
+import TopDrawerNavigation from "app/components/TopDrawerNavigation"
 
 type Props = NativeStackScreenProps<RootStackParams, "AdvertDetailScreen">
 
@@ -12,6 +13,7 @@ export const AdvertDetailScreen = ({ route }) => {
   const { name } = route.params
   return (
     <View style={$container}>
+      <TopDrawerNavigation />
       <TopBackNavigation />
       <Text>{name}</Text>
       <Menu />

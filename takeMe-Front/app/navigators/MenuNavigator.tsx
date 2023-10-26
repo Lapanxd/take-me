@@ -7,6 +7,8 @@ import AdvertDetailScreen from "app/screens/AdvertDetailScreen"
 import { createDrawerNavigator } from "@react-navigation/drawer";
 // import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import ExploreIcon from "app/icons/ExploreIcon"
+import RestaurantIcon from "app/icons/RestaurantIcon"
+import ProfileIcon from "app/icons/ProfileIcon"
 
 export type RootStackParams = {
   AddAdvert: undefined
@@ -59,12 +61,20 @@ export function MenuNavigator() {
       >
         <RootStack.Screen name="AdvertsStack" component={AdvertScreenStack}
           options={{
-            tabBarIcon: ({ color, size }) => <ExploreIcon color={color} size={size} />,
-            tabBarLabel: "Explore"
-          }} />
-        <RootStack.Screen name="AddAdvert" component={AddAdvertScreen} />
-        <RootStack.Screen name="NewPage" component={NewPage} />
-        <RootStack.Screen name="AdvertDetailScreen" component={AdvertDetailScreen} />
+              drawerIcon: ({ color, size }) => <ExploreIcon color={color} size={size} />,
+          drawerLabel: "Adverts"
+        }} />
+        <RootStack.Screen name="AddAdvert" component={AddAdvertScreen} 
+                options={{
+                  drawerIcon: ({ color, size }) => <RestaurantIcon color={color} size={size} />,
+                  drawerLabel: "Ajouter"
+                }}
+              />
+        <RootStack.Screen name="NewPage" component={NewPage} options={{
+          drawerIcon: ({ color, size }) => <ProfileIcon color={color} size={size} />,
+          drawerLabel: "Profile"
+        }} />
+        {/* <RootStack.Screen name="AdvertDetailScreen" component={AdvertDetailScreen} /> */}
       </RootStack.Navigator>
     </NavigationContainer>
   )

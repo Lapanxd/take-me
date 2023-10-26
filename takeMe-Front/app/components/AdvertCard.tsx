@@ -14,7 +14,7 @@ interface Props {
     onPress: (name: string) => void;
   }
 
-const AdvertCard: React.FC<Props> = ({name, onPress}) => {
+export const AdvertCard: React.FC<Props> = ({name, onPress}) => {
   
     return (
       <TouchableOpacity onPress={() => onPress(name)}>

@@ -22,14 +22,14 @@ const Menu = () => {
             <TouchableOpacity
                 onPress={() => {
                     //go to add annonce
-                    navigation.navigate("Adverts");
+                    navigation.push("Adverts");
                 }}>
                 <Text style={$link}>
                     Toutes les annonces
                 </Text>
             </TouchableOpacity>
             <TouchableOpacity
-                onPress={() => {
+                onPress={() => { 
                     //go to add annonce
                     navigation.navigate("AddAdvert");
                 }}>

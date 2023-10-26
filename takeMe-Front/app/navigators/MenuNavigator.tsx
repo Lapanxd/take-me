@@ -1,11 +1,9 @@
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import React from "react"
-import { AddAdvertScreen, AdvertListScreen, NewPage } from "../screens"
+import { AddAdvertScreen, NewPage } from "../screens"
 import Adverts from "app/screens/Adverts";
 import AdvertDetailScreen from "app/screens/AdvertDetailScreen";
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import ExploreIcon from 'app/icons/ExploreIcon';
 
 
 export type RootStackParams = {
@@ -20,7 +18,7 @@ export type RootStackParams = {
 }
 
 
-const RootStack = createBottomTabNavigator<RootStackParams>()
+const RootStack = createNativeStackNavigator<RootStackParams>()
 
 // export type AdsStackParams = {
 //     Adverts: undefined;
@@ -57,10 +55,7 @@ export function MenuNavigator() {
       })}>
                 <RootStack.Screen
                     name="Adverts"
-                    component={Adverts} options={{
-                        tabBarIcon: ({ color, size }) => <ExploreIcon color={color} size={size} />,
-                        tabBarLabel: "Adverts"
-                      }} />
+                    component={Adverts}/>
                 <RootStack.Screen
                     name="AddAdvert"
                     component={AddAdvertScreen} />
@@ -70,7 +65,7 @@ export function MenuNavigator() {
                 <RootStack.Screen
                     name="AdvertDetailScreen"
                     component={AdvertDetailScreen} />
-            </RootStack.Navigator>
+            </RootStack.Navigator> 
         </NavigationContainer>
     )
 }

@@ -11,7 +11,8 @@ import ExploreIcon from 'app/icons/ExploreIcon';
 export type RootStackParams = {
     AddAdvert: undefined
     NewPage: undefined
-    AdsStack: NavigatorScreenParams<AdsStackParams>;
+    Adverts: undefined
+    // AdsStack: NavigatorScreenParams<AdsStackParams>;
     AdvertDetailScreen: {
         name: string;
         // id: string
@@ -21,30 +22,30 @@ export type RootStackParams = {
 
 const RootStack = createBottomTabNavigator<RootStackParams>()
 
-export type AdsStackParams = {
-    Adverts: undefined;
-    AdvertDetailScreen: {
-        name: string;
-    };
-};
-const AdsStack = createNativeStackNavigator<AdsStackParams>();
+// export type AdsStackParams = {
+//     Adverts: undefined;
+//     AdvertDetailScreen: {
+//         name: string;
+//     };
+// };
+// const AdsStack = createNativeStackNavigator<AdsStackParams>();
 
-const AdScreenStack = () => {
-    return (
-        <AdsStack.Navigator initialRouteName="Adverts" screenOptions={{
-            headerShown: false,
-          }}>
-            <AdsStack.Screen
-                name="Adverts"
-                component={Adverts}
-            />
-            <AdsStack.Screen
-                name="AdvertDetailScreen"
-                component={AdvertDetailScreen}
-            />
-        </AdsStack.Navigator>
-    );
-};
+// const AdScreenStack = () => {
+//     return (
+//         <AdsStack.Navigator initialRouteName="Adverts" screenOptions={{
+//             headerShown: false,
+//           }}>
+//             <AdsStack.Screen
+//                 name="Adverts"
+//                 component={Adverts}
+//             />
+//             <AdsStack.Screen
+//                 name="AdvertDetailScreen"
+//                 component={AdvertDetailScreen}
+//             />
+//         </AdsStack.Navigator>
+//     );
+// };
 
 export function MenuNavigator() {
     return (
@@ -55,10 +56,10 @@ export function MenuNavigator() {
         tabBarInactiveTintColor: 'gray',
       })}>
                 <RootStack.Screen
-                    name="AdsStack"
-                    component={AdScreenStack} options={{
+                    name="Adverts"
+                    component={Adverts} options={{
                         tabBarIcon: ({ color, size }) => <ExploreIcon color={color} size={size} />,
-                        tabBarLabel: "Explore"
+                        tabBarLabel: "Adverts"
                       }} />
                 <RootStack.Screen
                     name="AddAdvert"
@@ -66,9 +67,9 @@ export function MenuNavigator() {
                 <RootStack.Screen
                     name="NewPage"
                     component={NewPage} />
-                {/* <RootStack.Screen
-                    name="AdvertDetail"
-                    component={AdvertDetailScreen} /> */}
+                <RootStack.Screen
+                    name="AdvertDetailScreen"
+                    component={AdvertDetailScreen} />
             </RootStack.Navigator>
         </NavigationContainer>
     )

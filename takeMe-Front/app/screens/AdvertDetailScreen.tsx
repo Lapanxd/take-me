@@ -1,29 +1,21 @@
 import React from 'react';
-import { View, ViewStyle } from "react-native";
+import { View, ViewStyle, Text } from "react-native";
 import { colors } from "../theme";
-import { Card } from 'react-bootstrap'
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from "app/navigators/MenuNavigator";
 
 
 type Props = NativeStackScreenProps<RootStackParams, "AdvertDetailScreen">;
 
-export const AdvertDetailScreen = ( {route}: Props )=> {
+export const AdvertDetailScreen = ({ route }: Props) => {
     return (
         <View style={$container}>
-        <Card style={{ width: 400 }}>
-            <Card.Body>
-                <Card.Title>
-                    {route.params.name}
-                </Card.Title>
-            </Card.Body>
-        </Card>
-
-    </View>
+            <Text>{route.params.name}</Text>
+        </View>
     )
-   
-};
 
+};
+ 
 const $container: ViewStyle = {
     flex: 1,
     backgroundColor: colors.background,

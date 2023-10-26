@@ -10,7 +10,7 @@ import { ScrollView } from "react-native-gesture-handler"
 import { colors } from "../theme"
 import { RootStackParams } from "app/navigators/MenuNavigator";
 import Menu from "app/components/Menu";
-
+ 
 
 type Props = NativeStackScreenProps<RootStackParams, "Adverts">
 
@@ -21,25 +21,25 @@ export const Adverts = ({ navigation }: Props) => {
         <AdvertCard
           name="Annonce objet 1"
           onPress={name => {
-            navigation.navigate('AdvertDetailScreen', { name: name });
+            navigation.navigate("AdvertDetailScreen", { name: name });
           }}
         />
         <AdvertCard
           name="Annonce objet 2"
           onPress={name => {
-            navigation.navigate('AdvertDetailScreen', {name: name });
+            navigation.navigate("AdvertDetailScreen", { name });
           }}
         />
         <AdvertCard
           name="Annonce objet 3"
           onPress={name => {
-            navigation.navigate('AdvertDetailScreen', { name: name  });
+            navigation.navigate("AdvertDetailScreen", { name });
           }}
         />
         <AdvertCard
           name="Annonce objet 4"
           onPress={name => {
-            navigation.navigate('AdvertDetailScreen', { name });
+            navigation.navigate("AdvertDetailScreen", { name });
           }}
         />
 

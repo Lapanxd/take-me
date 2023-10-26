@@ -16,7 +16,7 @@ export const NewPage = ({ navigation }: Props) => {
       <View style={$container}>
         <Card style={{ width: 400 }}>
           <Card.Body>
-            <Card.Title>Test affichageune annonce</Card.Title>
+            <Card.Title>Test affichage card</Card.Title>
             <Text>Ceci est ma nouvelle page</Text>
           </Card.Body>
         </Card>

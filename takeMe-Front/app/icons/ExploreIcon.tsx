@@ -8,11 +8,7 @@ interface Props {
 
 function ExploreIcon(props: Props) {
   return (
-    <Svg
-      viewBox="0 0 512 512"
-      width={props.size}
-      height={props.size}
-    >
+    <Svg viewBox="0 0 512 512" width={props.size} height={props.size}>
       <Rect
         x={64}
         y={176}

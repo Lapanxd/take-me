@@ -1,12 +1,11 @@
-import React from 'react';
-import { View, ViewStyle, Text } from "react-native";
-import { colors } from "../theme";
-import { Card } from 'react-bootstrap'
-import Menu from 'app/components/Menu';
-import AdvertCard from 'app/components/AdvertCard';
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParams } from "app/navigators/MenuNavigator";
-
+import React from "react"
+import { View, ViewStyle, Text } from "react-native"
+import { colors } from "../theme"
+import { Card } from "react-bootstrap"
+import Menu from "app/components/Menu"
+import AdvertCard from "app/components/AdvertCard"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import { RootStackParams } from "app/navigators/MenuNavigator"
 
 type Props = NativeStackScreenProps<RootStackParams, "NewPage">
 
@@ -22,15 +21,15 @@ export const NewPage = ({ navigation }: Props) => {
         </Card>
         <AdvertCard
           name="Annonce objet 1"
-          onPress={name => {
-            navigation.navigate('AdvertDetailScreen', {name});
+          onPress={(name) => {
+            navigation.navigate("AdvertDetailScreen", { name })
           }}
         />
         <Menu />
       </View>
     </React.Fragment>
-  );
-};
+  )
+}
 
 const $container: ViewStyle = {
   flex: 1,
@@ -38,4 +37,4 @@ const $container: ViewStyle = {
   justifyContent: "center",
   alignItems: "center",
 }
-export default NewPage;
+export default NewPage

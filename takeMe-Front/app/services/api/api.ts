@@ -16,7 +16,7 @@ import type {
   ApiConfig,
   ApiFeedResponse, // @demo remove-current-line
 } from "./api.types"
-// import type { EpisodeSnapshotIn } from "../../models/Episode" 
+// import type { EpisodeSnapshotIn } from "../../models/Episode"
 import type { AdvertSnapshotIn } from "../../models/Advert"
 import type { EpisodeSnapshotIn } from "../../models/Episode"
 
@@ -84,7 +84,7 @@ export class Api {
   //   }
   // }
 
-    // @demo remove-block-start
+  // @demo remove-block-start
   /**
    * Gets a list of recent React Native Radio adverts.
    */

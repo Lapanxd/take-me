@@ -1,16 +1,11 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import AdvertCard from "app/components/AdvertCard";
-import React from "react";
-import {
-  TextStyle,
-  View,
-  ViewStyle,
-} from "react-native"
+import { NativeStackScreenProps } from "@react-navigation/native-stack"
+import AdvertCard from "app/components/AdvertCard"
+import React from "react"
+import { TextStyle, View, ViewStyle } from "react-native"
 import { ScrollView } from "react-native-gesture-handler"
 import { colors } from "../theme"
-import { RootStackParams } from "app/navigators/MenuNavigator";
-import Menu from "app/components/Menu";
- 
+import { RootStackParams } from "app/navigators/MenuNavigator"
+import Menu from "app/components/Menu"
 
 type Props = NativeStackScreenProps<RootStackParams, "Adverts">
 
@@ -20,34 +15,32 @@ export const Adverts = ({ navigation }: Props) => {
       <ScrollView>
         <AdvertCard
           name="Annonce objet 1"
-          onPress={name => {
-            navigation.navigate("AdvertDetailScreen", { name: name });
+          onPress={(name) => {
+            navigation.navigate("Advert", { name: name })
           }}
         />
         <AdvertCard
           name="Annonce objet 2"
-          onPress={name => {
-            navigation.navigate("AdvertDetailScreen", { name });
+          onPress={(name) => {
+            navigation.navigate("Advert", { name })
           }}
         />
         <AdvertCard
           name="Annonce objet 3"
-          onPress={name => {
-            navigation.navigate("AdvertDetailScreen", { name });
+          onPress={(name) => {
+            navigation.navigate("Advert", { name })
           }}
         />
         <AdvertCard
           name="Annonce objet 4"
-          onPress={name => {
-            navigation.navigate("AdvertDetailScreen", { name });
+          onPress={(name) => {
+            navigation.navigate("Advert", { name })
           }}
         />
-
       </ScrollView>
       <Menu />
     </View>
   )
-
 }
 const $container: ViewStyle = {
   flex: 1,
@@ -58,14 +51,8 @@ const $container: ViewStyle = {
 
 const $name: TextStyle = {
   fontSize: 16,
-  fontWeight: 'bold',
+  fontWeight: "bold",
   marginTop: 4,
 }
 
-export default Adverts;
-
-
-
-
-
-
+export default Adverts

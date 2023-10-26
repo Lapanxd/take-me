@@ -8,11 +8,7 @@ interface Props {
 
 function BackIcon(props: Props) {
   return (
-    <Svg
-      viewBox="0 0 512 512"
-      width={props.size}
-      height={props.size}
-    >
+    <Svg viewBox="0 0 512 512" width={props.size} height={props.size}>
       <Path
         fill="none"
         stroke={props.color}

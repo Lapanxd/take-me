@@ -1,29 +1,29 @@
-import React from 'react';
-import AdForm from './AdvertFormScreen';
-import { View, ViewStyle } from "react-native";
-import { colors } from "../theme";
-import { Card } from 'react-bootstrap'
-import Menu from 'app/components/Menu';
+import React from "react"
+import AdForm from "./AdvertFormScreen"
+import { View, ViewStyle } from "react-native"
+import { colors } from "../theme"
+import { Card } from "react-bootstrap"
+import Menu from "app/components/Menu"
 
 export const AddAdvertScreen = () => {
   const handleOnSubmit = (advert) => {
-    console.log(advert);
-  };
+    console.log(advert)
+  }
 
   return (
     <React.Fragment>
-        <View style={$container}>
+      <View style={$container}>
         <Card style={{ width: 400 }}>
-      <Card.Body>
-        <Card.Title>Ajouter une annonce</Card.Title>
-        <AdForm handleOnSubmit={handleOnSubmit} />
-      </Card.Body>
-    </Card>
-    <Menu />
+          <Card.Body>
+            <Card.Title>Ajouter une annonce</Card.Title>
+            <AdForm handleOnSubmit={handleOnSubmit} />
+          </Card.Body>
+        </Card>
+        <Menu />
       </View>
     </React.Fragment>
-  );
-};
+  )
+}
 
 const $container: ViewStyle = {
   flex: 1,
@@ -31,4 +31,4 @@ const $container: ViewStyle = {
   justifyContent: "center",
   alignItems: "center",
 }
-export default AddAdvertScreen;
+export default AddAdvertScreen

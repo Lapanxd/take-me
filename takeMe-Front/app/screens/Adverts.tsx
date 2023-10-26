@@ -7,7 +7,7 @@ import { colors } from "../theme"
 import { RootStackParams } from "app/navigators/MenuNavigator"
 import Menu from "app/components/Menu"
 
-type Props = NativeStackScreenProps<RootStackParams, "Adverts">
+type Props = NativeStackScreenProps<RootStackParams, "AdvertsStack">
 
 export const Adverts = ({ navigation }: Props) => {
   return (

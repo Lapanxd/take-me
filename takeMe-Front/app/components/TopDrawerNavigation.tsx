@@ -1,6 +1,6 @@
 import CloseBurgerIcon from 'app/icons/CloseBurgerIcon';
 import React, { useState } from 'react';
-import { Alert, Modal, StyleSheet, Text, Pressable, View } from 'react-native';
+import { Modal, StyleSheet, Pressable, View } from 'react-native';
 import DrawerMenuIcon from '../icons/DrawerMenuIcon'
 import Menu from './Menu'
 
@@ -10,30 +10,29 @@ const TopDrawerNavigation = () => {
 
 
     return <View style={styles.container}>
-
+              {/* <Menu /> */}
         <Modal
             animationType="slide"
             transparent={true}
             visible={modalVisible}
-            onRequestClose={() => {
-
-                setModalVisible(!modalVisible);
-            }}>
+            onRequestClose={() => { setModalVisible(!modalVisible); }}
+            >
             <View >
                 <View style={styles.modalView}>
-                    <Menu />
+                <Menu/>
                     <Pressable
-                        style={[styles.button, styles.buttonClose]}
+                        style={styles.button}
                         onPress={() => setModalVisible(!modalVisible)}>
-                        <CloseBurgerIcon color={'white'} size={20} />
+                        <CloseBurgerIcon color={'black'} size={40} />
+                            
                     </Pressable>
                 </View>
             </View>
         </Modal>
         <Pressable
-            style={[styles.button, styles.buttonOpen]}
+            style={styles.button}
             onPress={() => setModalVisible(true)}>
-            <DrawerMenuIcon color={'#2196F3'} size={20} />
+            <DrawerMenuIcon color={'black'} size={40} />
         </Pressable>
     </View>
 }
@@ -50,17 +49,18 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     modalView: {
-        margin: 20,
+        width: '420px',
+        height: '420px',
+        flexDirection: 'row',
         backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 35,
-        alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
             height: 2,
         },
         shadowOpacity: 0.25,
+        alignItems: "flex-start",
+        justifyContent: 'flex-end',
         shadowRadius: 4,
         elevation: 5,
     },
@@ -68,12 +68,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         elevation: 2,
-    },
-    buttonOpen: {
-        backgroundColor: '#F194FF',
-    },
-    buttonClose: {
-        backgroundColor: '#2196F3',
     },
     textStyle: {
         color: 'white',

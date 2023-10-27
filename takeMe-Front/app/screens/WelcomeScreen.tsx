@@ -14,11 +14,12 @@ import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { Card } from "react-bootstrap"
 import Menu from "app/components/Menu"
+import TopDrawerNavigation from "app/components/TopDrawerNavigation"
 
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
 
-interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
+interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> { }
 
 export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen(
   _props, // @demo remove-current-line
@@ -46,6 +47,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
 
   return (
     <View style={$container}>
+      <TopDrawerNavigation />
       <View style={$topContainer}>
         <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
         <Text
@@ -69,7 +71,6 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
         />
         {/* @demo remove-block-end */}
       </View>
-      <Menu />
     </View>
   )
 })

@@ -1,6 +1,5 @@
 import React from "react"
 import { Text, View, TextStyle, ViewStyle, TouchableOpacity } from "react-native"
-import { colors } from "../theme"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { RootStackParams } from "app/navigators/MenuNavigator"
@@ -13,7 +12,7 @@ const Menu = () => {
       <TouchableOpacity
         onPress={() => {
           //go to add annonce
-          navigation.push("Adverts")
+          navigation.navigate("Adverts")
         }}
       >
         <Text style={$link}>Toutes les annonces</Text>
@@ -40,7 +39,7 @@ const Menu = () => {
 
 const $container: ViewStyle = {
   flex: 1,
-  backgroundColor: colors.background,
+  // backgroundColor: colors.background,
   padding: 16,
   marginTop: 8,
 }

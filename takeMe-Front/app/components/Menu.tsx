@@ -4,33 +4,32 @@ import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
 import { RootStackParams } from "app/navigators/MenuNavigator"
 
-const Menu = () => {
-  const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>()
+interface MenuProps {
+  onClose: () => void; // Fonction pour fermer le burger menu
+}
+
+const Menu : React.FC<MenuProps> = ({ onClose }) => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
+
+  const navigateAndClose = (screenName: keyof RootStackParams) => {
+    navigation.navigate(screenName);
+    onClose(); // Appel de la fonction de fermeture
+  };
+
   return (
     <View style={$container}>
       <Text style={$title}>Navigation</Text>
-      <TouchableOpacity
-        onPress={() => {
-          //go to add annonce
-          navigation.navigate("Adverts")
-        }}
-      >
+
+    <TouchableOpacity onPress={() => navigateAndClose("Adverts")}>
         <Text style={$link}>Toutes les annonces</Text>
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
           //go to add annonce
-          navigation.navigate("AddAdvert")
-        }}
-      >
-        <Text style={$link}>Ajouter une annonce</Text>
+          navigation.navigate("AddAdvert")}}>
+      <Text style={$link}>Ajouter une annonce</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          //go to add annonce
-          navigation.navigate("NewPage")
-        }}
-      >
+      <TouchableOpacity onPress={() => navigateAndClose("NewPage")}>
         <Text style={$link}>New Page</Text>
       </TouchableOpacity>
     </View>

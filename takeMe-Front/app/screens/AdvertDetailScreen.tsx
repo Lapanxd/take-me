@@ -1,41 +1,100 @@
-import React from "react"
-import { View, ViewStyle, Text } from "react-native"
-import { colors } from "../theme"
-import { NativeStackScreenProps } from "@react-navigation/native-stack"
-import { RootStackParams } from "app/navigators/MenuNavigator"
-import TopBackNavigation from "app/components/TopBackNavigation"
-import TopDrawerNavigation from "app/components/TopDrawerNavigation"
-import { Card } from "react-bootstrap"
+import React from "react";
+import { View, ViewStyle, Text, Image, ImageStyle, TextStyle } from "react-native";
+import { colors } from "../theme";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParams } from "app/navigators/MenuNavigator";
+import TopBackNavigation from "app/components/TopBackNavigation";
+import TopDrawerNavigation from "app/components/TopDrawerNavigation";
+import { Card } from "react-bootstrap";
 
-type Props = NativeStackScreenProps<RootStackParams, "AdvertDetailScreen">
+type Props = NativeStackScreenProps<RootStackParams, "AdvertDetailScreen">;
 
-// export const AdvertDetailScreen = ({ route }) => {
-export const AdvertDetailScreen = ({ route, navigation }) => {
-  const { item } = route.params
-  // const { item } = navigation.getParam
+export const AdvertDetailScreen = ({ route }: Props) => {
+  const { item } = route.params;
+
   return (
     <View style={$container}>
       <TopDrawerNavigation />
       <TopBackNavigation />
-      <Card style={{ width: 400 }}>
-        <Card.Body>
-          <Card.Title>{item.adname}</Card.Title>
-          <Text>{item.adname}</Text>
-          <Text>{item.description}</Text>
-          <Text>{item.quantity}</Text>
-          <Text>{item.latitude}</Text>
-          <Text>{item.longitude}</Text>
+      <Card style={$card}>
+        <Card.Body style={$content}>
+          <View style={$textContainer}>
+            <Text style={$label}>Ad Name:</Text>
+            <Text style={$text}>{item.adname}</Text>
+
+            <Text style={$label}>Description:</Text>
+            <Text style={$text}>{item.description}</Text>
+
+            <Text style={$label}>Quantity:</Text>
+            <Text style={$text}>{item.quantity}</Text>
+
+            <Text style={$label}>Latitude:</Text>
+            <Text style={$text}>{item.latitude}</Text>
+
+            <Text style={$label}>Longitude:</Text>
+            <Text style={$text}>{item.longitude}</Text>
+          </View>
+          <View style={$imageContainer}>
+            <Image source={{ uri: item.image }} style={$image} />
+          </View>
         </Card.Body>
       </Card>
     </View>
-  )
-}
+  );
+};
 
 const $container: ViewStyle = {
   flex: 1,
   backgroundColor: colors.background,
-  // justifyContent: "center",
-  // alignItems: "center",
-}
+  justifyContent: "center",
+  alignItems: "center",
+  padding: 16,
+};
 
-export default AdvertDetailScreen
+const $card: ViewStyle = {
+  width: "80%",
+  backgroundColor: "white",
+  borderRadius: 8,
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.2,
+  shadowRadius: 2,
+  elevation: 2,
+};
+
+const $content: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+};
+
+const $imageContainer: ViewStyle = {
+  flex: 1,
+  alignItems: "flex-end",
+};
+
+const $image: ImageStyle = {
+  width: 400,
+  height: 400,
+  resizeMode: "cover",
+};
+
+const $textContainer: ViewStyle = {
+  flex: 1,
+  marginLeft: 16,
+};
+
+const $label: TextStyle = {
+  fontSize: 16,
+  fontWeight: "bold",
+  marginBottom: 4,
+};
+
+const $text: TextStyle = {
+  fontSize: 16,
+  marginBottom: 8,
+};
+
+export default AdvertDetailScreen;

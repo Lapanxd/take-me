@@ -18,13 +18,10 @@ export const AdvertModel = types
   .model("Advert")
   .props({
     guid: types.identifier,
-    title: "",
+    adname: "",
     pubDate: "", // Ex: 2022-08-12 21:05:36
-    link: "",
-    author: "",
-    thumbnail: "",
     description: "",
-    content: "",
+    quantity: "",
     longitude: "",
     latitude: "",
     enclosure: types.frozen<Enclosure>(),
@@ -33,11 +30,11 @@ export const AdvertModel = types
   .actions(withSetPropAction)
   .views((advert) => ({
     get parsedTitleAndSubtitle() {
-      const defaultValue = { title: advert.title?.trim(), subtitle: "" }
+      const defaultValue = { adname: advert.adname?.trim(), subtitle: "" }
 
-      if (!defaultValue.title) return defaultValue
+      if (!defaultValue.adname) return defaultValue
 
-      const titleMatches = defaultValue.title.match(/^(RNR.*\d)(?: - )(.*$)/)
+      const titleMatches = defaultValue.adname.match(/^(RNR.*\d)(?: - )(.*$)/)
 
       if (!titleMatches || titleMatches.length !== 3) return defaultValue
 

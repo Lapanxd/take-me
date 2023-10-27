@@ -1,9 +1,6 @@
 import React from "react"
 import { View, ViewStyle, Text, ImageBackground, ImageStyle } from "react-native"
 import { colors } from "../theme"
-import { Card } from "react-bootstrap"
-import Menu from "app/components/Menu"
-import AdvertCard from "app/components/AdvertCard"
 import { NativeStackScreenProps } from "@react-navigation/native-stack"
 import { RootStackParams } from "app/navigators/MenuNavigator"
 import TopDrawerNavigation from "app/components/TopDrawerNavigation"
@@ -21,7 +18,6 @@ export const NewPage = ({ navigation }: Props) => {
       <View style={$container}>
         <ImageBackground source={image} style={$imagebg}>
           <TopDrawerNavigation />
-
           <TouchableOpacity style={$searchBar}>
             <Text>Le bonheur est dans la rue !</Text>
           </TouchableOpacity>
@@ -42,8 +38,8 @@ const $imagebg: ImageStyle = {
 
 }
 
-const $searchBar: ImageStyle = {
-  flex: 1,
+const $searchBar: ViewStyle = {
+  // flex: 1,
   backgroundColor: colors.background,
   borderRadius: '40px',
   width: '300px',

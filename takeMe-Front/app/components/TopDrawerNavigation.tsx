@@ -10,27 +10,24 @@ const TopDrawerNavigation = () => {
 
 
     return <View style={styles.container}>
-              {/* <Menu /> */}
         <Modal
-            animationType="slide"
+            animationType="fade"
             transparent={true}
             visible={modalVisible}
-            onRequestClose={() => { setModalVisible(!modalVisible); }}
-            >
+            onRequestClose={() => { setModalVisible(!modalVisible); }}>
             <View >
                 <View style={styles.modalView}>
-                <Menu/>
+                    <Menu />
                     <Pressable
                         style={styles.button}
                         onPress={() => setModalVisible(!modalVisible)}>
                         <CloseBurgerIcon color={'black'} size={40} />
-                            
                     </Pressable>
                 </View>
             </View>
         </Modal>
         <Pressable
-            style={styles.button}
+            style={[styles.button, styles.buttonbg]}
             onPress={() => setModalVisible(true)}>
             <DrawerMenuIcon color={'black'} size={40} />
         </Pressable>
@@ -59,8 +56,6 @@ const styles = StyleSheet.create({
             height: 2,
         },
         shadowOpacity: 0.25,
-        alignItems: "flex-start",
-        justifyContent: 'flex-end',
         shadowRadius: 4,
         elevation: 5,
     },
@@ -68,6 +63,10 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         padding: 10,
         elevation: 2,
+    },
+    buttonbg: {
+        borderRadius: 80,
+        backgroundColor: 'white',
     },
     textStyle: {
         color: 'white',

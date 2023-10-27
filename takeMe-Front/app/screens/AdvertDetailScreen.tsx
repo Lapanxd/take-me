@@ -54,9 +54,9 @@ const $container: ViewStyle = {
 
 const $header: ViewStyle = {
   flexDirection: "row",
-  justifyContent: "space-between", // Bouton de retour à gauche, burger menu à droite
+  justifyContent: "space-between", 
   alignItems: "center",
-  marginBottom: 16, // Marge en bas pour séparer le header du contenu
+  marginBottom: 16, 
 };
 
 const $card: ViewStyle = {

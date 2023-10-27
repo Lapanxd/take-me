@@ -17,10 +17,14 @@ export const NewPage = ({ navigation }: Props) => {
     <React.Fragment>
       <View style={$container}>
         <ImageBackground source={image} style={$imagebg}>
-          <TopDrawerNavigation />
+          <View style={$header}>
+            <TopDrawerNavigation />
+          </View>
+          <View style={$centerBox}>
           <TouchableOpacity style={$searchBar}>
             <Text>Le bonheur est dans la rue !</Text>
           </TouchableOpacity>
+          </View>
         </ImageBackground>
       </View>
     </React.Fragment>
@@ -37,16 +41,24 @@ const $imagebg: ImageStyle = {
   width: "100%",
 
 }
+const $header: ViewStyle = {
+  flexDirection: "row",
+  justifyContent: 'flex-end',
+  alignItems: "center",
+  marginBottom: 16,
+};
+
+const $centerBox: ViewStyle = {
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: 'center',
+}
 
 const $searchBar: ViewStyle = {
-  // flex: 1,
   backgroundColor: colors.background,
   borderRadius: '40px',
   width: '300px',
   margin: '20px',
   padding: '20px',
-  justifyContent: 'center',
-  alignItem: 'center'
-
 }
 export default NewPage

@@ -31,7 +31,9 @@ export const Adverts = ({ navigation }: Props) => {
 
   return (
     <View style={$container}>
-      <TopDrawerNavigation />
+      <View style={$header}>
+        <TopDrawerNavigation />
+      </View>
       <ScrollView>
         <FlatList
           data={annonces}
@@ -57,5 +59,10 @@ const $container: ViewStyle = {
   padding: 16,
   marginTop: 8,
 };
-
+const $header: ViewStyle = {
+  flexDirection: "row",
+  justifyContent: 'flex-end',
+  alignItems: "center",
+  marginBottom: 16,
+};
 export default Adverts;

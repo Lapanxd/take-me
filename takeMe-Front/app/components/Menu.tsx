@@ -23,10 +23,7 @@ const Menu : React.FC<MenuProps> = ({ onClose }) => {
     <TouchableOpacity onPress={() => navigateAndClose("Adverts")}>
         <Text style={$link}>Toutes les annonces</Text>
       </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          //go to add annonce
-          navigation.navigate("AddAdvert")}}>
+      <TouchableOpacity onPress={() => navigateAndClose("AddAdvert")}>
       <Text style={$link}>Ajouter une annonce</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigateAndClose("NewPage")}>

@@ -11,21 +11,17 @@ type Props = NativeStackScreenProps<RootStackParams, "AdvertDetailScreen">
 
 // export const AdvertDetailScreen = ({ route }) => {
 export const AdvertDetailScreen = ({ route, navigation }) => {
-  const { name } = route.params
+  const { item } = route.params
+  // const { item } = navigation.getParam
   return (
     <View style={$container}>
       <TopDrawerNavigation />
       <TopBackNavigation />
-      <Text>{name}</Text>
-
-{/* test envoi data - objet json depuis page liste */}
-      <Text>{navigation.getParam('adname')}</Text>
-      <Text>{navigation.getParam('description')}</Text>
-      <Text>{navigation.getParam('quantity')}</Text>
-      <Text>{navigation.getParam('latitude')}</Text>
-      <Text>{navigation.getParam('longitude')}</Text>
-
-
+      <Text>{item.adname}</Text>
+      <Text>{item.description}</Text>
+      <Text>{item.quantity}</Text>
+      <Text>{item.latitude}</Text>
+      <Text>{item.longitude}</Text>
       <Menu />
     </View>
   )

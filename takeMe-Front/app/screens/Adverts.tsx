@@ -36,7 +36,7 @@ export const Adverts = ({ navigation }: Props) => {
           data={annonces}
           renderItem={({ item }) => (
             <TouchableOpacity onPress={() => {
-              navigation.navigate('AdvertDetailScreen', item)
+              navigation.navigate('Advert', {item: item})
             }} >
               <Text>{item.adname}</Text>
               <Text>{item.description}</Text>

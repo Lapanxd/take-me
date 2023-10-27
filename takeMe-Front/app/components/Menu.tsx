@@ -27,7 +27,7 @@ const Menu : React.FC<MenuProps> = ({ onClose }) => {
       <Text style={$link}>Ajouter une annonce</Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigateAndClose("NewPage")}>
-        <Text style={$link}>New Page</Text>
+        <Text style={$link}>Accueil</Text>
       </TouchableOpacity>
     </View>
   )

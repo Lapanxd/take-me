@@ -16,14 +16,12 @@ export const AddAdvertScreen = () => {
     <React.Fragment>
       <View style={$container}>
       <TopDrawerNavigation />
-      {/* <TopBackNavigation /> */}
         <Card style={{ width: 400 }}>
           <Card.Body>
             <Card.Title>Ajouter une annonce</Card.Title>
             <AdForm handleOnSubmit={handleOnSubmit} />
           </Card.Body>
         </Card>
-        <Menu />
       </View>
     </React.Fragment>
   )
@@ -32,7 +30,5 @@ export const AddAdvertScreen = () => {
 const $container: ViewStyle = {
   flex: 1,
   backgroundColor: colors.background,
-  // justifyContent: "center",
-  // alignItems: "center",
 }
 export default AddAdvertScreen

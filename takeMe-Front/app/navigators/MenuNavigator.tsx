@@ -1,7 +1,7 @@
 import { NavigationContainer, NavigatorScreenParams } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import React from "react"
-import { AddAdvertScreen, LoginScreen, NewPage } from "../screens"
+import { AddAdvertScreen, NewPage } from "../screens"
 import Adverts from "app/screens/Adverts"
 import AdvertDetailScreen from "app/screens/AdvertDetailScreen"
 import { createDrawerNavigator } from "@react-navigation/drawer";
@@ -9,6 +9,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import ExploreIcon from "app/icons/ExploreIcon"
 import RestaurantIcon from "app/icons/RestaurantIcon"
 import ProfileIcon from "app/icons/ProfileIcon"
+
 
 export type RootStackParams = {
   // AuthStack: undefined

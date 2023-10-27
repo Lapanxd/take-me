@@ -6,6 +6,7 @@ import { RootStackParams } from "app/navigators/MenuNavigator";
 import TopBackNavigation from "app/components/TopBackNavigation";
 import TopDrawerNavigation from "app/components/TopDrawerNavigation";
 import { Card } from "react-bootstrap";
+import { ScrollView } from "react-native-gesture-handler";
 
 type Props = NativeStackScreenProps<RootStackParams, "AdvertDetailScreen">;
 
@@ -18,6 +19,7 @@ export const AdvertDetailScreen = ({ route }: Props) => {
         <TopBackNavigation />
         <TopDrawerNavigation />
       </View>
+      <ScrollView>
       <Card style={$card}>
         <Card.Body style={$content}>
           <View style={$textContainer}>
@@ -41,6 +43,7 @@ export const AdvertDetailScreen = ({ route }: Props) => {
           </View>
         </Card.Body>
       </Card>
+      </ScrollView>
     </View>
   );
 };

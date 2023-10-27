@@ -17,7 +17,7 @@ const TopDrawerNavigation = () => {
             onRequestClose={() => { setModalVisible(!modalVisible); }}>
             <View >
                 <View style={styles.modalView}>
-                    <Menu />
+                    <Menu onClose={() => setModalVisible(false)} /> 
                     <Pressable
                         style={styles.button}
                         onPress={() => setModalVisible(!modalVisible)}>

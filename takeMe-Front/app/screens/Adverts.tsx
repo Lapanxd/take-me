@@ -35,41 +35,14 @@ export const Adverts = ({ navigation }: Props) => {
         <FlatList
           data={annonces}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => {
-              navigation.navigate('Advert', {item: item})
-            }} >
-              <Text>{item.adname}</Text>
-              <Text>{item.description}</Text>
-              <Text>{item.quantity}</Text>
-              <Text>{item.latitude}</Text>
-              <Text>{item.longitude}</Text>
-            </TouchableOpacity>
+            <AdvertCard
+              name={item.adname}
+              onPress={(name) => {
+                navigation.navigate('Advert', { item: item })
+              }}
+            />
           )}
         />
-        {/* <AdvertCard
-          name="Annonce objet 1"
-          onPress={(name) => {
-            navigation.navigate("Advert", { name: name })
-          }}
-        />
-        <AdvertCard
-          name="Annonce objet 2"
-          onPress={(name) => {
-            navigation.navigate("Advert", { name })
-          }}
-        /> */}
-        {/* <AdvertCard
-          name="Annonce objet 3"
-          onPress={(name) => {
-            navigation.navigate("Advert", { name })
-          }}
-        />
-        <AdvertCard
-          name="Annonce objet 4"
-          onPress={(name) => {
-            navigation.navigate("Advert", { name })
-          }}
-        /> */}
       </ScrollView>
       <Menu />
     </View>

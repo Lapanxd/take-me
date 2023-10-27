@@ -1,7 +1,7 @@
 import React from "react"
 import { Text, View, TextStyle, ViewStyle, TouchableOpacity } from "react-native"
-import { colors } from "../theme"
-import { AutoImage, Button, Card, Icon } from "../components"
+import { colors, spacing } from "../theme"
+
 
 interface Props {
   name: string
@@ -27,10 +27,9 @@ const $container: ViewStyle = {
   marginTop: 8,
 }
 const $adcard: ViewStyle = {
-  backgroundColor: colors.cardbg,
-  padding: 16,
-  marginTop: 8,
-  borderColor: colors.border
+  padding: spacing.md,
+  marginTop: spacing.md,
+  minHeight: 120,
 }
 
 const $name: TextStyle = {

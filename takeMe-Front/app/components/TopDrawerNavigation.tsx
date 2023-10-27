@@ -1,22 +1,40 @@
-import React from 'react'
-import { View, StyleSheet } from 'react-native'
-import { TouchableHighlight } from 'react-native-gesture-handler'
-import { useNavigation, NavigationProp } from '@react-navigation/core'
+import CloseBurgerIcon from 'app/icons/CloseBurgerIcon';
+import React, { useState } from 'react';
+import { Alert, Modal, StyleSheet, Text, Pressable, View } from 'react-native';
 import DrawerMenuIcon from '../icons/DrawerMenuIcon'
-import { RootStackParams } from 'app/navigators/MenuNavigator'
-import { DrawerActions } from '@react-navigation/native';
+import Menu from './Menu'
 
 
 const TopDrawerNavigation = () => {
-    // const navigation = useNavigation<NavigationProp<RootStackParams>>();
-    const navigation = useNavigation()
+    const [modalVisible, setModalVisible] = useState(false);
+
 
     return <View style={styles.container}>
-        <TouchableHighlight style={styles.backButton} underlayColor="#f0ddcc" onPress={() => {
-            navigation.dispatch(DrawerActions.openDrawer());
-        }}>
-            <DrawerMenuIcon color="#333" size={20} />
-        </TouchableHighlight>
+
+        <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+
+                setModalVisible(!modalVisible);
+            }}>
+            <View >
+                <View style={styles.modalView}>
+                    <Menu />
+                    <Pressable
+                        style={[styles.button, styles.buttonClose]}
+                        onPress={() => setModalVisible(!modalVisible)}>
+                        <CloseBurgerIcon color={'white'} size={20} />
+                    </Pressable>
+                </View>
+            </View>
+        </Modal>
+        <Pressable
+            style={[styles.button, styles.buttonOpen]}
+            onPress={() => setModalVisible(true)}>
+            <DrawerMenuIcon color={'#2196F3'} size={20} />
+        </Pressable>
     </View>
 }
 
@@ -30,7 +48,43 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: "center",
         alignItems: "center"
-    }
-})
+    },
+    modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 4,
+        elevation: 5,
+    },
+    button: {
+        borderRadius: 20,
+        padding: 10,
+        elevation: 2,
+    },
+    buttonOpen: {
+        backgroundColor: '#F194FF',
+    },
+    buttonClose: {
+        backgroundColor: '#2196F3',
+    },
+    textStyle: {
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    modalText: {
+        marginBottom: 15,
+        textAlign: 'center',
+    },
+});
+
 
 export default TopDrawerNavigation

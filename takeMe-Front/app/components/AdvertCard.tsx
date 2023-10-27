@@ -30,10 +30,22 @@ const $container: ViewStyle = {
 };
 
 const $adcard: ViewStyle = {
-  padding: spacing.md,
-  marginTop: spacing.md,
-  minHeight: 120,
-  flexDirection: "row", // Aligner le texte et l'image horizontalement
+  // padding: spacing.md,
+  // marginTop: spacing.md,
+  // minHeight: 120,
+  // flexDirection: "row", 
+  width: "80%",
+  backgroundColor: "white",
+  borderRadius: 8,
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.2,
+  shadowRadius: 2,
+  elevation: 2,
+  marginLeft: 50
 };
 
 const $name: TextStyle = {

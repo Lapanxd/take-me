@@ -14,8 +14,10 @@ export const AdvertDetailScreen = ({ route }: Props) => {
 
   return (
     <View style={$container}>
-      <TopDrawerNavigation />
-      <TopBackNavigation />
+      <View style={$header}>
+        <TopBackNavigation />
+        <TopDrawerNavigation />
+      </View>
       <Card style={$card}>
         <Card.Body style={$content}>
           <View style={$textContainer}>
@@ -46,9 +48,15 @@ export const AdvertDetailScreen = ({ route }: Props) => {
 const $container: ViewStyle = {
   flex: 1,
   backgroundColor: colors.background,
-  justifyContent: "center",
-  alignItems: "center",
   padding: 16,
+  marginTop: 8,
+};
+
+const $header: ViewStyle = {
+  flexDirection: "row",
+  justifyContent: "space-between", // Bouton de retour à gauche, burger menu à droite
+  alignItems: "center",
+  marginBottom: 16, // Marge en bas pour séparer le header du contenu
 };
 
 const $card: ViewStyle = {
@@ -63,6 +71,7 @@ const $card: ViewStyle = {
   shadowOpacity: 0.2,
   shadowRadius: 2,
   elevation: 2,
+  justifyContent: "center",
 };
 
 const $content: ViewStyle = {

@@ -1,20 +1,19 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { TouchableHighlight } from 'react-native-gesture-handler'
-import BackIcon from '../icons/BackIcon'
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation, NavigationProp } from '@react-navigation/core'
 import DrawerMenuIcon from '../icons/DrawerMenuIcon'
-import { RootStackParams } from 'app/navigators'
-import { DrawerLayout, DrawerState } from "react-native-gesture-handler"
+import { RootStackParams } from 'app/navigators/MenuNavigator'
+import { DrawerActions } from '@react-navigation/native';
 
 
 const TopDrawerNavigation = () => {
-    // const navigation = useNavigation<DrawerNavigationProp<RootStackParams>>();
+    // const navigation = useNavigation<NavigationProp<RootStackParams>>();
     const navigation = useNavigation()
 
     return <View style={styles.container}>
         <TouchableHighlight style={styles.backButton} underlayColor="#f0ddcc" onPress={() => {
-            navigation.openDrawer()
+            navigation.dispatch(DrawerActions.openDrawer());
         }}>
             <DrawerMenuIcon color="#333" size={20} />
         </TouchableHighlight>

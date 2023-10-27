@@ -36,7 +36,8 @@ const TopDrawerNavigation = () => {
 
 const styles = StyleSheet.create({
     container: {
-        flexDirection: 'row'
+        flexDirection: 'row',
+        margin: 30,
     },
     backButton: {
         borderRadius: 8,

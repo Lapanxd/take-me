@@ -1,11 +1,10 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AdvertCard from "app/components/AdvertCard";
 import React, { useState } from "react";
-import { TextStyle, View, ViewStyle, FlatList, Text } from "react-native";
+import { TextStyle, View, ViewStyle, FlatList } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { colors } from "../theme";
 import { RootStackParams } from "app/navigators/MenuNavigator";
-import Menu from "app/components/Menu";
 import TopDrawerNavigation from "app/components/TopDrawerNavigation";
 
 type Props = NativeStackScreenProps<RootStackParams, "AdvertsStack">;
@@ -39,8 +38,6 @@ export const Adverts = ({ navigation }: Props) => {
           renderItem={({ item }) => (
             <AdvertCard
               name={item.adname}
-              description={item.description}
-              quantity={item.quantity}
               image={item.image}
               onPress={() => {
                 navigation.navigate('Advert', { item: item });

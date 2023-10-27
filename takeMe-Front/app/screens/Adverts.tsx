@@ -1,9 +1,9 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import AdvertCard from "app/components/AdvertCard";
 import React, { useState } from "react";
-import { TextStyle, View, ViewStyle, FlatList } from "react-native";
+import { TextStyle, View, ViewStyle, FlatList, Text } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
-import { colors } from "../theme";
+import { colors, spacing } from "../theme"
 import { RootStackParams } from "app/navigators/MenuNavigator";
 import TopDrawerNavigation from "app/components/TopDrawerNavigation";
 
@@ -35,6 +35,7 @@ export const Adverts = ({ navigation }: Props) => {
         <TopDrawerNavigation />
       </View>
       <ScrollView>
+        <Text style={$welcomeHeading}>Toutes les annonces</Text>
         <FlatList
           data={annonces}
           renderItem={({ item }) => (
@@ -65,4 +66,11 @@ const $header: ViewStyle = {
   alignItems: "center",
   marginBottom: 16,
 };
+
+const $welcomeHeading: TextStyle = {
+  marginBottom: spacing.md,
+  fontSize: '44px',
+  fontWeight: 'bold',
+  padding: 16,
+}
 export default Adverts;

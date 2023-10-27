@@ -36,6 +36,8 @@ export const Adverts = ({ navigation }: Props) => {
           data={annonces}
           renderItem={({ item }) => (
             <AdvertCard
+              //  key={item.guid}
+              //  advert={item}
               name={item.adname}
               onPress={(name) => {
                 navigation.navigate('Advert', { item: item })

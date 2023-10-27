@@ -72,7 +72,8 @@ const $content: ViewStyle = {
 
 const $imageContainer: ViewStyle = {
   flex: 1,
-  alignItems: "flex-end",
+  alignItems: "center",
+  justifyContent: "center",
 };
 
 const $image: ImageStyle = {
@@ -84,6 +85,8 @@ const $image: ImageStyle = {
 const $textContainer: ViewStyle = {
   flex: 1,
   marginLeft: 16,
+  alignItems: "center",
+  justifyContent: "center",
 };
 
 const $label: TextStyle = {

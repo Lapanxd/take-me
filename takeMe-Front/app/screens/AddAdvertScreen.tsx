@@ -1,11 +1,9 @@
 import React from "react"
 import AdForm from "./AdvertFormScreen"
 import { View, ViewStyle } from "react-native"
-import { colors } from "../theme"
+import { colors, spacing } from "../theme"
 import { Card } from "react-bootstrap"
-import Menu from "app/components/Menu"
 import TopDrawerNavigation from "app/components/TopDrawerNavigation"
-import TopBackNavigation from "app/components/TopBackNavigation"
 
 export const AddAdvertScreen = () => {
   const handleOnSubmit = (advert) => {
@@ -15,8 +13,10 @@ export const AddAdvertScreen = () => {
   return (
     <React.Fragment>
       <View style={$container}>
-      <TopDrawerNavigation />
-        <Card style={{ width: 400 }}>
+      <View style={$header}>
+            <TopDrawerNavigation />
+          </View>
+        <Card style={{ width: 400, marginLeft: 50 }}>
           <Card.Body>
             <Card.Title>Ajouter une annonce</Card.Title>
             <AdForm handleOnSubmit={handleOnSubmit} />
@@ -31,4 +31,11 @@ const $container: ViewStyle = {
   flex: 1,
   backgroundColor: colors.background,
 }
+const $header: ViewStyle = {
+  flexDirection: "row",
+  justifyContent: 'flex-end',
+  alignItems: "center",
+  marginBottom: 16,
+};
+
 export default AddAdvertScreen

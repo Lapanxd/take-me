@@ -136,7 +136,7 @@ export const AdForm = (props) => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <Button variant="primary" type="submit" className="submit-btn">
+        <Button variant="dark" type="submit" className="submit-btn py-2 px-4 mt-4">
           Submit
         </Button>
       </Form>

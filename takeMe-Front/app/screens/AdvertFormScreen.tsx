@@ -3,7 +3,7 @@ import { Form, Button } from "react-bootstrap";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { v4 as uuidv4 } from "uuid";
 import { View, ViewStyle, Text, Image, ImageStyle, TextStyle } from "react-native";
-import { colors, spacing } from "../theme";
+import { colors } from "../theme";
 import * as ImagePicker from 'expo-image-picker';
 
 export const AdvertForm = (props) => {
@@ -16,15 +16,14 @@ export const AdvertForm = (props) => {
     latitude: props.Advert ? props.Advert.latitude : "",
     longitude: props.Advert ? props.Advert.longitude : "",
     date: props.Advert ? props.Advert.date : "",
-    image: props.Advert ? props.Advert.image : "",
   })
 
   const [errorMsg, setErrorMsg] = useState("")
-  const { adname, description, quantity, latitude, longitude, image } = Advert
+  const { adname, description, quantity, latitude, longitude, date } = Advert
 
   const handleOnSubmit = (event) => {
     event.preventDefault()
-    const values = [adname, description, quantity, latitude, longitude, image]
+    const values = [adname, description, quantity, latitude, longitude, date]
     let errorMsg = ""
 
     const allFieldsFilled = values.every((field) => {
@@ -41,7 +40,6 @@ export const AdvertForm = (props) => {
         latitude,
         longitude,
         date: new Date(),
-        image: Image,
       }
       props.handleOnSubmit(Advert)
     } else {
@@ -171,13 +169,12 @@ export const AdvertForm = (props) => {
             onChange={handleInputChange}
           />
         </Form.Group>
-
-        {/* gestion images */}
-        {/* <TouchableOpacity style={$btnImg} onPress={this.takePhotoFromCamera}>
-          <Text >Take Photo</Text>
-        </TouchableOpacity> */}
-        <TouchableOpacity style={$btnImg} onPress={chooseFromLibrairy}>
-          <Text >Choose Photo From Gallery</Text>
+        <TouchableOpacity onPress={pickImageCamera}>
+          <Text>Prendre photo</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity onPress={pickImage}>
+          <Text>Télécharger</Text>
         </TouchableOpacity>
 
           <Image source={{ uri: image }} style={{width:200, height: 200, margin: 10}}  />

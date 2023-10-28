@@ -4,7 +4,19 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { v4 as uuidv4 } from "uuid";
 import { View, ViewStyle, Text, Image, ImageStyle, TextStyle } from "react-native";
 import { colors } from "../theme";
-import * as ImagePicker from 'expo-image-picker';
+// import * as ImagePicker from 'expo-image-picker';
+import ImagePicker from 'react-native-image-picker';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+
+  // avec react native image picker 
+const options = {
+  title: 'Select Avatar',
+  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
+  storageOptions: {
+    skipBackup: true,
+    path: 'images',
+  },
+};
 
 export const AdvertForm = (props) => {
 
@@ -82,40 +94,62 @@ export const AdvertForm = (props) => {
         }))
     }
   }
-  const [image, setImage] = useState('');
-  const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-    console.log(result);
-    if (!result.canceled) {
-      setImage(result.assets[0].uri);
-    }
-  };
-  const pickImageCamera = async () => {
-    const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
-    if (cameraPermission.status === 'granted') {
-      let result = await ImagePicker.launchCameraAsync({
-        allowsEditing: true,
-        aspect: [4, 3],
-        quality: 1,
-      });
+
+  // avec expo image picker 
+  // const [image, setImage] = useState('');
+  // const pickImage = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //   });
+  //   console.log(result);
+  //   if (!result.canceled) {
+  //     setImage(result.assets[0].uri);
+  //   }
+  // };
+  // const pickImageCamera = async () => {
+  //   const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+  //   if (cameraPermission.status === 'granted') {
+  //     let result = await ImagePicker.launchCameraAsync({
+  //       allowsEditing: true,
+  //       aspect: [4, 3],
+  //       quality: 1,
+  //     });
   
-      if (!result.canceled) {
-        setImage(result.assets[0].uri);
-      }
-    } 
-  };
+  //     if (!result.canceled) {
+  //       setImage(result.assets[0].uri);
+  //     }
+  //   } 
+  // };
+
+  // avec react native image picker 
+  const [image, setImage] = useState('');
+  const handleGalleryClick = () => {
+    ImagePicker.launchImageLibrary(options, (response) => {
+     if (response.didCancel) {
+       console.log('User cancelled image picker');
+     } else if (response.error) {
+       console.log('ImagePicker Error: ', response.error);
+    //  } else if (response.customButton) {
+    //    console.log('User tapped custom button: ', response.customButton);
+     } else {
+       const source = { uri: response.uri };
+       this.setState({
+         image: source,
+       });
+     }
+   });
+   };
+
 
   return (
     <div className="main-form">
       {errorMsg && <p className="errorMsg">{errorMsg}</p>}
       <Form onSubmit={handleOnSubmit}>
         <Form.Group controlId="name">
-          <Form.Label>Advert Name</Form.Label>
+          <Form.Label>Titre</Form.Label>
           <Form.Control
             className="input-control"
             type="text"
@@ -126,7 +160,7 @@ export const AdvertForm = (props) => {
           />
         </Form.Group>
         <Form.Group controlId="description">
-          <Form.Label>Advert description</Form.Label>
+          <Form.Label>Description</Form.Label>
           <Form.Control
             className="input-control"
             type="text"
@@ -137,7 +171,7 @@ export const AdvertForm = (props) => {
           />
         </Form.Group>
         <Form.Group controlId="quantity">
-          <Form.Label>Quantity</Form.Label>
+          <Form.Label>Quantité</Form.Label>
           <Form.Control
             className="input-control"
             type="number"
@@ -159,7 +193,7 @@ export const AdvertForm = (props) => {
           />
         </Form.Group>
         <Form.Group controlId="latitude">
-          <Form.Label>latitude</Form.Label>
+          <Form.Label>Latitude</Form.Label>
           <Form.Control
             className="input-control"
             type="number"
@@ -169,15 +203,19 @@ export const AdvertForm = (props) => {
             onChange={handleInputChange}
           />
         </Form.Group>
-        <TouchableOpacity onPress={pickImageCamera}>
-          <Text>Prendre photo</Text>
+
+        <TouchableOpacity onPress={handleGalleryClick}>
+          <Text>Prendre avec photo react native</Text>
+        </TouchableOpacity>
+        {/* <TouchableOpacity onPress={pickImageCamera}>
+          <Text>Prendre photo avec expo</Text>
         </TouchableOpacity>
         
         <TouchableOpacity onPress={pickImage}>
-          <Text>Télécharger</Text>
-        </TouchableOpacity>
+          <Text>Télécharger avec expo</Text>
+        </TouchableOpacity> */}
 
-          <Image source={{ uri: image }} style={{width:200, height: 200, margin: 10}}  />
+          {/* <Image source={{ uri: image }} style={{width:200, height: 200, margin: 10}}  /> */}
 
         <Button variant="dark" type="submit" className="submit-btn py-2 px-4 mt-4">
           Submit

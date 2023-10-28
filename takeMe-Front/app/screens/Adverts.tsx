@@ -42,6 +42,7 @@ export const Adverts = ({ navigation }: Props) => {
             <AdvertCard
               name={item.adname}
               image={item.image}
+              description={item.description}
               onPress={() => {
                 navigation.navigate('Advert', { item: item });
               }}

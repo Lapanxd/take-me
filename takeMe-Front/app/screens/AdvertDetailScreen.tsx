@@ -5,7 +5,6 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParams } from "app/navigators/MenuNavigator";
 import TopBackNavigation from "app/components/TopBackNavigation";
 import TopDrawerNavigation from "app/components/TopDrawerNavigation";
-import { Card } from "react-bootstrap";
 import { ScrollView } from "react-native-gesture-handler";
 
 type Props = NativeStackScreenProps<RootStackParams, "AdvertDetailScreen">;
@@ -20,11 +19,10 @@ export const AdvertDetailScreen = ({ route }: Props) => {
         <TopDrawerNavigation />
       </View>
       <ScrollView>
-      <Card style={$card}>
-        <Card.Body style={$content}>
-          <View style={$textContainer}>
-            <Text style={$label}>Ad Name:</Text>
-            <Text style={$text}>{item.adname}</Text>
+        <View style={$adcard}>
+          <Image source={{ uri: item.image }} style={$image} />
+          <View style={$adcontent}>
+            <Text style={$title}>{item.adname}</Text>
 
             <Text style={$label}>Description:</Text>
             <Text style={$text}>{item.description}</Text>
@@ -38,11 +36,7 @@ export const AdvertDetailScreen = ({ route }: Props) => {
             <Text style={$label}>Longitude:</Text>
             <Text style={$text}>{item.longitude}</Text>
           </View>
-          <View style={$imageContainer}>
-            <Image source={{ uri: item.image }} style={$image} />
-          </View>
-        </Card.Body>
-      </Card>
+        </View>
       </ScrollView>
     </View>
   );
@@ -57,48 +51,9 @@ const $container: ViewStyle = {
 
 const $header: ViewStyle = {
   flexDirection: "row",
-  justifyContent: "space-between", 
+  justifyContent: "space-between",
   alignItems: "center",
-  marginBottom: 16, 
-};
-
-const $card: ViewStyle = {
-  width: "80%",
-  backgroundColor: "white",
-  borderRadius: 8,
-  shadowColor: "#000",
-  shadowOffset: {
-    width: 0,
-    height: 2,
-  },
-  shadowOpacity: 0.2,
-  shadowRadius: 2,
-  elevation: 2,
-  justifyContent: "center",
-};
-
-const $content: ViewStyle = {
-  flexDirection: "row",
-  alignItems: "center",
-};
-
-const $imageContainer: ViewStyle = {
-  flex: 1,
-  alignItems: "center",
-  justifyContent: "center",
-};
-
-const $image: ImageStyle = {
-  width: 400,
-  height: 400,
-  resizeMode: "cover",
-};
-
-const $textContainer: ViewStyle = {
-  flex: 1,
-  marginLeft: 16,
-  alignItems: "center",
-  justifyContent: "center",
+  marginBottom: 16,
 };
 
 const $label: TextStyle = {
@@ -110,6 +65,55 @@ const $label: TextStyle = {
 const $text: TextStyle = {
   fontSize: 16,
   marginBottom: 8,
+};
+const $adcard: ViewStyle = {
+  width: "50%",
+  backgroundColor: "white",
+  borderRadius: 8,
+  shadowColor: "#000",
+  shadowOffset: {
+    width: 0,
+    height: 2,
+  },
+  shadowOpacity: 0.2,
+  shadowRadius: 2,
+  elevation: 2,
+  marginLeft: 50,
+  padding: '16px',
+  flexDirection: 'row',
+};
+
+const $adcontent: ViewStyle = {
+  padding: 16,
+};
+
+const $title: TextStyle = {
+  fontSize: 34,
+  marginBottom: 8,
+  color: 'orange',
+  fontWeight: "bold",
+  backgroundColor: colors.transparent,
+};
+
+const $name: TextStyle = {
+  fontSize: 24,
+  fontWeight: "bold",
+  marginTop: 4,
+  color: colors.text,
+  backgroundColor: colors.transparent,
+};
+const $description: TextStyle = {
+  fontSize: 14,
+  marginTop: 4,
+  color: colors.text,
+  backgroundColor: colors.transparent,
+};
+
+const $image: ImageStyle = {
+  width: 300,
+  height: 300,
+  marginRight: 8,
+  borderRadius: 8,
 };
 
 export default AdvertDetailScreen;

@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: windowWidth, // Utilisez la largeur de la fenêtre pour occuper tout l'écran
+    height: '100vh',
     flexDirection: 'row',
     backgroundColor: 'white',
     justifyContent: 'flex-end', // Pour positionner le contenu à droite

@@ -18,7 +18,7 @@ const Menu : React.FC<MenuProps> = ({ onClose }) => {
 
   return (
     <View style={$container}>
-      <Text style={$title}>Navigation</Text>
+      <Text style={$title}>Menu</Text>
 
     <TouchableOpacity onPress={() => navigateAndClose("Adverts")}>
         <Text style={$link}>Toutes les annonces</Text>
@@ -37,17 +37,21 @@ const $container: ViewStyle = {
   flex: 1,
   // backgroundColor: colors.background,
   padding: 16,
-  marginTop: 8,
+  margin: 8,
 }
 
 const $title: TextStyle = {
-  fontSize: 16,
+  fontSize: 36,
+  marginTop: 16,
+  marginBottom: 18,
+  color: "orange",
+  fontWeight: "bold",
 }
 
 const $link: TextStyle = {
-  fontSize: 16,
-  marginTop: 4,
+  fontSize: 36,
+  marginTop: 14,
   fontWeight: "bold",
-  color: "#097ade",
+  color: "black",
 }
 export default Menu

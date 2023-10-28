@@ -17,15 +17,15 @@ export const Adverts = ({ navigation }: Props) => {
       quantity: "1",
       latitude: "6777.9009",
       longitude: "79798.90909",
-      image: 'https://images.unsplash.com/photo-1695849118500-c8034bc651b6?auto=format&fit=crop&q=80&w=400&h=300',
+      image: 'https://images.unsplash.com/photo-1562113530-57ba467cea38?auto=format&fit=crop&q=80&w=1299&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     },
     {
       adname: "Étagère blanche",
-      description: "Étagère blanche, 1m50, bon état, 3 étages",
+      description: "Étagère blanche, 1m50, bon état, 3 étages, marque Ikea, en bois",
       quantity: "1",
       latitude: "6877.9339",
       longitude: "99798.90509",
-      image: 'https://images.unsplash.com/photo-1695669882447-1de80022ff21?auto=format&fit=crop&q=80&w=400&h=300',
+      image: 'https://www.lafoirfouille.fr/medias/sys_master/images/images/h20/hc8/8892827336734/10000180640-0-1200Wx1200H.jpg',
     }
   ]);
 
@@ -70,7 +70,7 @@ const $header: ViewStyle = {
 
 const $welcomeHeading: TextStyle = {
   marginBottom: spacing.md,
-  fontSize: '44px',
+  fontSize: 44,
   fontWeight: 'bold',
   padding: 16,
 }

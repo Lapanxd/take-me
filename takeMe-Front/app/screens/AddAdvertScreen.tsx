@@ -1,5 +1,5 @@
 import React from "react"
-import AdForm from "./AdvertFormScreen"
+import AdvertForm from "./AdvertFormScreen"
 import { View, ViewStyle } from "react-native"
 import { colors, spacing } from "../theme"
 import { Card } from "react-bootstrap"
@@ -19,7 +19,7 @@ export const AddAdvertScreen = () => {
         <Card style={{ width: 400, marginLeft: 50 }}>
           <Card.Body>
             <Card.Title>Ajouter une annonce</Card.Title>
-            <AdForm handleOnSubmit={handleOnSubmit} />
+            <AdvertForm handleOnSubmit={handleOnSubmit} />
           </Card.Body>
         </Card>
       </View>

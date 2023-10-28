@@ -25,8 +25,9 @@ export const AdvertDetailScreen = ({ route }: Props) => {
             <Text style={$title}>{item.adname}</Text>
 
             <Text style={$label}>Description:</Text>
-            <Text style={$text}>{item.description}</Text>
-
+            <View style={$contentdescription}>
+              <Text style={$description}>{item.description}</Text>
+            </View>
             <Text style={$label}>Quantity:</Text>
             <Text style={$text}>{item.quantity}</Text>
 
@@ -95,18 +96,16 @@ const $title: TextStyle = {
   backgroundColor: colors.transparent,
 };
 
-const $name: TextStyle = {
-  fontSize: 24,
-  fontWeight: "bold",
-  marginTop: 4,
-  color: colors.text,
-  backgroundColor: colors.transparent,
+const $contentdescription: ViewStyle = {
+flexDirection:"row",
 };
 const $description: TextStyle = {
-  fontSize: 14,
+  fontSize: 16,
   marginTop: 4,
   color: colors.text,
   backgroundColor: colors.transparent,
+  flex:1, 
+  flexWrap: 'wrap',
 };
 
 const $image: ImageStyle = {

@@ -46,7 +46,7 @@ const $adcard: ViewStyle = {
   shadowRadius: 2,
   elevation: 2,
   marginLeft: 50,
-  padding: '16px',
+  padding: 16,
   flexDirection: 'row',
 };
 

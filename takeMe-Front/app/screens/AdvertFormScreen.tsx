@@ -6,27 +6,7 @@ import { View, ViewStyle, Text, Image, ImageStyle, TextStyle } from "react-nativ
 import { colors, spacing } from "../theme";
 import * as ImagePicker from 'expo-image-picker';
 
-
-// const options = {
-//   title: 'Select Image',
-//   takePhotoButtonTitle: 'Take photo with your camera',
-//   chooseFromLibraryButtonTitle:'Choose photo from librairy',
-//   // customButtons: [
-//   //   { name: 'customOptionKey', title: 'Choose Photo from Custom Option' },
-//   // ],
-//   storageOptions: {
-//     skipBackup: true,
-//     path: 'images',
-//   },
-// };
-
 export const AdvertForm = (props) => {
-  // constructor(props){
-  //   super(props);
-  //   this.state={
-  //     avatarSource:null
-  //   };
-  // };
 
 
   const [Advert, setAdvert] = useState({
@@ -36,7 +16,7 @@ export const AdvertForm = (props) => {
     latitude: props.Advert ? props.Advert.latitude : "",
     longitude: props.Advert ? props.Advert.longitude : "",
     date: props.Advert ? props.Advert.date : "",
-    image: props.Advert ? props.Advert.avatarSource : "",
+    image: props.Advert ? props.Advert.image : "",
   })
 
   const [errorMsg, setErrorMsg] = useState("")
@@ -104,94 +84,33 @@ export const AdvertForm = (props) => {
         }))
     }
   }
-
-
-const chooseFromLibrairy = () => {
-  const options = {
-    title: 'Select Image',
-    customButtons: [
-      { 
-        name: 'customOptionKey', 
-        title: 'Choose file from Custom Option' 
-      },
-    ],
-    storageOptions: {
-      skipBackup: true,
-      path: 'images',
-    },
-  };
-  ImagePicker.launchImageLibrary(options, this.handleImagePickerResponse => {
-    console.log('Response = ', res);
-    if (res.didCancel) {
-      console.log('User cancelled image picker');
-    } else if (res.error) {
-      console.log('ImagePicker Error: ', res.error);
-    } else if (res.customButton) {
-      console.log('User tapped custom button: ', res.customButton);
-      alert(res.customButton);
-    } else {
-      const source = { uri: res.uri };
-      console.log('response', JSON.stringify(res));
-      this.setState({
-        filePath: res,
-        fileData: res.data,
-        fileUri: res.uri
-      });
+  const [image, setImage] = useState('');
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+    console.log(result);
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
     }
-  });
-  // ImagePicker.launchCamera(options, (res) => {
-  //   console.log('Response = ', res);
-  //   if (res.didCancel) {
-  //     console.log('User cancelled image picker');
-  //   } else if (res.error) {
-  //     console.log('ImagePicker Error: ', res.error);
-  //   } else if (res.customButton) {
-  //     console.log('User tapped custom button: ', res.customButton);
-  //     alert(res.customButton);
-  //   } else {
-  //     const source = { uri: res.uri };
-  //     console.log('response', JSON.stringify(res));
-  //     this.setState({
-  //       filePath: res,
-  //       fileData: res.data,
-  //       fileUri: res.uri
-  //     });
-  //   }
-  // });
-};
-
-// const takePhotoFromCamera = () => {
-//   launchCamera = () => {
-//     let options = {
-//       storageOptions: {
-//         skipBackup: true,
-//         path: 'images',
-//       },
-//     };
-//     ImagePicker.launchCamera(options, (response) => {
-//       console.log('Response = ', response);
-
-//       if (response.didCancel) {
-//         console.log('User cancelled image picker');
-//       } else if (response.error) {
-//         console.log('ImagePicker Error: ', response.error);
-//       } else if (response.customButton) {
-//         console.log('User tapped custom button: ', response.customButton);
-//         alert(response.customButton);
-//       } else {
-//         const source = { uri: response.uri };
-//         console.log('response', JSON.stringify(response));
-//         this.setState({
-//           filePath: response,
-//           fileData: response.data,
-//           fileUri: response.uri
-//         });
-//       }
-//     });
-
-//   }
-// };
-
+  };
+  const pickImageCamera = async () => {
+    const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+    if (cameraPermission.status === 'granted') {
+      let result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
+      });
+  
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
+      }
+    } 
+  };
 
   return (
     <div className="main-form">
@@ -260,7 +179,8 @@ const chooseFromLibrairy = () => {
         <TouchableOpacity style={$btnImg} onPress={chooseFromLibrairy}>
           <Text >Choose Photo From Gallery</Text>
         </TouchableOpacity>
-          <Image source={image} style={{width:200, height: 200, margin: 10}} />
+
+          <Image source={{ uri: image }} style={{width:200, height: 200, margin: 10}}  />
 
         <Button variant="dark" type="submit" className="submit-btn py-2 px-4 mt-4">
           Submit

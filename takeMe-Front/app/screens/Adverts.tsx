@@ -6,6 +6,9 @@ import { ScrollView } from "react-native-gesture-handler";
 import { colors, spacing } from "../theme"
 import { RootStackParams } from "app/navigators/MenuNavigator";
 import TopDrawerNavigation from "app/components/TopDrawerNavigation";
+import "leaflet/dist/leaflet.css";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-cluster";
 
 type Props = NativeStackScreenProps<RootStackParams, "AdvertsStack">;
 
@@ -28,14 +31,32 @@ export const Adverts = ({ navigation }: Props) => {
       image: 'https://www.lafoirfouille.fr/medias/sys_master/images/images/h20/hc8/8892827336734/10000180640-0-1200Wx1200H.jpg',
     }
   ]);
-
+// markers
+const markers = [
+  {
+    geocode: [48.86, 2.3522],
+    popUp: "Hello, I am pop up 1"
+  },
+  {
+    geocode: [48.85, 2.3522],
+    popUp: "Hello, I am pop up 2"
+  },
+  {
+    geocode: [48.855, 2.34],
+    popUp: "Hello, I am pop up 3"
+  }
+];
+  
   return (
     <View style={$container}>
       <View style={$header}>
         <TopDrawerNavigation />
       </View>
+            <Text style={$welcomeHeading}>Toutes les annonces</Text>
+
+      <View style={$advertscontent}>
+      <View style={$advertslist}>
       <ScrollView>
-        <Text style={$welcomeHeading}>Toutes les annonces</Text>
         <FlatList
           data={annonces}
           renderItem={({ item }) => (
@@ -51,6 +72,19 @@ export const Adverts = ({ navigation }: Props) => {
           keyExtractor={(item, index) => index.toString()}
         />
       </ScrollView>
+      </View>
+      <View style={$mapcontent}>
+      {/* <ScrollView> */}
+      <MapContainer center={[48.8566, 2.3522]} zoom={13}>
+      {/* OPEN STREEN MAPS TILES */}
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+
+    </MapContainer>
+      </View>
+      </View>
     </View>
   );
 };
@@ -66,6 +100,22 @@ const $header: ViewStyle = {
   justifyContent: 'flex-end',
   alignItems: "center",
   marginBottom: 16,
+};
+
+const $advertscontent: ViewStyle = {
+  flexDirection: "row",
+};
+
+const $advertslist: ViewStyle = {
+  flexDirection: "column",
+  width: 700,
+  height: 500,
+};
+
+const $mapcontent: ViewStyle = {
+  flexDirection: "column",
+  width: 300,
+  height: 300,
 };
 
 const $welcomeHeading: TextStyle = {

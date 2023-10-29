@@ -52,6 +52,7 @@ const $adcard: ViewStyle = {
 
 const $adcontent: ViewStyle = {
   padding: 16,
+  
 };
 
 const $name: TextStyle = {
@@ -63,7 +64,6 @@ const $name: TextStyle = {
 };
 const $description: TextStyle = {
   fontSize: 14,
-  // fontWeight: "bold",
   marginTop: 4,
   color: colors.text,
   backgroundColor: colors.transparent,

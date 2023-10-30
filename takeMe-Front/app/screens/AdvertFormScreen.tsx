@@ -4,21 +4,9 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { v4 as uuidv4 } from "uuid";
 import { View, ViewStyle, Text, Image, ImageStyle, TextStyle } from "react-native";
 import { colors } from "../theme";
-// import * as ImagePicker from 'expo-image-picker';
-// import ImagePicker from 'react-native-image-picker';
-// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import * as ImagePicker from 'react-native-image-picker';
-import {PermissionsAndroid} from 'react-native';
-
-  // avec react native image picker 
-const options = {
-  title: 'Select Avatar',
-  customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-  storageOptions: {
-    skipBackup: true,
-    path: 'images',
-  },
-};
+import { PermissionsAndroid } from 'react-native';
+import IconCamera from '../icons/IconCamera'
 
 export const AdvertForm = (props) => {
 
@@ -96,54 +84,6 @@ export const AdvertForm = (props) => {
         }))
     }
   }
-
-  // avec expo image picker 
-  // const [image, setImage] = useState('');
-  // const pickImage = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing: true,
-  //     aspect: [4, 3],
-  //     quality: 1,
-  //   });
-  //   console.log(result);
-  //   if (!result.canceled) {
-  //     setImage(result.assets[0].uri);
-  //   }
-  // };
-  // const pickImageCamera = async () => {
-  //   const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
-  //   if (cameraPermission.status === 'granted') {
-  //     let result = await ImagePicker.launchCameraAsync({
-  //       allowsEditing: true,
-  //       aspect: [4, 3],
-  //       quality: 1,
-  //     });
-  
-  //     if (!result.canceled) {
-  //       setImage(result.assets[0].uri);
-  //     }
-  //   } 
-  // };
-
-  // avec react native image picker 
-  const [image, setImage] = useState('');
-  const handleGalleryClick = () => {
-    ImagePicker.launchImageLibrary(options, (response) => {
-     if (response.didCancel) {
-       console.log('User cancelled image picker');
-     } else if (response.error) {
-       console.log('ImagePicker Error: ', response.error);
-    //  } else if (response.customButton) {
-    //    console.log('User tapped custom button: ', response.customButton);
-     } else {
-       const source = { uri: response.uri };
-       this.setState({
-         image: source,
-       });
-     }
-   });
-   };
 
   const [responseCamera, setResponseCamera] = React.useState(null);
   const [responseGallery, setResponseGallery] = React.useState(null);
@@ -241,48 +181,38 @@ export const AdvertForm = (props) => {
           />
         </Form.Group>
 
-          <TouchableOpacity onPress={() => openCameraWithPermission()}>
+        <TouchableOpacity onPress={() => openCameraWithPermission()}>
+        
         {responseCamera === null ? (
-          <Image style={styles.icon} source={cameraImage} />
+       <Text ><IconCamera size={20} color={"black"} /> Prendre une photo</Text>
         ) : (
-          <Image style={styles.icon} source={{uri: responseCamera.uri}} />
-        )}
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() =>
-          ImagePicker.launchImageLibrary(
-            {
-              mediaType: 'photo',
-              includeBase64: false,
-              maxHeight: 200,
-              maxWidth: 200,
-            },
-            (response) => {
-              setResponseGallery(response);
-              setResponseCamera(null);
-            },
-          )
-        }>
-        {responseGallery === null ? (
-          <Image style={styles.icon} source={galleryImage} />
-        ) : (
-          <Image style={styles.icon} source={{uri: responseGallery.uri}} />
+          <Image style={$image} source={{uri: responseCamera.uri}} />
         )}
       </TouchableOpacity>
 
-        
-        <TouchableOpacity onPress={handleGalleryClick}>
-          <Text>Prendre avec photo react native</Text>
+        <TouchableOpacity
+          onPress={() =>
+            ImagePicker.launchImageLibrary(
+              {
+                mediaType: 'photo',
+                includeBase64: false,
+                maxHeight: 900,
+                maxWidth: 900,
+              },
+              (response) => {
+                setResponseGallery(response);
+                setResponseCamera(null);
+              },
+            )
+          }>
+         
+          {responseGallery === null ? (
+             <Text> <IconCamera size={20} color={"black"} /> Choisir une photo</Text>
+         
+        ) : (
+          <Image style={$image} source={{ uri: responseGallery.uri }} />
+        )}
         </TouchableOpacity>
-        {/* <TouchableOpacity onPress={pickImageCamera}>
-          <Text>Prendre photo avec expo</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity onPress={pickImage}>
-          <Text>Télécharger avec expo</Text>
-        </TouchableOpacity> */}
-
-          {/* <Image source={{ uri: image }} style={{width:200, height: 200, margin: 10}}  /> */}
 
         <Button variant="dark" type="submit" className="submit-btn py-2 px-4 mt-4">
           Submit
@@ -300,3 +230,9 @@ const $btnImg: ViewStyle = {
   padding: '4px',
   justifyContent: 'center'
 }
+const $image: ImageStyle = {
+  width: 100,
+  height: 100,
+  borderRadius: 8,
+};
+

@@ -13,6 +13,9 @@ export class Advert implements IAdvert {
   @Column()
   name: string;
 
+  @Column()
+  description: string;
+
   @OneToOne(() => ObjectType)
   @JoinColumn()
   objectType: IObjectType;

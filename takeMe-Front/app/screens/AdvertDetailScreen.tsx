@@ -19,8 +19,7 @@ export const AdvertDetailScreen = ({ route }: Props) => {
 
   const customIcon = new Icon({
     iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
-    //   iconUrl: require("./icons/placeholder.png"),
-    iconSize: [38, 38] // size of the icon
+    iconSize: [38, 38],
   });
 
   return (
@@ -36,19 +35,12 @@ export const AdvertDetailScreen = ({ route }: Props) => {
               <Image source={{ uri: item.image }} style={$image} />
               <View style={$adcontent}>
                 <Text style={$title}>{item.adname}</Text>
-
                 <Text style={$label}>Description:</Text>
                 <View style={$contentdescription}>
                   <Text style={$description}>{item.description}</Text>
                 </View>
                 <Text style={$label}>Quantity:</Text>
                 <Text style={$text}>{item.quantity}</Text>
-
-                <Text style={$label}>Latitude:</Text>
-                <Text style={$text}>{item.latitude}</Text>
-
-                <Text style={$label}>Longitude:</Text>
-                <Text style={$text}>{item.longitude}</Text>
               </View>
             </View>
           </ScrollView>
@@ -60,8 +52,8 @@ export const AdvertDetailScreen = ({ route }: Props) => {
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <Marker position={[44.8375, -0.5667]} icon={customIcon}>
-              <Popup>This is popup 3</Popup>
+            <Marker position={item.geocode} icon={customIcon}>
+              <Popup>{item.adname}</Popup>
             </Marker>
           </MapContainer>
         </View>

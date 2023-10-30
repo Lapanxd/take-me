@@ -11,3 +11,4 @@ export * from "./ErrorScreen/ErrorBoundary"
 // export other screens here
 export * from "./Inscription"
 export * from "./Connect"
+export * from "./Profil"

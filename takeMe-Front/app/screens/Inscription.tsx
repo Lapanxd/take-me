@@ -1,27 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, ImageStyle, StyleSheet, Image, TouchableOpacity, } from 'react-native';
+import { View, Text, TextInput, ImageStyle, StyleSheet, Image, TouchableOpacity, Dimensions} from 'react-native';
 
 import { FigureImage } from 'react-bootstrap';
 import { colors, spacing } from "../theme"
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
-const register = require("../../assets/images/register.png")
+const register = require("../../assets/images/logoo.png")
+const background = require("../../assets/images/bg.jpg")
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 export const Inscription = () => {
   const [prenom, setPrenom] = useState('');
   const [nom, setnom] = useState('');
-  const [pseudo, setPseudo] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmpass, setConfirmpass] = useState('');
   const [error, setError] = useState('');
 
 
-  
-
   const handleLogin = () => {
-    if (prenom  && nom  && pseudo && username && password && confirmpass === password) {
-      alert('inscription réussie');
+    if (prenom  && nom  && username && password && confirmpass === password) {
+      navigation.navigate('Profil', {
+        prenom:prenom,
+        nom:nom, 
+        username:username
+      });
     } else {
       setError('Veuillez remplir tous les champs');
       if (!prenom) {
@@ -31,31 +35,28 @@ export const Inscription = () => {
   }
   
 
-  const navigation = useNavigation() as any;
-
-  const handleInscription = () =>
-  {
-    navigation.navigate('Inscription');
-  }
+  const navigation = useNavigation() as any;  
 
   useEffect(() => {
     // Réinitialise les champs d'entrée lors du montage du composant
     setPrenom('');
     setnom('');
-    setPseudo('');
     setUsername('');
     setPassword('');
     setConfirmpass('');
 
   }, []);
- Text
+
   return (
     <View style={styles.container}>
-
-     
+      <Image
+        source={background}
+        style={styles.bg}
+      />
+    
       <View style={styles.$form}>
         <Image style={$Register} source={register} resizeMode='contain' />
-        <Text style={styles.inscriptionText}>Inscrivez-vous</Text>
+        <Text style={styles.inscriptionText}>Inscription</Text>
         <View style={styles.contain}>
         <TextInput
         style={styles.inpNom}
@@ -80,20 +81,9 @@ export const Inscription = () => {
      <Text style={styles.errorText}>{error}</Text>
 
 
-        <TextInput
-        style={styles.input}
-        placeholder='Speudo'
-        placeholderTextColor='rgba(128, 128, 128, .5)'
-
-        value={pseudo}
-        onChangeText={(text) => setPseudo(text)}
-        
-        />
-     <Text style={styles.errorText}>{error}</Text>
-
       <TextInput
         style={styles.input}
-        placeholder='Email'
+        placeholder='Nom d utilisateur'
         placeholderTextColor='rgba(128, 128, 128, .5)'
 
         value={username}
@@ -141,7 +131,15 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     flex: 1,
-    alignItems: 'center',
+  },
+
+  bg:
+  {
+    position:'absolute',
+    width:screenWidth / 2,
+    height:screenHeight,
+    marginLeft:'50%'
+
   },
 
   nav:
@@ -205,28 +203,26 @@ const styles = StyleSheet.create({
 
   inscriptionText:
   {
-    position: 'relative',
-    textAlign:'center',
-    top: '30%',
-    fontSize: 30,
+    position: 'absolute',
+    marginTop: '35%',
+    marginLeft:'25%',
+    fontSize: 25,
+
   },
 
 
   $form:
   {
-    backgroundColor: '#E5E5E5',
-    width: '40%',
-    height: '95%',
+    width: '50%',
+    height: '100%',
     borderRadius: 7,
-    marginTop:'5%'
   },
 
   contain:
   {
     position: 'absolute',
     top: '45%',
-    float: 'left',
-    left: '25%',
+    marginLeft:'25%',
   },
   
   label: {
@@ -235,10 +231,10 @@ const styles = StyleSheet.create({
   },
 
   inpNom:{ 
-    width: 150,
+    width: 130,
     height: 35,
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 7,
     padding: 10,
     marginTop: 10
   },
@@ -246,10 +242,11 @@ const styles = StyleSheet.create({
   inpPrenom: { 
 
     position:'absolute',
-      width: 133,
-      top: '2.7%',
+      width: 130,
+      height: 35,
+      top: 10,
       borderWidth: 1,
-      borderRadius: 15,
+      borderRadius: 7,
       padding:8,
       left: '55%'
       
@@ -261,7 +258,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 35,
     borderWidth: 1,
-    borderRadius: 15,
+    borderRadius: 7,
     padding: 10,
     marginTop: 10
   },
@@ -285,16 +282,14 @@ const styles = StyleSheet.create({
 
 const $Register: ImageStyle =
   {
-  position: 'absolute',
-  height: 100,
-  width: "100%",
-  top: '10%',
-  right: 10,
+    position: 'absolute',
+    height: '20%',
+    width: "30%",
+    marginTop: '10%',
+    marginLeft:'30%',
 
   
   }
 
 
 export default Inscription;
-
-

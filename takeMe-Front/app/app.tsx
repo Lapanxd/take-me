@@ -39,8 +39,8 @@ const config = {
       path: "",
     },
     Insciption: 'Inscription',
-    connexion: 'connexion',
     Connect: 'Connect',
+    Profil: 'Profil',
     Welcome: "welcome",
     Demo: {
       screens: {

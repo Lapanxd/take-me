@@ -5,7 +5,7 @@ import { FigureImage } from 'react-bootstrap';
 import { colors, spacing } from "../theme"
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
-const register = require("../../assets/images/logoo.png")
+const register = require("../../assets/images/logoo.PNG")
 const background = require("../../assets/images/bg.jpg")
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -14,17 +14,19 @@ export const Inscription = () => {
   const [prenom, setPrenom] = useState('');
   const [nom, setnom] = useState('');
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmpass, setConfirmpass] = useState('');
   const [error, setError] = useState('');
 
 
   const handleLogin = () => {
-    if (prenom  && nom  && username && password && confirmpass === password) {
+    if (prenom  && nom  && username && email && password && confirmpass === password) {
       navigation.navigate('Profil', {
         prenom:prenom,
         nom:nom, 
-        username:username
+        username:username,
+        email:email
       });
     } else {
       setError('Veuillez remplir tous les champs');
@@ -88,6 +90,16 @@ export const Inscription = () => {
 
         value={username}
         onChangeText={(text) => setUsername(text)}
+        
+        />
+     <Text style={styles.errorText}>{error}</Text>
+
+     <TextInput
+        style={styles.input}
+        placeholder='monmail@mail.com'
+        placeholderTextColor='rgba(128, 128, 128, .5)'
+        value={email}
+        onChangeText={(text) => setEmail(text)}
         
         />
      <Text style={styles.errorText}>{error}</Text>
@@ -283,10 +295,10 @@ const styles = StyleSheet.create({
 const $Register: ImageStyle =
   {
     position: 'absolute',
-    height: '20%',
-    width: "30%",
-    marginTop: '10%',
-    marginLeft:'30%',
+  height: '20%',
+  width: "30%",
+  marginTop: '15%',
+  marginLeft:'25%',
 
   
   }

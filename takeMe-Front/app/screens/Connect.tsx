@@ -6,7 +6,7 @@ import { colors, spacing } from "../theme"
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { bg } from 'date-fns/locale';
-const userConn = require("../../assets/images/logoo.png")
+const userConn = require("../../assets/images/logoo.PNG")
 const background = require("../../assets/images/bg.jpg")
 
 const screenWidth = Dimensions.get('window').width;
@@ -220,14 +220,6 @@ const $userConn: ImageStyle =
   width: "30%",
   marginTop: '20%',
   marginLeft:'25%',
-  
-  
-
-  
-
-  
   }
-
-
 
 export default Connect;

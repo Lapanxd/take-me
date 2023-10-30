@@ -17,8 +17,6 @@ import { useColorScheme } from "react-native"
 import * as Screens from "app/screens"
 import Config from "../config"
 import { useStores } from "../models" // @demo remove-current-line
-import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
-import { AdvertNavigator, AdvertTabParamList } from "./AdvertNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "app/theme"
 
@@ -38,9 +36,7 @@ import { colors } from "app/theme"
 export type AppStackParamList = {
   Welcome: undefined
   Login: undefined // @demo remove-current-line
-  Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
   NewPage: undefined // @demo remove-current-line
-  Advert: NavigatorScreenParams<AdvertTabParamList>
   AddAdvert: undefined
   Adverts: undefined
   // 🔥 Your screens go here
@@ -79,9 +75,7 @@ const AppStack = observer(function AppStack() {
           {/* @demo remove-block-end */}
           <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
           {/* @demo remove-block-start */}
-          <Stack.Screen name="Demo" component={DemoNavigator} />
           <Stack.Screen name="NewPage" component={Screens.NewPage} />
-          <Stack.Screen name="Advert" component={Screens.AdvertDetailScreen} />
           <Stack.Screen name="AddAdvert" component={Screens.AddAdvertScreen} />
           <Stack.Screen name="Adverts" component={Screens.Adverts} />
         </>

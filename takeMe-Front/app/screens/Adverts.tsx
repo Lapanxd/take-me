@@ -49,7 +49,7 @@ export const Adverts = ({ navigation }: Props) => {
       <View style={$header}>
         <TopDrawerNavigation />
       </View>
-      <Text style={$welcomeHeading}>Toutes les annonces</Text>
+      <Text style={$welcomeHeading}>Toutestes les annonces</Text>
       <View style={$advertscontent}>
         <View style={$advertslist}>
           <ScrollView>

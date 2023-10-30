@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../core/entities/user.entity';
+import { User } from '../../core/entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { UserNotFound, UserWithEmailAlreadyExists } from '../core/exceptions/user.exceptions';
-import { SignUpUserDto } from '../core/dtos/sign-up-user.dto';
+import { UserNotFound, UserWithEmailAlreadyExists } from '../../core/exceptions/user.exceptions';
+import { SignUpUserDto } from '../../core/dtos/sign-up-user.dto';
 
 @Injectable()
 export class UsersService {

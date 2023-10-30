@@ -6,6 +6,10 @@ export class CreateAdvertDto {
   name: string;
 
   @IsDefined()
+  @IsString()
+  description: string;
+
+  @IsDefined()
   @IsNumber()
   objectType: number;
 

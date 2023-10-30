@@ -1,11 +1,11 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Advert } from '../core/entities/advert.entity';
+import { Advert } from '../../core/entities/advert.entity';
 import { Repository } from 'typeorm';
-import { CreateAdvertDto } from '../core/dtos/create-advert.dto';
-import { ObjectType } from '../core/entities/object-type.entity';
-import { ObjectImage } from '../core/entities/object-image.entity';
-import { AdvertDto } from '../core/dtos/advert.dto';
+import { CreateAdvertDto } from '../../core/dtos/create-advert.dto';
+import { ObjectType } from '../../core/entities/object-type.entity';
+import { ObjectImage } from '../../core/entities/object-image.entity';
+import { AdvertDto } from '../../core/dtos/advert.dto';
 
 @Injectable()
 export class AdvertService {
@@ -36,6 +36,7 @@ export class AdvertService {
       advert.images = images;
       advert.latitude = advertDto.latitude;
       advert.longitude = advertDto.latitude;
+      advert.description = advertDto.description;
 
       return await this.advertRepository.save(advert);
     } catch (err) {

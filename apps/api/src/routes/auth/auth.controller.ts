@@ -2,8 +2,8 @@ import { Body, Controller, Post, UseGuards, Request } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UsersService } from '../users/users.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { SignInUserDto } from '../core/dtos/sign-in-user.dto';
-import { SignUpUserDto } from '../core/dtos/sign-up-user.dto';
+import { SignInUserDto } from '../../core/dtos/sign-in-user.dto';
+import { SignUpUserDto } from '../../core/dtos/sign-up-user.dto';
 import { RefreshJwtAuthGuard } from './guards/refresh-jwt-auth.guard';
 import * as process from 'process';
 

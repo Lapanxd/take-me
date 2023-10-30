@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
-import { User } from '../core/entities/user.entity';
+import { User } from '../../core/entities/user.entity';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { SignUpUserDto } from '../core/dtos/sign-up-user.dto';
+import { SignUpUserDto } from '../../core/dtos/sign-up-user.dto';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}

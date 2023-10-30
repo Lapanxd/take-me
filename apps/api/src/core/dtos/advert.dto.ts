@@ -10,19 +10,23 @@ export class AdvertDto {
 
   @IsOptional()
   @IsString()
-  name?: string;
+  name: string;
 
   @IsOptional()
-  objectType?: IObjectType;
+  @IsString()
+  description: string;
 
   @IsOptional()
-  images?: IObjectImage[];
+  objectType: IObjectType;
+
+  @IsOptional()
+  images: IObjectImage[];
 
   @IsOptional()
   @IsNumber()
-  latitude?: number;
+  latitude: number;
 
   @IsOptional()
   @IsNumber()
-  longitude?: number;
+  longitude: number;
 }

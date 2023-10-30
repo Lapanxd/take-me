@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { AdvertService } from './advert.service';
-import { Advert } from '../core/entities/advert.entity';
-import { CreateAdvertDto } from '../core/dtos/create-advert.dto';
+import { Advert } from '../../core/entities/advert.entity';
+import { CreateAdvertDto } from '../../core/dtos/create-advert.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { AdvertDto } from '../core/dtos/advert.dto';
+import { AdvertDto } from '../../core/dtos/advert.dto';
 
 @Controller('advert')
 export class AdvertController {

@@ -10,7 +10,7 @@ import "leaflet/dist/leaflet.css";
 import leaflet from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
-import { Icon, divIcon, point } from "leaflet";
+import { Icon } from "leaflet";
 
 type Props = NativeStackScreenProps<RootStackParams, "AdvertsStack">;
 
@@ -26,82 +26,84 @@ export const Adverts = ({ navigation }: Props) => {
     },
     {
       adname: "Étagère blanche",
-      description: "Étagère blanche, 1m50, bon état, 3 étages, marque Ikea, en bois",
+      description: "Étagère blanche, 1m50",
       quantity: "1",
       latitude: "6877.9339",
       longitude: "99798.90509",
       image: 'https://www.lafoirfouille.fr/medias/sys_master/images/images/h20/hc8/8892827336734/10000180640-0-1200Wx1200H.jpg',
+    },
+    {
+      adname: "Canapé 3 places",
+      description: "A nettoyer, bon état",
+      quantity: "1",
+      latitude: "6877.9339",
+      longitude: "99798.90509",
+      image: 'https://rouen.blogs.com/.a/6a00e551daa20b88330133ee6b474d970b-700wi',
     }
   ]);
-// markers
-const markers = [
-  {
-    geocode: [44.8580, -0.5667],
-    popUp: "Hello, I am pop up 1"
-  },
-  {
-    geocode: [44.8375, -0.5667],
-    popUp: "Hello, I am pop up 2"
-  },
-  {
-    geocode: [44.8279, -0.5670],
-    popUp: "Hello, I am pop up 3"
-  }
-];
+  // markers
+  const markers = [
+    {
+      geocode: [44.8580, -0.5667],
+      popUp: "Hello, I am pop up 1"
+    },
+    {
+      geocode: [44.8375, -0.5667],
+      popUp: "Hello, I am pop up 2"
+    },
+    {
+      geocode: [44.8279, -0.5670],
+      popUp: "Hello, I am pop up 3"
+    }
+  ];
   // create custom icon
-const customIcon = new Icon({
-  iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
-//   iconUrl: require("./icons/placeholder.png"),
-  iconSize: [38, 38] // size of the icon
-});
+  const customIcon = new Icon({
+    iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
+    //   iconUrl: require("./icons/placeholder.png"),
+    iconSize: [38, 38] // size of the icon
+  });
   return (
     <View style={$container}>
       <View style={$header}>
         <TopDrawerNavigation />
       </View>
-            <Text style={$welcomeHeading}>Toutes les annonces</Text>
-
+      <Text style={$welcomeHeading}>Toutes les annonces</Text>
       <View style={$advertscontent}>
-      <View style={$advertslist}>
-      <ScrollView>
-        <FlatList
-          data={annonces}
-          renderItem={({ item }) => (
-            <AdvertCard
-              name={item.adname}
-              image={item.image}
-              description={item.description}
-              onPress={() => {
-                navigation.navigate('Advert', { item: item });
-              }}
+        <View style={$advertslist}>
+          <ScrollView>
+            <FlatList
+              data={annonces}
+              renderItem={({ item }) => (
+                <AdvertCard
+                  name={item.adname}
+                  image={item.image}
+                  description={item.description}
+                  onPress={() => {
+                    navigation.navigate('Advert', { item: item });
+                  }}
+                />
+              )}
+              keyExtractor={(item, index) => index.toString()}
             />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      </ScrollView>
-      </View>
-      <View style={$mapcontent}>
-      {/* <ScrollView> */}
-      <MapContainer center={[44.8378, -0.5667]} zoom={13} style={{ width: "100%", height: "80vh" }}>
-      {/* OPEN STREEN MAPS TILES */}
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
+          </ScrollView>
+        </View>
+        <View style={$mapcontent}>
+          <MapContainer center={[44.8378, -0.5667]} zoom={13} style={{ width: "100%", height: "80vh" }}>
+            {/* OPEN STREEN MAPS TILES */}
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
 
-<MarkerClusterGroup
-         chunkedLoading
-        //  iconCreateFunction={createClusterCustomIcon}
-       >
-         {/* Mapping through the markers */}
-         {markers.map((marker) => (
-           <Marker position={marker.geocode} icon={customIcon}>
-             <Popup>{marker.popUp}</Popup>
-           </Marker>
-         ))}
-       </MarkerClusterGroup>
-    </MapContainer>
-      </View>
+            <MarkerClusterGroup chunkedLoading >
+              {/* Mapping through the markers */}
+              {markers.map((marker) => (
+                <Marker position={marker.geocode} icon={customIcon}>
+                  <Popup>{marker.popUp}</Popup>
+                </Marker>
+              ))}
+            </MarkerClusterGroup>
+          </MapContainer>
+        </View>
       </View>
     </View>
   );

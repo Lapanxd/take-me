@@ -18,7 +18,9 @@ export const AdvertCard: React.FC<Props> = ({ name, image, description, onPress 
           <Image source={{ uri: image }} style={$image} />
           <View style={$adcontent}>
           <Text style={$name}>{name}</Text>
+          <View style={{ flexDirection: 'row'}}>
           <Text style={$description}>{description}</Text>
+          </View>
           </View>
         </View>
       </View>
@@ -34,7 +36,7 @@ const $container: ViewStyle = {
 };
 
 const $adcard: ViewStyle = {
-  width: "50%",
+  // width: "50%",
   backgroundColor: "white",
   borderRadius: 8,
   shadowColor: "#000",
@@ -67,6 +69,8 @@ const $description: TextStyle = {
   marginTop: 4,
   color: colors.text,
   backgroundColor: colors.transparent,
+  flexShrink: 1,
+  flexWrap: 'wrap'
 };
 
 const $image: ImageStyle = {

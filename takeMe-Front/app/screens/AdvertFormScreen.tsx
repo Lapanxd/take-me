@@ -5,8 +5,10 @@ import { v4 as uuidv4 } from "uuid";
 import { View, ViewStyle, Text, Image, ImageStyle, TextStyle } from "react-native";
 import { colors } from "../theme";
 // import * as ImagePicker from 'expo-image-picker';
-import ImagePicker from 'react-native-image-picker';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+// import ImagePicker from 'react-native-image-picker';
+// import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import * as ImagePicker from 'react-native-image-picker';
+import {PermissionsAndroid} from 'react-native';
 
   // avec react native image picker 
 const options = {
@@ -143,7 +145,42 @@ export const AdvertForm = (props) => {
    });
    };
 
+  const [responseCamera, setResponseCamera] = React.useState(null);
+  const [responseGallery, setResponseGallery] = React.useState(null);
 
+  const openCameraWithPermission = async () => {
+    try {
+      const granted = await PermissionsAndroid.request(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+        {
+          title: 'App Camera Permission',
+          message: 'App needs access to your camera ',
+          buttonNeutral: 'Ask Me Later',
+          buttonNegative: 'Cancel',
+          buttonPositive: 'OK',
+        },
+      );
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        ImagePicker.launchCamera(
+          {
+            mediaType: 'photo',
+            includeBase64: false,
+            maxHeight: 200,
+            maxWidth: 200,
+          },
+          (response) => {
+            console.log(response);
+            setResponseCamera(response);
+            setResponseGallery(null);
+          },
+        );
+      } else {
+        console.log('Camera permission denied');
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  };
   return (
     <div className="main-form">
       {errorMsg && <p className="errorMsg">{errorMsg}</p>}
@@ -204,6 +241,36 @@ export const AdvertForm = (props) => {
           />
         </Form.Group>
 
+          <TouchableOpacity onPress={() => openCameraWithPermission()}>
+        {responseCamera === null ? (
+          <Image style={styles.icon} source={cameraImage} />
+        ) : (
+          <Image style={styles.icon} source={{uri: responseCamera.uri}} />
+        )}
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          ImagePicker.launchImageLibrary(
+            {
+              mediaType: 'photo',
+              includeBase64: false,
+              maxHeight: 200,
+              maxWidth: 200,
+            },
+            (response) => {
+              setResponseGallery(response);
+              setResponseCamera(null);
+            },
+          )
+        }>
+        {responseGallery === null ? (
+          <Image style={styles.icon} source={galleryImage} />
+        ) : (
+          <Image style={styles.icon} source={{uri: responseGallery.uri}} />
+        )}
+      </TouchableOpacity>
+
+        
         <TouchableOpacity onPress={handleGalleryClick}>
           <Text>Prendre avec photo react native</Text>
         </TouchableOpacity>

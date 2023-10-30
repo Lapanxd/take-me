@@ -3,9 +3,7 @@ import { CompositeScreenProps } from "@react-navigation/native"
 import React from "react"
 import { TextStyle, ViewStyle } from "react-native"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
-import { Icon } from "../components"
-import { translate } from "../i18n"
-import { AddAdvertScreen, AdvertListScreen } from "../screens"
+import { AddAdvertScreen, Adverts } from "../screens"
 import { colors, spacing, typography } from "../theme"
 import { AppStackParamList, AppStackScreenProps } from "./AppNavigator"
 
@@ -39,24 +37,12 @@ export function AdvertNavigator() {
       <Tab.Screen
         name="AddAdvert"
         component={AddAdvertScreen}
-        options={{
-          tabBarAccessibilityLabel: translate("advertNavigator.addAdvertTab"),
-          tabBarLabel: translate("advertNavigator.addAdvertTab"),
-          tabBarIcon: ({ focused }) => (
-            <Icon icon="community" color={focused && colors.tint} size={30} />
-          ),
-        }}
+      
       />
       <Tab.Screen
         name="AdvertList"
-        component={AdvertListScreen}
-        options={{
-          tabBarAccessibilityLabel: translate("advertNavigator.advertListTab"),
-          tabBarLabel: translate("advertNavigator.advertListTab"),
-          tabBarIcon: ({ focused }) => (
-            <Icon icon="podcast" color={focused && colors.tint} size={30} />
-          ),
-        }}
+        component={Adverts}
+        
       />
     </Tab.Navigator>
   )

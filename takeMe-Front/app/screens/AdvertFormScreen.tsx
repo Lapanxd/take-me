@@ -184,7 +184,7 @@ export const AdvertForm = (props) => {
         <TouchableOpacity onPress={() => openCameraWithPermission()}>
         
         {responseCamera === null ? (
-       <Text ><IconCamera size={20} color={"black"} /> Prendre une photo</Text>
+       <Text style={$text}><IconCamera size={20} color={"black"} /> Prendre une photo</Text>
         ) : (
           <Image style={$image} source={{uri: responseCamera.uri}} />
         )}
@@ -207,7 +207,7 @@ export const AdvertForm = (props) => {
           }>
          
           {responseGallery === null ? (
-             <Text> <IconCamera size={20} color={"black"} /> Choisir une photo</Text>
+             <Text style={$text}> <IconCamera size={20} color={"black"} /> Choisir une photo</Text>
          
         ) : (
           <Image style={$image} source={{ uri: responseGallery.uri }} />
@@ -236,3 +236,7 @@ const $image: ImageStyle = {
   borderRadius: 8,
 };
 
+const $text: TextStyle = {
+  marginTop: 10,
+
+};

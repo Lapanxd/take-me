@@ -6,7 +6,8 @@ import { View, ViewStyle, Text, Image, ImageStyle, TextStyle } from "react-nativ
 import { colors } from "../theme";
 import * as ImagePicker from 'react-native-image-picker';
 import { PermissionsAndroid } from 'react-native';
-import IconCamera from '../icons/IconCamera'
+import IconCamera from '../icons/IconCamera';
+import IconFolderOpen from '../icons/IconFolderOpen';
 
 export const AdvertForm = (props) => {
 
@@ -207,7 +208,7 @@ export const AdvertForm = (props) => {
           }>
          
           {responseGallery === null ? (
-             <Text style={$text}> <IconCamera size={20} color={"black"} /> Choisir une photo</Text>
+             <Text style={$text}> <IconFolderOpen size={20} color={"black"} /> Choisir une photo</Text>
          
         ) : (
           <Image style={$image} source={{ uri: responseGallery.uri }} />

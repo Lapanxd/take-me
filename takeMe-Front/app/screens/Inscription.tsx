@@ -18,23 +18,26 @@ export const Inscription = () => {
   const [password, setPassword] = useState('');
   const [confirmpass, setConfirmpass] = useState('');
   const [error, setError] = useState('');
+  const [errorPass, setErrorPass] = useState('');
 
 
   const handleLogin = () => {
-    if (prenom  && nom  && username && email && password && confirmpass === password) {
-      navigation.navigate('Profil', {
-        prenom:prenom,
-        nom:nom, 
-        username:username,
-        email:email
-      });
+    if (prenom && nom && username && email && password && confirmpass) {
+      if (confirmpass !== password) {
+        setErrorPass('Le mot de passe ne correspond pas');
+      } else {
+        navigation.navigate('Profil', {
+          prenom: prenom,
+          nom: nom,
+          username: username,
+          email: email
+        });
+      }
     } else {
       setError('Veuillez remplir tous les champs');
-      if (!prenom) {
-        setError('Veuillez remplir tous les champs');
-      }
     }
   }
+  
   
 
   const navigation = useNavigation() as any;  
@@ -69,7 +72,6 @@ export const Inscription = () => {
         onChangeText={(text) => setnom(text)}
         
         />
-    <Text style={styles.error}>{error}</Text>
 
      <TextInput
         style={styles.inpPrenom}
@@ -80,7 +82,6 @@ export const Inscription = () => {
         onChangeText={(text) => setPrenom(text)}
         
         />
-     <Text style={styles.errorText}>{error}</Text>
 
 
       <TextInput
@@ -92,7 +93,6 @@ export const Inscription = () => {
         onChangeText={(text) => setUsername(text)}
         
         />
-     <Text style={styles.errorText}>{error}</Text>
 
      <TextInput
         style={styles.input}
@@ -102,7 +102,6 @@ export const Inscription = () => {
         onChangeText={(text) => setEmail(text)}
         
         />
-     <Text style={styles.errorText}>{error}</Text>
 
       <TextInput
         style={styles.input}
@@ -113,7 +112,7 @@ export const Inscription = () => {
         secureTextEntry={true}
         
       />
-     <Text style={styles.error}>{error}</Text>
+     
 
      <TextInput
         style={styles.input}
@@ -125,6 +124,7 @@ export const Inscription = () => {
         secureTextEntry={true}
         />
      <Text style={styles.errorText}>{error}</Text>
+     <Text style={styles.errorText}>{errorPass}</Text>
 
         <View style={styles.btnView}>
         {/* Bouton Connecter, MDP_O, Inscription*/}
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
   {
     color: 'red',
     fontSize: 12,
-    marginBottom: 5,
+   
   }
 
   

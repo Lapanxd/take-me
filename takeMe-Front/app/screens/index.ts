@@ -12,5 +12,3 @@ export * from "./AdvertListScreen"
 export * from "./AddAdvertScreen"
 export * from "./AdvertDetailScreen"
 export * from "./Adverts"
-
-export * from "./Map"

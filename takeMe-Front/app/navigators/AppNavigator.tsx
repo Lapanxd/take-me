@@ -43,7 +43,6 @@ export type AppStackParamList = {
   Advert: NavigatorScreenParams<AdvertTabParamList>
   AddAdvert: undefined
   Adverts: undefined
-  Map: undefined
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
@@ -85,7 +84,6 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="Advert" component={Screens.AdvertDetailScreen} />
           <Stack.Screen name="AddAdvert" component={Screens.AddAdvertScreen} />
           <Stack.Screen name="Adverts" component={Screens.Adverts} />
-          <Stack.Screen name="Map" component={Screens.Map} />
         </>
       ) : (
         <>

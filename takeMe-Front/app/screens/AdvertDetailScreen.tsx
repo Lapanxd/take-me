@@ -6,11 +6,22 @@ import { RootStackParams } from "app/navigators/MenuNavigator";
 import TopBackNavigation from "app/components/TopBackNavigation";
 import TopDrawerNavigation from "app/components/TopDrawerNavigation";
 import { ScrollView } from "react-native-gesture-handler";
+import "leaflet/dist/leaflet.css";
+import leaflet from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { Icon } from "leaflet";
+
 
 type Props = NativeStackScreenProps<RootStackParams, "AdvertDetailScreen">;
 
 export const AdvertDetailScreen = ({ route }: Props) => {
   const { item } = route.params;
+
+  const customIcon = new Icon({
+    iconUrl: "https://cdn-icons-png.flaticon.com/512/447/447031.png",
+    //   iconUrl: require("./icons/placeholder.png"),
+    iconSize: [38, 38] // size of the icon
+  });
 
   return (
     <View style={$container}>
@@ -18,27 +29,43 @@ export const AdvertDetailScreen = ({ route }: Props) => {
         <TopBackNavigation />
         <TopDrawerNavigation />
       </View>
-      <ScrollView>
-        <View style={$adcard}>
-          <Image source={{ uri: item.image }} style={$image} />
-          <View style={$adcontent}>
-            <Text style={$title}>{item.adname}</Text>
+      <View style={$advertcontent}>
+        <View style={$advertbloc}>
+          <ScrollView>
+            <View style={$adcard}>
+              <Image source={{ uri: item.image }} style={$image} />
+              <View style={$adcontent}>
+                <Text style={$title}>{item.adname}</Text>
 
-            <Text style={$label}>Description:</Text>
-            <View style={$contentdescription}>
-              <Text style={$description}>{item.description}</Text>
+                <Text style={$label}>Description:</Text>
+                <View style={$contentdescription}>
+                  <Text style={$description}>{item.description}</Text>
+                </View>
+                <Text style={$label}>Quantity:</Text>
+                <Text style={$text}>{item.quantity}</Text>
+
+                <Text style={$label}>Latitude:</Text>
+                <Text style={$text}>{item.latitude}</Text>
+
+                <Text style={$label}>Longitude:</Text>
+                <Text style={$text}>{item.longitude}</Text>
+              </View>
             </View>
-            <Text style={$label}>Quantity:</Text>
-            <Text style={$text}>{item.quantity}</Text>
-
-            <Text style={$label}>Latitude:</Text>
-            <Text style={$text}>{item.latitude}</Text>
-
-            <Text style={$label}>Longitude:</Text>
-            <Text style={$text}>{item.longitude}</Text>
-          </View>
+          </ScrollView>
         </View>
-      </ScrollView>
+        <View style={$mapcontent}>
+          <MapContainer center={[44.8378, -0.5667]} zoom={13} style={{ width: "100%", height: "80vh" }}>
+            {/* OPEN STREEN MAPS TILES */}
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[44.8375, -0.5667]} icon={customIcon}>
+              <Popup>This is popup 3</Popup>
+            </Marker>
+          </MapContainer>
+        </View>
+      </View>
     </View>
   );
 };
@@ -68,7 +95,6 @@ const $text: TextStyle = {
   marginBottom: 8,
 };
 const $adcard: ViewStyle = {
-  width: "50%",
   backgroundColor: "white",
   borderRadius: 8,
   shadowColor: "#000",
@@ -79,8 +105,7 @@ const $adcard: ViewStyle = {
   shadowOpacity: 0.2,
   shadowRadius: 2,
   elevation: 2,
-  marginLeft: 50,
-  padding: '16px',
+  padding: 20,
   flexDirection: 'row',
 };
 
@@ -97,14 +122,14 @@ const $title: TextStyle = {
 };
 
 const $contentdescription: ViewStyle = {
-flexDirection:"row",
+  flexDirection: "row",
 };
 const $description: TextStyle = {
   fontSize: 16,
   marginTop: 4,
   color: colors.text,
   backgroundColor: colors.transparent,
-  flex:1, 
+  flex: 1,
   flexWrap: 'wrap',
 };
 
@@ -114,5 +139,25 @@ const $image: ImageStyle = {
   marginRight: 8,
   borderRadius: 8,
 };
+
+
+const $advertcontent: ViewStyle = {
+  flexDirection: "row",
+};
+
+const $advertbloc: ViewStyle = {
+  flexDirection: "column",
+  width: 700,
+  height: 500,
+  justifyContent: 'center',
+  alignItems: 'center',
+};
+
+const $mapcontent: ViewStyle = {
+  flexDirection: "column",
+  width: 500,
+  height: 300,
+};
+
 
 export default AdvertDetailScreen;

@@ -75,7 +75,7 @@ const markers = [
       </View>
       <View style={$mapcontent}>
       {/* <ScrollView> */}
-      <MapContainer center={[48.8566, 2.3522]} zoom={13}>
+      <MapContainer center={[48.8566, 2.3522]} zoom={13} style={{ width: "100%", height: "80vh" }}>
       {/* OPEN STREEN MAPS TILES */}
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

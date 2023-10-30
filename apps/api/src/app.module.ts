@@ -1,22 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { localConf } from './config/database.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './routes/auth/auth.module';
+import { UsersModule } from './routes/users/users.module';
+import { AdvertModule } from './routes/advert/advert.module';
 
 @Module({
-  imports: [
-    // TypeOrmModule.forRoot({
-    //   type: 'mysql',
-    //   host: 'localhost',
-    //   port: 3306,
-    //   username: 'admin@takeme',
-    //   password: 'admin',
-    //   database: 'takeme',
-    //   entities: [],
-    //   synchronize: true,
-    // }),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [AuthModule, TypeOrmModule.forRoot(localConf), UsersModule, AdvertModule],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

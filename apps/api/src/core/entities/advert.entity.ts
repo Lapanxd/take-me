@@ -1,18 +1,20 @@
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { IAd } from '@takeme/models/ad.model';
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
+import { IAdvert } from '@takeme/models/advert.model';
 import { IObjectImage } from '@takeme/models/objectImage.model';
 import { IObjectType } from '@takeme/models/objectType.model';
-import { JoinColumn } from 'typeorm/browser';
 import { ObjectType } from './object-type.entity';
 import { ObjectImage } from './object-image.entity';
 
 @Entity()
-export class Ad implements IAd {
+export class Advert implements IAdvert {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
+
+  @Column()
+  description: string;
 
   @OneToOne(() => ObjectType)
   @JoinColumn()
@@ -26,4 +28,21 @@ export class Ad implements IAd {
 
   @Column()
   longitude: number;
+
+  @Column({
+    nullable: true,
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  createdAt: Date;
+
+  @Column({
+    nullable: true,
+    type: 'timestamp',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
+  updatedAt: Date;
+
+  @Column({ nullable: true })
+  deletedAt: Date;
 }

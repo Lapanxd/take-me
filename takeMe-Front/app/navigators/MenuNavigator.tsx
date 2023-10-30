@@ -90,10 +90,8 @@ export function MenuNavigator() {
 
         <RootStack.Screen name="NewPage" component={NewPage} />
 
-        {/* <RootStack.Screen name="AdvertDetailScreen" component={AdvertDetailScreen} /> */}
 
         <RootStack.Screen name="AddAdvert" component={AddAdvertScreen}
-
         />
 
 

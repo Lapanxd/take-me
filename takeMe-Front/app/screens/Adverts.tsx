@@ -7,6 +7,7 @@ import { colors, spacing } from "../theme"
 import { RootStackParams } from "app/navigators/MenuNavigator";
 import TopDrawerNavigation from "app/components/TopDrawerNavigation";
 import "leaflet/dist/leaflet.css";
+import leaflet from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 

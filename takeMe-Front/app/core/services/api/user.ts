@@ -1,11 +1,10 @@
-import { IAdvert } from '../../models/advert.model';
-import { GeneralApiProblem, getGeneralApiProblem } from './apiProblem';
 import { ApiResponse, ApisauceInstance, create } from 'apisauce';
 import { ApiConfig } from './api.types';
 import Config from 'app/config';
 import { IUpdateAdvert } from '../../models/update-advert.model';
+import { IUser } from '../../models/user.model';
 
-export class Advert {
+export class UserService {
   apisauce: ApisauceInstance;
   config: ApiConfig;
 
@@ -23,9 +22,11 @@ export class Advert {
       },
     });
   }
-  async findOne(id: number): Promise<IAdvert> {
+  async findOne(id: number): Promise<IUser> {
     try {
-      const response: ApiResponse<IAdvert> = await this.apisauce.get(`/adverts/${id}`);
+      const response: ApiResponse<IUser> = await this.apisauce.get(`/users/${id}`, {
+        headers: { Authorization: '' }, //@TODO get the jwt token from the session storage to set it in the headers
+      });
       return response.data;
     } catch (err) {
       if (__DEV__) {
@@ -50,4 +51,4 @@ export class Advert {
   }
 }
 
-export const advertService = new Advert();
+export const userService = new UserService();

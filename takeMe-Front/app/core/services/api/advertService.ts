@@ -5,7 +5,7 @@ import { ApiConfig } from './api.types';
 import Config from 'app/config';
 import { IUpdateAdvert } from '../../models/update-advert.model';
 
-export class Advert {
+export class AdvertService {
   apisauce: ApisauceInstance;
   config: ApiConfig;
 
@@ -77,4 +77,4 @@ export class Advert {
   }
 }
 
-export const advertService = new Advert();
+export const advertService = new AdvertService();

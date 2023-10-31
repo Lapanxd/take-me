@@ -9,25 +9,30 @@ export class Advert extends Api {
   }
 
   async getAdverts(): Promise<IAdvert | GeneralApiProblem> {
-    const response: ApiResponse<IAdvert> = await this.apisauce.get(`/advert`)
+    console.log(this.apisauce)
+    console.log(this.config)
 
-    if (!response.ok) {
-      const problem = getGeneralApiProblem(response)
-      if (problem) {
-        return problem
-      }
-    }
+    // const response: ApiResponse<IAdvert> = await this.apisauce.get(`/advert`)
+    //
+    // if (!response.ok) {
+    //   const problem = getGeneralApiProblem(response)
+    //   if (problem) {
+    //     return problem
+    //   }
+    // }
 
     try {
-      const rawData = response.data
+      // const rawData = response.data
 
       console.log(rawData)
 
-      return rawData
+      // return rawData
     } catch (err) {
       if (__DEV__) {
-        console.tron.error(`Bad data: ${err.message}\n${response.data}`, err.stack)
+        // console.tron.error(`Bad data: ${err.message}\n${response.data}`, err.stack)
       }
     }
   }
 }
+
+export const advertService = new Advert()

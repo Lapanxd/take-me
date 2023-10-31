@@ -56,9 +56,9 @@ export class AdvertService {
     }
   }
 
-  async update(advert: AdvertDto): Promise<void> {
+  async update(id: number, advert: AdvertDto): Promise<void> {
     try {
-      const updatedAdvert = await this.findById(advert.id);
+      const updatedAdvert = await this.findById(id);
       if (advert.name) {
         updatedAdvert.name = advert.name;
       }

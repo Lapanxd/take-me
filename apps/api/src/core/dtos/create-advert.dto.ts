@@ -1,5 +1,5 @@
 import { IsDefined, IsNumber, IsString } from 'class-validator';
-import {IObjectType} from "../../../../../libs/models";
+import { IObjectType } from '../../../../../libs/models';
 
 export class CreateAdvertDto {
   @IsDefined()

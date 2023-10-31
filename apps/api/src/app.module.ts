@@ -6,12 +6,7 @@ import { UsersModule } from './routes/users/users.module';
 import { AdvertModule } from './routes/advert/advert.module';
 
 @Module({
-  imports: [
-    AuthModule,
-    TypeOrmModule.forRoot(localConf),
-    UsersModule,
-    AdvertModule,
-  ],
+  imports: [AuthModule, TypeOrmModule.forRoot(localConf), UsersModule, AdvertModule],
   controllers: [],
   providers: [],
 })

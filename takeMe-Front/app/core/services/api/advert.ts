@@ -36,7 +36,7 @@ export class Advert {
     }
   }
 
-  async findOne(id: number): Promise<IAdvert | null> {
+  async findOne(id: number): Promise<IAdvert> {
     try {
       const response: ApiResponse<IAdvert> = await this.apisauce.get(`/adverts/${id}`);
       return response.data;

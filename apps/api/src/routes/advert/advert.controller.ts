@@ -38,8 +38,8 @@ export class AdvertController {
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @HttpCode(204)
-  async update(@Body() advert: AdvertDto) {
-    await this.advertService.update(advert);
+  async update(@Param('id') id: number, @Body() advert: AdvertDto) {
+    await this.advertService.update(id, advert);
   }
 
   @UseGuards(JwtAuthGuard)

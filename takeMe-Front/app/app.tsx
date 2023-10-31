@@ -38,7 +38,7 @@ const config = {
     Login: {
       path: "",
     },
-    Insciption: 'Inscription',
+    Inscription: 'Inscription',
     Connect: 'Connect',
     Profil: 'Profil',
     Welcome: "welcome",

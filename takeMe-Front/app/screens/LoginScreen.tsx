@@ -68,7 +68,13 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
   )
 
   async function fetchAdverts() {
-    const adverts = await advertService.getAdverts()
+    const adverts = await advertService.findAll()
+    console.log(adverts)
+  }
+
+  async function fetchOneAdvert() {
+    const advert = await advertService.findOne(17)
+    console.log(advert)
   }
 
   return (

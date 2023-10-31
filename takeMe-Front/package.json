@@ -8,7 +8,7 @@
     "ios": "react-native run-ios",
     "android": "react-native run-android --active-arch-only",
     "compile": "tsc --noEmit -p . --pretty",
-    "format": "prettier --config ./.prettierrc.js app --write",
+    "format": "prettier --write \"app/**/*.{js,jsx,json,md,ts,tsx}\"",
     "lint": "eslint index.js App.js app test --fix --ext .js,.ts,.tsx && npm run format",
     "patch": "patch-package",
     "test": "jest",
@@ -137,9 +137,10 @@
   },
   "prettier": {
     "printWidth": 100,
-    "semi": false,
-    "singleQuote": false,
-    "trailingComma": "all"
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "all",
+    "tabWidth": 2
   },
   "eslintConfig": {
     "root": true,

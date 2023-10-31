@@ -23,27 +23,31 @@ export class Advert {
     })
   }
 
-  async getAdverts(): Promise<IAdvert | GeneralApiProblem> {
-    const response: ApiResponse<IAdvert> = await this.apisauce.get(`/adverts`)
-
-    if (!response.ok) {
-      const problem = getGeneralApiProblem(response)
-      if (problem) {
-        return problem
-      }
-    }
-
+  async findAll(): Promise<IAdvert[]> {
     try {
+      const response: ApiResponse<IAdvert[]> = await this.apisauce.get(`/adverts`)
       const data = response.data
-
       console.log(data)
-
       return data
     } catch (err) {
       if (__DEV__) {
-        console.tron.error(`Bad data: ${err.message}\n${response.data}`, err.stack)
+        console.tron.error(`Bad data: ${err.message}\n}`, err.stack)
       }
-      return
+      return null
+    }
+  }
+
+  async findOne(id: number): Promise<IAdvert | null> {
+    try {
+      const response: ApiResponse<IAdvert> = await this.apisauce.get(`/adverts/${id}`)
+      const data = response.data
+      console.log(data)
+      return data
+    } catch (err) {
+      if (__DEV__) {
+        console.tron.error(`Bad data: ${err.message}\n}`, err.stack)
+      }
+      return null
     }
   }
 }

@@ -11,18 +11,18 @@ services:
     ports:
       - "3306:3306"
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: takeme.phpmyadmin
-    restart: always
-    ports:
-      - '8080:80'
-    environment:
-      PMA_HOST: db
-      PMA_USER: admin
-      PMA_PASSWORD: admin
-    depends_on:
-      - db
+  # phpmyadmin:
+  # image: phpmyadmin/phpmyadmin
+  # container_name: takeme.phpmyadmin
+  # restart: always
+  # ports:
+  #   - '8080:80'
+  # environment:
+  #   PMA_HOST: db
+  #   PMA_USER: admin
+  ##     PMA_PASSWORD: admin
+#    depends_on:
+#      - db
 
 #  api:
 #   container_name: takeme.api
@@ -42,24 +42,23 @@ services:
 #     - '3000:3000'
 #   command: pnpm run start:dev
 
-
-  # front:
-    # container_name: takeme.front
-    # build:
-    #   context: .
-    #   dockerfile: front.dockerfile
-    # develop:
-    #   watch:
-    #     - action: sync
-    #       path: ./apps/front
-    #       target: /app/apps/front
-    #       ignore:
-    #         - node_modules/
-    #     - action: rebuild
-    #       path: package.json
-    # ports:
-    #  - '19000:19000'
-    #  - '19001:19001'
-    #  - '19002:19002'
-    #  - '19006:19006'
-    # command: 'pnpm run expo:web'
+# front:
+# container_name: takeme.front
+# build:
+#   context: .
+#   dockerfile: front.dockerfile
+# develop:
+#   watch:
+#     - action: sync
+#       path: ./apps/front
+#       target: /app/apps/front
+#       ignore:
+#         - node_modules/
+#     - action: rebuild
+#       path: package.json
+# ports:
+#  - '19000:19000'
+#  - '19001:19001'
+#  - '19002:19002'
+#  - '19006:19006'
+# command: 'pnpm run expo:web'

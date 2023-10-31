@@ -1,36 +1,49 @@
-import { Api } from "./api"
 import { IAdvert } from "../../models/advert.model"
 import { GeneralApiProblem, getGeneralApiProblem } from "./apiProblem"
-import { ApiResponse } from "apisauce"
+import { ApiResponse, ApisauceInstance, create } from "apisauce"
+import { ApiConfig } from "./api.types"
+import Config from "app/config"
 
-export class Advert extends Api {
+export class Advert {
+  apisauce: ApisauceInstance
+  config: ApiConfig
+
   constructor() {
-    super()
+    this.config = {
+      url: Config.API_URL,
+      timeout: 1000,
+    }
+
+    this.apisauce = create({
+      baseURL: this.config.url,
+      timeout: this.config.timeout,
+      headers: {
+        Accept: "application/json",
+      },
+    })
   }
 
   async getAdverts(): Promise<IAdvert | GeneralApiProblem> {
-    console.log(this.apisauce)
-    console.log(this.config)
+    const response: ApiResponse<IAdvert> = await this.apisauce.get(`/adverts`)
 
-    // const response: ApiResponse<IAdvert> = await this.apisauce.get(`/advert`)
-    //
-    // if (!response.ok) {
-    //   const problem = getGeneralApiProblem(response)
-    //   if (problem) {
-    //     return problem
-    //   }
-    // }
+    if (!response.ok) {
+      const problem = getGeneralApiProblem(response)
+      if (problem) {
+        return problem
+      }
+    }
 
     try {
-      // const rawData = response.data
+      const rawData = response.data
 
       console.log(rawData)
 
-      // return rawData
+      return rawData
     } catch (err) {
       if (__DEV__) {
-        // console.tron.error(`Bad data: ${err.message}\n${response.data}`, err.stack)
+        console.tron.error(`Bad data: ${err.message}\n${response.data}`, err.stack)
       }
+      return
     }
   }
 }

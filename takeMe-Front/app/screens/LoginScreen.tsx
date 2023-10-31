@@ -67,6 +67,10 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
     [isAuthPasswordHidden],
   )
 
+  async function fetchAdverts() {
+    const adverts = await advertService.getAdverts()
+  }
+
   return (
     <Screen
       preset="auto"
@@ -115,7 +119,7 @@ export const LoginScreen: FC<LoginScreenProps> = observer(function LoginScreen(_
         onPress={login}
       />
 
-      <Button onPress={advertService.getAdverts}>Test API</Button>
+      <Button onPress={fetchAdverts}>Test API</Button>
     </Screen>
   )
 })

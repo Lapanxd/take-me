@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, ImageStyle, StyleSheet, Image, TouchableOpacity, Dimensions } from 'react-native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { FigureImage } from 'react-bootstrap';
 import { colors, spacing } from "../theme"
 import { useNavigation } from '@react-navigation/native';
@@ -16,13 +16,18 @@ export const Connect = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (username === "user" && password === "123") {
-      navigation.navigate('Profil',{username: username});
+      try {
+        await AsyncStorage.setItem('authToken', 'testAuthentified');
+        navigation.navigate('Profil',{username: username});
+      } catch (error) {
+        console.error('Erreur lors de la sauvegarde du jeton !', error)
+      }
     } else {
       setError('Nom d\'utilisateur ou mot de passe incorrect');
     }
-  }
+  };
   
 
   const navigation = useNavigation() as any;
@@ -117,7 +122,7 @@ const styles = StyleSheet.create({
   {
     width: '50%',
     height: '100%',
-    borderRadius: 7,
+   
   },
 
   contain:

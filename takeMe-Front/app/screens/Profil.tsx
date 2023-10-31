@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation, } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import { ActionSheetIOS } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const defaultUser = require("../../assets/images/default_user.png")
 const logoo = require("../../assets/images/logoo.PNG")
 
@@ -22,6 +23,11 @@ export const Profil = ({ route }) => {
   function Return() {
     navigation.navigate("Connect")
   }
+
+  function handleProfil() {
+    navigation.navigate("Profil", {nom:nom, prenom:prenom, username:username, email:email});
+  }
+
   const [image, setImage] = useState('');
 
   const pickImage = async () => {
@@ -53,6 +59,16 @@ export const Profil = ({ route }) => {
       }
     } 
   };
+
+  const handleLogout = async() =>
+  {
+    try {
+      await AsyncStorage.removeItem('authToken');
+      navigation.navigate('Connect');
+    } catch (error) {
+      console.error('Erreur lors de la déconnexion', error)
+    }
+  }
   
 
   /*const actions = ['Prendre une nouvelle photo', 'Sélectionner une photo', 'Supprimer la photo', 'Annuler'];
@@ -83,7 +99,8 @@ export const Profil = ({ route }) => {
   };
   */
   
-  const [selectedOption, setSelectedOption] = useState<'Profil' | 'Compte'>('Profil');
+  const [selectedOption, setSelectedOption] = useState<'Profil' | 'Securite'>('Profil');
+  const [showOptions, setShowOptions] = useState(false);
 
   
   return (
@@ -97,11 +114,47 @@ export const Profil = ({ route }) => {
 
       <TextInput style={styles.searchBar}
       placeholder='Rechercher un objet'
-      placeholderTextColor={'rgba(128, 128, 128, .5)'}></TextInput>
+      placeholderTextColor={'rgba(128, 128, 128, .5)'}> 
+
+      </TextInput>
 
         <TouchableOpacity style={styles.btnAjout}>
           <Text style={styles.txt_ajt_nav}>Ajouter un objet</Text>
         </TouchableOpacity>
+
+        {image ? (
+          <Image source={{ uri: image }} style={styles.profileImage_nav} />
+        ) : (
+          <Image source={defaultUser} style={styles.profileImage_nav} />
+      )}
+      <TouchableOpacity style={styles.btnMenu} onPress={() => setShowOptions(!showOptions)}>
+        <Icon name='caret-down' size={25} color='black'></Icon>
+        </TouchableOpacity>
+
+
+        {showOptions && (
+        <View style={styles.optionsContainer}>
+          <TouchableOpacity style={styles.option}>
+            <Text>Gérer mes annonces</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.optionF}>
+            <Text>Mes favoris</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.optionC} onPress={handleProfil}>
+            <Text>Compte</Text>
+          </TouchableOpacity >
+
+          <TouchableOpacity style={styles.option}>
+            <Text>Centre d'aide</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.option} onPress={handleLogout}>
+            <Text>Déconnexion</Text>
+          </TouchableOpacity>
+        </View>
+      )}
 
       </View>
 
@@ -109,14 +162,14 @@ export const Profil = ({ route }) => {
         {/* Barre du formulaire*/}
       <View style={styles.navForm}>
         <Text style={styles.titreNav1}> Tableau de bord</Text>
-        <Text style={styles.titreNav2}> Compte & profil</Text>
+        <Text style={styles.titreNav2}> Compte & sécurité</Text>
       </View>
 
       {/* formulaire tableau de bord */}
     <View style={styles.form_tbl_bord}>
 
     <View style={styles.section1_tbl_bord}>
-      <Text style={styles.titre_tle_bord}>Compte & Profil</Text>
+      <Text style={styles.titre_tle_bord}>Compte & Sécurité</Text>
         
         {image ? (
           <Image source={{ uri: image }} style={styles.profileImage_Bord} />
@@ -124,7 +177,7 @@ export const Profil = ({ route }) => {
           <Image source={defaultUser} style={styles.profileImage_Bord} />
       )}
         <Text style={styles.titre}>{username} </Text>
-        <TouchableOpacity style={styles.logoutBtn}>
+        <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
             <Icon name="sign-out" size={20} color='#212121' style={styles.logoutIcon}></Icon>
             
           <Text style={styles.txtLogout}>Déconnexion</Text>
@@ -158,14 +211,14 @@ export const Profil = ({ route }) => {
       {/* formulaire Compte & Profil */}
     <View style={styles.formProfil}>
     <TouchableOpacity style={styles.profilBtn} onPress={() => setSelectedOption('Profil')}>
-          <Text style={styles.btn_pTxt}>Profil</Text>
+          <Text style={styles.btn_pTxt}>Compte</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.compteBtn} onPress={() => setSelectedOption('Compte')}>
-          <Text style={styles.btn_cTxt}>Compte</Text>
+        <TouchableOpacity style={styles.compteBtn} onPress={() => setSelectedOption('Securite')}>
+          <Text style={styles.btn_cTxt}>Sécurité</Text>
         </TouchableOpacity>
       
 
-        {/* formulaire Compte & Profil */}
+        {/* formulaire Profil */}
       {selectedOption === 'Profil' && (
       <View style={styles.profilView}>
 
@@ -204,17 +257,7 @@ export const Profil = ({ route }) => {
         onChangeText={(text) => setUsername(text)}
         value={usernameProfil}
         />
-        </View>
 
-       
-        </View>
-      )}
-
-        {/* formulaire Compte */}
-  {selectedOption === 'Compte' && (
-    <View style={styles.compteView}>
-      
-      <View style={styles.field}>
           <Text>Email</Text>
         <TextInput
         style={styles.input}
@@ -223,11 +266,32 @@ export const Profil = ({ route }) => {
         onChangeText={(text) => setEmail(text)}
         value={emailCompte}
         />
-        
-          <Text>Numéto de téléphone</Text>
+        </View>
+
+       
+        </View>
+      )}
+
+        {/* formulaire Compte */}
+  {selectedOption === 'Securite' && (
+    <View style={styles.compteView}>
+      
+      <Text style={styles.txtPass}>Mettre à jours mon mot de passe</Text>
+
+      <View style={styles.field}>
+          <Text>Mot de passe</Text>
         <TextInput
         style={styles.input}
-        placeholder='06 ** ** ** **'
+        placeholder='********'
+        placeholderTextColor='rgba(128, 128, 128, .5)'
+        onChangeText={(text) => setPhone(text)}
+        value={phoneCompte}
+        />
+
+          <Text>Confirmer le mot de passe</Text>
+        <TextInput
+        style={styles.input}
+        placeholder='********'
         placeholderTextColor='rgba(128, 128, 128, .5)'
         onChangeText={(text) => setPhone(text)}
         value={phoneCompte}
@@ -258,6 +322,7 @@ const styles = StyleSheet.create({
     height: '10%',
     backgroundColor: '#FFFFFF',
     boxShadow: '0px 10px 10px rgba(0, 0, 0, 0.2)',
+    zIndex: 2,
   },
 
   navForm:
@@ -267,6 +332,7 @@ const styles = StyleSheet.create({
       height: '8%',
       backgroundColor: '#212121',
       boxShadow: '0px 10px 10px rgba(0, 0, 0, 0.2)',
+      zIndex: 1,
   },
 
   titreNav1:
@@ -343,6 +409,35 @@ const styles = StyleSheet.create({
     height:'70%',
     borderBottomWidth:1,
   },
+
+  optionsContainer: {
+    position: 'absolute',
+    top: '100%', // Ajustez la position verticale pour aligner les options sous l'icône
+    marginLeft: '87%',   // Alignez les options à droite
+    width:'10%',
+    backgroundColor:'#EAEAEA',
+    borderRadius:7,
+    shadowRadius:2,
+    zIndex: 4,
+  },
+  
+  option: {
+    padding: 5, // Ajustez la marge interne pour l'apparence de chaque option
+  },
+
+  optionF:
+  {
+    padding:5,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(128, 128, 128, .5)'
+  },
+
+  optionC:
+  {
+    padding:5,
+    borderBottomWidth:1,
+    borderBottomColor: 'rgba(128, 128, 128, .5)'
+  },
   
   /* Textes*/
   titre_tle_bord:
@@ -358,7 +453,7 @@ const styles = StyleSheet.create({
   btn_pTxt:
   {
     fontSize:20,
-    paddingVertical:5,
+    paddingVertical:4,
     color:'#FFFFFF',
     alignSelf:'center',
     justifyContent:'center',
@@ -428,6 +523,14 @@ const styles = StyleSheet.create({
     alignSelf:'center',
     justifyContent:'center',
     color:'#FFFFFF'
+  },
+
+  txtPass:
+  {
+    position:'absolute',
+    marginTop:'10%',
+    marginLeft:'35%',
+    fontSize:18
   },
   
   /* Champs de texte*/
@@ -499,6 +602,13 @@ const styles = StyleSheet.create({
   logoutIcon:
   {
     position:'absolute'
+  },
+
+  btnMenu:
+  {
+    position:'absolute',
+    marginLeft:'94%',
+    marginTop:'3%'
   },
 
   accueilBtn:
@@ -607,10 +717,18 @@ const styles = StyleSheet.create({
     borderColor: '#FF9900',
   },
 
+  profileImage_nav:
+  {
+    position:'absolute',
+    width: 50,
+    height:50,
+    marginTop: '1%',
+    marginLeft: '90%',
+    borderRadius: 100,
+    borderWidth: 4,
+    borderColor: '#FF9900',
 
-  
-
-  
+  },
   
 });
   

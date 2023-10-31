@@ -44,6 +44,7 @@
 	<key>UILaunchStoryboardName</key>
 	<string>BootSplash</string>
 	<key>UIRequiredDeviceCapabilities</key>
+ 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<array>
 		<string>armv7</string>
 	</array>

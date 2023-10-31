@@ -6,11 +6,13 @@ import {
   Text,
 } from "../components"
 import { isRTL } from "../i18n"
-import { useStores } from "../models" // @demo remove-current-line
+import { useStores } from "../core" // @demo remove-current-line
 import { AppStackScreenProps } from "../navigators" // @demo remove-current-line
 import { colors, spacing } from "../theme"
 import { useHeader } from "../utils/useHeader" // @demo remove-current-line
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
+import "bootstrap/dist/css/bootstrap.min.css"
+import { Card } from "react-bootstrap"
 import "bootstrap/dist/css/bootstrap.min.css"
 import TopDrawerNavigation from "app/components/TopDrawerNavigation"
 

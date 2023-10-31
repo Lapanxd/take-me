@@ -16,12 +16,12 @@ import React from "react"
 import { useColorScheme } from "react-native"
 import * as Screens from "../../app/screens"
 import Config from "../config"
-import { useStores } from "../models" // @demo remove-current-line
+import { useStores } from "../core"  // @demo remove-current-line
 import { AdvertNavigator, AdvertTabParamList } from "./AdvertNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
 import { colors } from "../../app/theme"
 
-/**s
+/**
  * This type allows TypeScript to know what routes are defined in this navigator
  * as well as what properties (if any) they might take when navigating to them.
  *
@@ -41,7 +41,7 @@ export type AppStackParamList = {
   Advert: NavigatorScreenParams<AdvertTabParamList>
   AddAdvert: undefined
   Adverts: undefined
-  
+
   Profil: undefined
   Inscription: undefined
   Connect: undefined
@@ -86,12 +86,12 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="Advert" component={Screens.AdvertDetailScreen} />
           <Stack.Screen name="AddAdvert" component={Screens.AddAdvertScreen} />
           <Stack.Screen name="Adverts" component={Screens.Adverts} />
-          
+
           <Stack.Screen name="Inscription" component={Screens.Inscription}/>
           <Stack.Screen name="Connect" component={Screens.Connect}/>
           <Stack.Screen name="Profil" component={Screens.Profil}/>
-         
-          
+
+
         </>
       ) : (
         <>

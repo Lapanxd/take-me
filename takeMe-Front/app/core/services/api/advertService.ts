@@ -1,9 +1,9 @@
-import { IAdvert } from '../../models/advert.model';
+import { IAdvert } from '../../models/Advert';
 import { GeneralApiProblem, getGeneralApiProblem } from './apiProblem';
 import { ApiResponse, ApisauceInstance, create } from 'apisauce';
 import { ApiConfig } from './api.types';
 import Config from 'app/config';
-import { IUpdateAdvert } from '../../models/update-advert.model';
+import { IUpdateAdvert } from '../../models/UpdateAdvert';
 
 export class AdvertService {
   apisauce: ApisauceInstance;
@@ -67,7 +67,6 @@ export class AdvertService {
       const response: ApiResponse<void> = await this.apisauce.patch(`/adverts}`, updateAdvert, {
         headers: { Authorization: '' }, //@TODO get the jwt token from the session storage to set it in the headers
       });
-      return response.data;
     } catch (err) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${err.message}\n}`, err.stack);

@@ -1,5 +1,5 @@
-import { IObjectImage } from './objectImage.model';
-import { IObjectType } from './objectType.model';
+import { IObjectImage } from './ObjectImage';
+import { IObjectType } from './ObjectType';
 
 export interface IUpdateAdvert {
   name?: string;

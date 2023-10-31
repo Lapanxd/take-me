@@ -6,5 +6,5 @@
  * https://reactnative.dev/docs/security#storing-sensitive-info
  */
 export default {
-  API_URL: 'http://localhost:3000', //@TODO change this wtf xd
+  API_URL: 'http://localhost:3000', //@TODO change this xd
 };

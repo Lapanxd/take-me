@@ -1,8 +1,8 @@
 import { ApiResponse, ApisauceInstance, create } from 'apisauce';
 import { ApiConfig } from './api.types';
 import Config from 'app/config';
-import { IUpdateAdvert } from '../../models/update-advert.model';
-import { IUser } from '../../models/user.model';
+import { IUpdateAdvert } from '../../models/UpdateAdvert';
+import { IUser } from '../../models/User';
 
 export class UserService {
   apisauce: ApisauceInstance;

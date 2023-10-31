@@ -22,5 +22,5 @@ export class CreateAdvertDto {
 
   @IsDefined()
   @IsNumber()
-  longitude: string;
+  longitude: number;
 }

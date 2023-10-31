@@ -34,11 +34,11 @@ export class Advert {
     }
 
     try {
-      const rawData = response.data
+      const data = response.data
 
-      console.log(rawData)
+      console.log(data)
 
-      return rawData
+      return data
     } catch (err) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${err.message}\n${response.data}`, err.stack)

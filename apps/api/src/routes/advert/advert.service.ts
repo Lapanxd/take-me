@@ -35,7 +35,7 @@ export class AdvertService {
       advert.objectType = objectType;
       advert.images = images;
       advert.latitude = advertDto.latitude;
-      advert.longitude = advertDto.latitude;
+      advert.longitude = advertDto.longitude;
       advert.description = advertDto.description;
 
       return await this.advertRepository.save(advert);
@@ -89,5 +89,4 @@ export class AdvertService {
       throw new InternalServerErrorException();
     }
   }
-  
 }

@@ -1,4 +1,11 @@
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+} from 'typeorm';
 import { IAdvert } from '@takeme/models/advert.model';
 import { IObjectImage } from '@takeme/models/objectImage.model';
 import { IObjectType } from '@takeme/models/objectType.model';
@@ -20,7 +27,11 @@ export class Advert implements IAdvert {
   @JoinColumn()
   objectType: IObjectType;
 
-  @OneToMany(() => ObjectImage, (objectImage) => objectImage.id)
+  @OneToMany(
+    () => ObjectImage,
+    (objectImage: ObjectImage) => objectImage.advert,
+    { cascade: true, eager: true },
+  )
   images: IObjectImage[];
 
   @Column()
@@ -33,6 +44,7 @@ export class Advert implements IAdvert {
     nullable: true,
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
+    select: false,
   })
   createdAt: Date;
 
@@ -40,9 +52,10 @@ export class Advert implements IAdvert {
     nullable: true,
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP',
+    select: false,
   })
   updatedAt: Date;
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, select: false })
   deletedAt: Date;
 }

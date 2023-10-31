@@ -11,19 +11,18 @@ services:
     ports:
       - "3306:3306"
 
-  # phpmyadmin:
-  # image: phpmyadmin/phpmyadmin
-  # container_name: takeme.phpmyadmin
-  # restart: always
-  # ports:
-  #   - '8080:80'
-  # environment:
-  #   PMA_HOST: db
-  #   PMA_USER: admin
-  ##     PMA_PASSWORD: admin
-#    depends_on:
-#      - db
-
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: takeme.phpmyadmin
+    restart: always
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: admin
+      PMA_PASSWORD: admin
+    depends_on:
+      - db
 #  api:
 #   container_name: takeme.api
 #   build:

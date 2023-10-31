@@ -3,6 +3,7 @@ import { ApiConfig } from './api.types';
 import Config from 'app/config';
 import { IUpdateAdvert } from '../../models/UpdateAdvert';
 import { IUser } from '../../models/User';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class UserService {
   apisauce: ApisauceInstance;
@@ -22,10 +23,15 @@ export class UserService {
       },
     });
   }
+
+  async getAccessToken() {
+    return await AsyncStorage.getItem('accessToken');
+  }
+
   async findOne(id: number): Promise<IUser> {
     try {
       const response: ApiResponse<IUser> = await this.apisauce.get(`/users/${id}`, {
-        headers: { Authorization: '' }, //@TODO get the jwt token from the session storage to set it in the headers
+        headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
       });
       return response.data;
     } catch (err) {
@@ -39,7 +45,7 @@ export class UserService {
   async update(updateAdvert: IUpdateAdvert): Promise<void> {
     try {
       const response: ApiResponse<void> = await this.apisauce.patch(`/adverts}`, updateAdvert, {
-        headers: { Authorization: '' }, //@TODO get the jwt token from the session storage to set it in the headers
+        headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
       });
       return response.data;
     } catch (err) {

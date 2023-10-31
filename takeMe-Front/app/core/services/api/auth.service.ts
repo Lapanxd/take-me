@@ -1,8 +1,6 @@
 import { ApiResponse, ApisauceInstance, create } from 'apisauce';
 import { ApiConfig } from './api.types';
 import Config from 'app/config';
-import { IUpdateAdvert } from '../../models/UpdateAdvert';
-import { IUser } from '../../models/User';
 import { IAdvert } from '../../models/Advert';
 import { ISignUpUser } from '../../models/SignUpUser';
 import { ISignInUser } from '../../models/SignInUser';
@@ -42,7 +40,7 @@ export class AuthService {
   async signIn(user: ISignInUser): Promise<void> {
     try {
       const response: ApiResponse<{ accessToken: string; refreshToken: string }> =
-        await this.apisauce.post(`/auth/sign-in}`, user);
+        await this.apisauce.post(`/auth/sign-in`, user);
 
       if (!response) {
         return;
@@ -57,20 +55,6 @@ export class AuthService {
       return null;
     }
   }
-
-  async update(updateAdvert: IUpdateAdvert): Promise<void> {
-    try {
-      const response: ApiResponse<void> = await this.apisauce.patch(`/adverts}`, updateAdvert, {
-        headers: { Authorization: '' }, //@TODO get the jwt token from the session storage to set it in the headers
-      });
-      return response.data;
-    } catch (err) {
-      if (__DEV__) {
-        console.tron.error(`Bad data: ${err.message}\n}`, err.stack);
-      }
-      return null;
-    }
-  }
 }
 
-export const userService = new AuthService();
+export const authService = new AuthService();

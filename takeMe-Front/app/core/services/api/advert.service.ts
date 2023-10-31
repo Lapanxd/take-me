@@ -4,6 +4,7 @@ import { ApiResponse, ApisauceInstance, create } from 'apisauce';
 import { ApiConfig } from './api.types';
 import Config from 'app/config';
 import { IUpdateAdvert } from '../../models/UpdateAdvert';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export class AdvertService {
   apisauce: ApisauceInstance;
@@ -22,6 +23,10 @@ export class AdvertService {
         Accept: 'application/json',
       },
     });
+  }
+
+  async getAccessToken() {
+    return await AsyncStorage.getItem('accessToken');
   }
 
   async findAll(): Promise<IAdvert[]> {
@@ -51,7 +56,7 @@ export class AdvertService {
   async create(createAdvert: IAdvert): Promise<IAdvert> {
     try {
       const response: ApiResponse<IAdvert> = await this.apisauce.post(`/adverts}`, createAdvert, {
-        headers: { Authorization: '' }, //@TODO get the jwt token from the session storage to set it in the headers
+        headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
       });
       return response.data;
     } catch (err) {
@@ -65,7 +70,7 @@ export class AdvertService {
   async update(updateAdvert: IUpdateAdvert): Promise<void> {
     try {
       const response: ApiResponse<void> = await this.apisauce.patch(`/adverts}`, updateAdvert, {
-        headers: { Authorization: '' }, //@TODO get the jwt token from the session storage to set it in the headers
+        headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
       });
     } catch (err) {
       if (__DEV__) {

@@ -19,7 +19,7 @@ export class AdvertService {
   async create(advertDto: CreateAdvertDto): Promise<Advert> {
     try {
       const objectType = await this.objectTypeRepository.findOneBy({
-        id: advertDto.objectType,
+        id: advertDto.objectType.id,
       });
       const images = [];
 

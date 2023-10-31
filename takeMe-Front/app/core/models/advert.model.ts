@@ -8,7 +8,4 @@ export interface IAdvert {
   images: IObjectImage[];
   latitude: number;
   longitude: number;
-  createdAt?: Date;
-  updatedAt?: Date;
-  deletedAt?: Date;
 }

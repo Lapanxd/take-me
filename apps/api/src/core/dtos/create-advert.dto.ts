@@ -1,4 +1,5 @@
 import { IsDefined, IsNumber, IsString } from 'class-validator';
+import {IObjectType} from "../../../../../libs/models";
 
 export class CreateAdvertDto {
   @IsDefined()
@@ -11,7 +12,7 @@ export class CreateAdvertDto {
 
   @IsDefined()
   @IsNumber()
-  objectType: number;
+  objectType: IObjectType;
 
   @IsDefined()
   images: string[];

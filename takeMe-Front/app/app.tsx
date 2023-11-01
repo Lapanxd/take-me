@@ -40,6 +40,9 @@ const config = {
     },
     NewPage: "newpage",
     AddAdvert: "addadvert",
+    Inscription: 'Inscription',
+    Connect: 'Connect',
+    Profil: 'Profil',
     Welcome: "welcome",
     Demo: {
       screens: {

@@ -1,3 +1,5 @@
+import Connect from "./Connect"
+
 export * from "./WelcomeScreen"
 // @demo remove-block-start
 export * from "./LoginScreen"
@@ -8,3 +10,6 @@ export * from "./NewPage"
 export * from "./AddAdvertScreen"
 export * from "./AdvertDetailScreen"
 export * from "./Adverts"
+export * from "./Inscription"
+export * from "./Connect"
+export * from "./Profil"

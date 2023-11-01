@@ -74,7 +74,7 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isAuthenticated ? "Connect" : "Inscription"} // @demo remove-current-line
+      initialRouteName={isAuthenticated ? "Adverts" : "Inscription"} // @demo remove-current-line
     >
       {/* @demo remove-block-start */}
       {isAuthenticated ? (

@@ -2,7 +2,7 @@ import React from "react"
 import { Text, View, TextStyle, ViewStyle, TouchableOpacity } from "react-native"
 import { useNavigation } from "@react-navigation/native"
 import { NativeStackNavigationProp } from "@react-navigation/native-stack"
-import { RootStackParams } from "app/navigators/MenuNavigator"
+import { RootStackParams } from "../navigators/MenuNavigator"
 
 interface MenuProps {
   onClose: () => void; // Fonction pour fermer le burger menu

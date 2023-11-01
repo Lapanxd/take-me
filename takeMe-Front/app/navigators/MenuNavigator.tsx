@@ -1,9 +1,7 @@
 import { NavigationContainer, NavigatorScreenParams } from "@react-navigation/native"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import React from "react"
-import { AddAdvertScreen, NewPage } from "../screens"
-import Adverts from "app/screens/Adverts"
-import AdvertDetailScreen from "app/screens/AdvertDetailScreen"
+import { AddAdvertScreen, NewPage, Adverts, AdvertDetailScreen } from "../screens"
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 

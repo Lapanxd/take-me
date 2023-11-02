@@ -88,11 +88,7 @@ const AdvertFormScreen = () => {
         placeholder="Localisation de l'objet"
       /> */}
 
-      {/* {image ? (
-        <Image source={{ uri: image }} />
-      ) : (
-        <Image source={defaultAdvert} />
-      )} */}
+
       {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
       <TouchableOpacity style={styles.imgDownload} onPress={pickImage}>
         <Text style={styles.txt_btn_img}><IconFolderOpen color='black' size={20} /> Télécharger depuis la galerie</Text>

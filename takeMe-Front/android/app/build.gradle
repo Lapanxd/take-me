@@ -2,6 +2,8 @@ apply plugin: "com.android.application"
 apply plugin: "com.facebook.react"
 
 import com.android.build.OutputFile
+classpath 'com.android.tools.build:gradle:4.2.1' // Assurez-vous d'utiliser la version correcte
+
 
 def projectRoot = rootDir.getAbsoluteFile().getParentFile().getAbsolutePath()
 def expoDebuggableVariants = ['debug']
@@ -111,10 +113,11 @@ def reactNativeArchitectures() {
 android {
     ndkVersion rootProject.ext.ndkVersion
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion 30
 
     namespace "com.takemefront"
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.takemefront"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion

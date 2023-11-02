@@ -14,14 +14,14 @@ import { createNativeStackNavigator, NativeStackScreenProps } from "@react-navig
 import { observer } from "mobx-react-lite"
 import React from "react"
 import { useColorScheme } from "react-native"
-import * as Screens from "app/screens"
+import * as Screens from "../../app/screens"
 import Config from "../config"
 import { useStores } from "../models" // @demo remove-current-line
-import { DemoNavigator, DemoTabParamList } from "./DemoNavigator" // @demo remove-current-line
+import { AdvertNavigator, AdvertTabParamList } from "./AdvertNavigator"
 import { navigationRef, useBackButtonHandler } from "./navigationUtilities"
-import { colors } from "app/theme"
+import { colors } from "../../app/theme"
 
-/**
+/**s
  * This type allows TypeScript to know what routes are defined in this navigator
  * as well as what properties (if any) they might take when navigating to them.
  *
@@ -37,8 +37,15 @@ import { colors } from "app/theme"
 export type AppStackParamList = {
   Welcome: undefined
   Login: undefined // @demo remove-current-line
-  Demo: NavigatorScreenParams<DemoTabParamList> // @demo remove-current-line
   NewPage: undefined // @demo remove-current-line
+  Advert: NavigatorScreenParams<AdvertTabParamList>
+  AddAdvert: undefined
+  Adverts: undefined
+  
+  Profil: undefined
+  Inscription: undefined
+  Connect: undefined
+
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
 }
@@ -67,7 +74,7 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isAuthenticated ? "Welcome" : "Login"} // @demo remove-current-line
+      initialRouteName={isAuthenticated ? "Adverts" : "Inscription"} // @demo remove-current-line
     >
       {/* @demo remove-block-start */}
       {isAuthenticated ? (
@@ -75,8 +82,16 @@ const AppStack = observer(function AppStack() {
           {/* @demo remove-block-end */}
           <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
           {/* @demo remove-block-start */}
-          <Stack.Screen name="Demo" component={DemoNavigator} />
           <Stack.Screen name="NewPage" component={Screens.NewPage} />
+          <Stack.Screen name="Advert" component={Screens.AdvertDetailScreen} />
+          <Stack.Screen name="AddAdvert" component={Screens.AddAdvertScreen} />
+          <Stack.Screen name="Adverts" component={Screens.Adverts} />
+          
+          <Stack.Screen name="Inscription" component={Screens.Inscription}/>
+          <Stack.Screen name="Connect" component={Screens.Connect}/>
+          <Stack.Screen name="Profil" component={Screens.Profil}/>
+         
+          
         </>
       ) : (
         <>

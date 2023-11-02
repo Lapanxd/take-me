@@ -11,13 +11,14 @@ import { AppStackScreenProps } from "../navigators" // @demo remove-current-line
 import { colors, spacing } from "../theme"
 import { useHeader } from "../utils/useHeader" // @demo remove-current-line
 import { useSafeAreaInsetsStyle } from "../utils/useSafeAreaInsetsStyle"
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { Card } from 'react-bootstrap'
+import "bootstrap/dist/css/bootstrap.min.css"
+import TopDrawerNavigation from "app/components/TopDrawerNavigation"
+
 
 const welcomeLogo = require("../../assets/images/logo.png")
 const welcomeFace = require("../../assets/images/welcome-face.png")
 
-interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> {}
+interface WelcomeScreenProps extends AppStackScreenProps<"Welcome"> { }
 
 export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeScreen(
   _props, // @demo remove-current-line
@@ -29,7 +30,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
   } = useStores()
 
   function goNext() {
-    navigation.navigate("Demo", { screen: "DemoShowroom" })
+    navigation.navigate("Connect")
   }
 
   useHeader(
@@ -45,6 +46,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
 
   return (
     <View style={$container}>
+      <TopDrawerNavigation />
       <View style={$topContainer}>
         <Image style={$welcomeLogo} source={welcomeLogo} resizeMode="contain" />
         <Text
@@ -68,14 +70,6 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
         />
         {/* @demo remove-block-end */}
       </View>
-      <Card style={{ width: 300 }}>
-      <Card.Body>
-        <Card.Title>React Bootstrap card</Card.Title>
-        <Card.Text>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        </Card.Text>
-      </Card.Body>
-    </Card>
     </View>
   )
 })

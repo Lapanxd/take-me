@@ -14,6 +14,7 @@ import { Advert } from '../../core/entities/advert.entity';
 import { CreateAdvertDto } from '../../core/dtos/create-advert.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AdvertDto } from '../../core/dtos/advert.dto';
+import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('adverts')
 export class AdvertController {
@@ -21,16 +22,29 @@ export class AdvertController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
+  @ApiOkResponse({
+    status: 200,
+    type: Advert,
+    isArray: false,
+  })
   async create(@Body() createAdvertDto: CreateAdvertDto): Promise<Advert> {
     return await this.advertService.create(createAdvertDto);
   }
 
   @Get()
+  @ApiOkResponse({
+    type: Advert,
+    isArray: true,
+  })
   async findAll(): Promise<Advert[]> {
     return await this.advertService.findAll();
   }
 
   @Get(':id')
+  @ApiOkResponse({
+    type: Advert,
+    isArray: false,
+  })
   async findById(@Param('id') id: number): Promise<Advert> {
     return await this.advertService.findById(id);
   }
@@ -38,12 +52,20 @@ export class AdvertController {
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
   @HttpCode(204)
+  @ApiOkResponse({
+    status: 204,
+    isArray: false,
+  })
   async update(@Param('id') id: number, @Body() advert: AdvertDto) {
     await this.advertService.update(id, advert);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
+  @ApiOkResponse({
+    status: 204,
+    isArray: false,
+  })
   async delete(@Param('id') id: number) {
     await this.advertService.delete(id);
   }

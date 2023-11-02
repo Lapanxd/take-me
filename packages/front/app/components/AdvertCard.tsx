@@ -104,6 +104,8 @@ const $button: TextStyle = {
   marginBottom: 4,
   color: colors.text,
   backgroundColor: colors.transparent,
+  justifyContent: 'center',
+  alignItems: 'center',
 };
 
 

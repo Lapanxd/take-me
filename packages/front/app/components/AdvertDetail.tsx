@@ -4,12 +4,14 @@ import Map from '../components/Map';
 import { ScrollView } from 'react-native-gesture-handler';
 import { colors } from '../theme';
 import CloseBurgerIcon from '../icons/CloseBurgerIcon';
+import { IObjectType } from '../core/models/ObjectType';
 
 interface Props {
     name: string;
     image: string;
     description: string;
     geocode: number;
+    objectType: IObjectType;
     onClose: () => void;
 }
 export const AdvertDetail: React.FC<Props> = ({ name, image, description, geocode, onClose }) => {
@@ -32,7 +34,9 @@ export const AdvertDetail: React.FC<Props> = ({ name, image, description, geocod
                             <View style={$contentdescription}>
                                 <Text style={$description}>{description}</Text>
                             </View>
-
+                            {/* <Text>
+                                {objectType.name}
+                            </Text> */}
                         </View>
                     </ScrollView>
                 </View>

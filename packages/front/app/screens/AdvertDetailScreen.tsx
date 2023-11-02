@@ -2,24 +2,21 @@ import React from 'react';
 import { View, ViewStyle, Text, Image, ImageStyle, TextStyle } from 'react-native';
 import { colors } from '../theme';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from 'app/navigators/MenuNavigator';
-import TopBackNavigation from 'app/components/TopBackNavigation';
-import TopDrawerNavigation from 'app/components/TopDrawerNavigation';
+import { RootStackParams } from '../navigators/MenuNavigator';
+import TopBackNavigation from '../components/TopBackNavigation';
+import TopDrawerNavigation from '../components/TopDrawerNavigation';
 import { ScrollView } from 'react-native-gesture-handler';
-// import 'leaflet/dist/leaflet.css';
-// import leaflet from 'leaflet';
-// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-// import { Icon } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+import leaflet from 'leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Icon } from 'leaflet';
+import Map from '../components/Map';
 
 type Props = NativeStackScreenProps<RootStackParams, 'AdvertDetailScreen'>;
 
 export const AdvertDetailScreen = ({ route }: Props) => {
   const { item } = route.params;
-
-  // const customIcon = new Icon({
-  //   iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png',
-  //   iconSize: [38, 38],
-  // });
+  const { adname, geocode } = item;
 
   return (
     <View style={$container}>
@@ -45,19 +42,7 @@ export const AdvertDetailScreen = ({ route }: Props) => {
           </ScrollView>
         </View>
         <View style={$mapcontent}>
-          {/* <MapContainer
-            center={[44.8378, -0.5667]}
-            zoom={13}
-            style={{ width: '100%', height: '80vh' }}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={item.geocode} icon={customIcon}>
-              <Popup>{item.adname}</Popup>
-            </Marker>
-          </MapContainer> */}
+          <Map geocodes={[geocode]} names={[adname]} selectedGeocode={geocode} />
         </View>
       </View>
     </View>

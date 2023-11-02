@@ -8,4 +8,5 @@ export interface IAdvert {
   images: IObjectImage[];
   latitude: number;
   longitude: number;
+  geocode: number;
 }

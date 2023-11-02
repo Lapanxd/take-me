@@ -5,6 +5,8 @@ import React from "react"
 import { registerRootComponent } from "expo"
 import { Platform } from "react-native"
 import * as SplashScreen from "expo-splash-screen"
+import 'expo-dev-menu';
+
 
 SplashScreen.preventAutoHideAsync()
 

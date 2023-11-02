@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.0.1",
   "private": true,
-  "main": "index.js",
+  "main": "./App.js",
   "scripts": {
     "compile": "tsc --noEmit -p . --pretty",
     "format": "prettier --write \"app/**/*.{js,jsx,json,md,ts,tsx}\"",
@@ -37,6 +37,7 @@
     "expo": "^49.0.15",
     "expo-application": "~5.3.1",
     "expo-constants": "~14.4.2",
+    "expo-dev-menu": "^3.2.1",
     "expo-device": "~5.4.0",
     "expo-file-system": "~15.4.4",
     "expo-font": "~11.4.0",
@@ -111,15 +112,6 @@
     "regenerator-runtime": "^0.13.4",
     "ts-jest": "29",
     "typescript": "^5.0.4"
-  },
-  "pnpm": {
-    "overrides": {
-      "uuid": "3.4.0"
-    }
-  },
-  "resolutions": {
-    "@types/react": "^18",
-    "@types/react-dom": "^18"
   },
   "engines": {
     "node": ">=18"

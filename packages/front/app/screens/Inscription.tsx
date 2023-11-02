@@ -14,7 +14,7 @@ import { FigureImage } from 'react-bootstrap';
 import { colors, spacing } from '../theme';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
-const register = require('../../assets/images/logoo.PNG');
+const register = require('../../assets/images/logoo.png');
 const background = require('../../assets/images/bg.jpg');
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;

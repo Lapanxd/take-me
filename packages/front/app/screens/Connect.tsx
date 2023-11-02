@@ -15,7 +15,7 @@ import { colors, spacing } from '../theme';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
 import { bg } from 'date-fns/locale';
-const userConn = require('../../assets/images/logoo.PNG');
+const userConn = require('../../assets/images/logoo.png');
 const background = require('../../assets/images/bg.jpg');
 
 const screenWidth = Dimensions.get('window').width;

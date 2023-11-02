@@ -1,5 +1,5 @@
 import React from 'react';
-import AdvertForm from './AdvertFormScreen';
+// import AdvertForm from './AdvertFormScreen';
 import { View, ViewStyle, TextStyle, Text } from 'react-native';
 import { colors } from '../theme';
 import TopDrawerNavigation from 'app/components/TopDrawerNavigation';
@@ -19,7 +19,7 @@ export const AddAdvertScreen = () => {
         <ScrollView>
           <View style={$adcard}>
             <Text style={$title}>Ajouter une annonce</Text>
-            <AdvertForm handleOnSubmit={handleOnSubmit} />
+            {/* <AdvertForm handleOnSubmit={handleOnSubmit} /> */}
           </View>
         </ScrollView>
       </View>

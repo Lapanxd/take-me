@@ -15,7 +15,7 @@ import AdvertDetail from './AdvertDetail';
 
 interface Props {
   name: string;
-  image: string; 
+  image: string;
   description: string;
   geocode: number;
 }

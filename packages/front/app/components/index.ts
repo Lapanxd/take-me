@@ -11,3 +11,4 @@ export * from './Toggle';
 export * from './EmptyState';
 export * from './Menu';
 export * from './AdvertCard';
+export * from './Map';

@@ -6,6 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { colors, spacing } from '../theme';
 import { RootStackParams } from '../navigators/MenuNavigator';
 import TopDrawerNavigation from '../components/TopDrawerNavigation';
+import Map from '../components/Map';
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -15,7 +16,7 @@ import { Icon } from 'leaflet';
 type Props = NativeStackScreenProps<RootStackParams, 'AdvertsStack'>;
 
 export const Adverts = ({ navigation }: Props) => {
-  const [annonces, setAnnonces] = useState([
+  const annonces = [
     {
       adname: 'Chaise en bois',
       description: 'Chaise en bon état, couleur marron',
@@ -39,13 +40,11 @@ export const Adverts = ({ navigation }: Props) => {
       geocode: [44.8279, -0.567],
       image: 'https://rouen.blogs.com/.a/6a00e551daa20b88330133ee6b474d970b-700wi',
     },
-  ]);
+  ];
 
-  // create custom icon
-  const customIcon = new Icon({
-    iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png',
-    iconSize: [38, 38],
-  });
+  const geocodes = annonces.map((item) => item.geocode);
+  const names = annonces.map((item) => item.adname);
+
   return (
     <View style={$container}>
       <View style={$header}>
@@ -71,30 +70,11 @@ export const Adverts = ({ navigation }: Props) => {
             />
           </ScrollView>
         </View>
-        <View style={$mapcontent}>
-          <MapContainer
-            center={[44.8378, -0.5667]}
-            zoom={13}
-            style={{ width: '100%', height: '80vh' }}
-          >
-            {/* OPEN STREEN MAPS TILES */}
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-
-            <MarkerClusterGroup chunkedLoading>
-              {/* Mapping through the markers */}
-              {annonces.map((marker) => (
-                <Marker position={marker.geocode} icon={customIcon}>
-                  <Popup>{marker.adname}</Popup>
-                </Marker>
-              ))}
-            </MarkerClusterGroup>
-          </MapContainer>
-        </View>
-      </View>
+        <ScrollView>
+            <Map geocodes={geocodes} names={names} />
+          </ScrollView>
     </View>
+    </View >
   );
 };
 

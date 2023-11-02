@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { v4 as uuidv4 } from 'uuid';
 import { ViewStyle, Text, Image, ImageStyle, TextStyle, PermissionsAndroid } from 'react-native';
@@ -119,7 +118,7 @@ export const AdvertForm = (props) => {
   return (
     <div className="main-form">
       {errorMsg && <p className="errorMsg">{errorMsg}</p>}
-      <Form onSubmit={handleOnSubmit}>
+      {/* <Form onSubmit={handleOnSubmit}>
         <Form.Group controlId="name">
           <Form.Label>Titre</Form.Label>
           <Form.Control
@@ -215,7 +214,7 @@ export const AdvertForm = (props) => {
         <Button variant="dark" type="submit" className="submit-btn py-2 px-4 mt-4">
           Submit
         </Button>
-      </Form>
+      </Form> */}
     </div>
   );
 };

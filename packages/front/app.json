@@ -1,10 +1,10 @@
 {
-  "name": "takemeFront",
-  "displayName": "takemeFront",
+  "name": "front",
+  "displayName": "front",
   "expo": {
-    "name": "takemeFront",
-    "slug": "takemeFront",
-    "scheme": "takemefront",
+    "name": "front",
+    "slug": "front",
+    "scheme": "front",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/app-icon-all.png",
@@ -22,7 +22,7 @@
     ],
     "android": {
       "icon": "./assets/images/app-icon-android-legacy.png",
-      "package": "com.takemefront",
+      "package": "com.takeme.front",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/app-icon-android-adaptive-foreground.png",
         "backgroundImage": "./assets/images/app-icon-android-adaptive-background.png"
@@ -36,7 +36,7 @@
     "ios": {
       "icon": "./assets/images/app-icon-ios.png",
       "supportsTablet": true,
-      "bundleIdentifier": "com.takemefront",
+      "bundleIdentifier": "com.takeme.front",
       "splash": {
         "image": "./assets/images/splash-logo-ios-mobile.png",
         "tabletImage": "./assets/images/splash-logo-ios-tablet.png",
@@ -45,6 +45,7 @@
       }
     },
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/images/app-icon-web-favicon.png",
       "splash": {
         "image": "./assets/images/splash-logo-web.png",

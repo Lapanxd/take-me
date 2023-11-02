@@ -12,15 +12,17 @@ import {
 import { colors } from '../theme';
 import IconEye from '../icons/IconEye';
 import AdvertDetail from './AdvertDetail';
+import { IObjectType } from '../core/models/ObjectType';
 
 interface Props {
   name: string;
   image: string;
   description: string;
   geocode: number;
+  objectType: IObjectType;
 }
 
-export const AdvertCard: React.FC<Props> = ({ name, image, description, geocode }) => {
+export const AdvertCard: React.FC<Props> = ({ name, image, description, geocode, objectType }) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -48,6 +50,7 @@ export const AdvertCard: React.FC<Props> = ({ name, image, description, geocode 
           image={image}
           description={description}
           geocode={geocode}
+          objectType={objectType}
           onClose={() => setModalVisible(false)}
         />
       </Modal>

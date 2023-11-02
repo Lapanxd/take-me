@@ -20,7 +20,7 @@ $ docker compose up -d
 
 ```bash
 
-$ cd apps/api
+$ cd packages/api
 # install dependencies
 $ pnpm install
 ```
@@ -46,7 +46,7 @@ $ npm run expo:start
 ### API
 
 ```bash
-$ cd apps/api
+$ cd packages/api
 $ pnpm run start
 ```
 

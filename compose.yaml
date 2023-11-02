@@ -31,8 +31,8 @@ services:
 #   develop:
 #     watch:
 #       - action: sync
-#         path: ./apps/api
-#         target: /app/apps/api
+#         path: ./packages/api
+#         target: /app/packages/api
 #         ignore:
 #           - node_modules/
 #       - action: rebuild
@@ -49,8 +49,8 @@ services:
 # develop:
 #   watch:
 #     - action: sync
-#       path: ./apps/front
-#       target: /app/apps/front
+#       path: ./packages/front
+#       target: /app/packages/front
 #       ignore:
 #         - node_modules/
 #     - action: rebuild

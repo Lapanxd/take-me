@@ -93,7 +93,7 @@ const AppStack = observer(function AppStack() {
         </>
       ) : (
         <>
-          <Stack.Screen name="Login" component={Screens.LoginScreen} />
+          <Stack.Screen name="Inscription" component={Screens.Inscription} />
         </>
       )}
       {/* @demo remove-block-end */}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -7,28 +7,54 @@ import {
   Image,
   TouchableOpacity,
   ImageStyle,
+  Modal,
 } from 'react-native';
 import { colors } from '../theme';
+import IconEye from '../icons/IconEye';
+import AdvertDetail from './AdvertDetail';
 
 interface Props {
   name: string;
-  image: string; 
+  image: string;
   description: string;
-  onPress: (name: string) => void;
+  geocode: number;
 }
 
-export const AdvertCard: React.FC<Props> = ({ name, image, onPress }) => {
+export const AdvertCard: React.FC<Props> = ({ name, image, description, geocode }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <TouchableOpacity onPress={() => onPress(name)}>
-      <View style={$container}>
-        <View style={$adcard}>
-          <Text style={$name}>{name}</Text>
-          <Image source={{ uri: image }} style={$image} />
+    <View>
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <View style={$container}>
+          <View style={$adcard}>
+            <Text style={$name}>{name}</Text>
+            <Image source={{ uri: image }} style={$image} />
+            <Text style={$button}>Regarder le détail <IconEye color={'black'} size={20} /></Text>
+          </View>
         </View>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+
+      <Modal
+        animationType="fade"
+        transparent={false}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <AdvertDetail
+          name={name}
+          image={image}
+          description={description}
+          geocode={geocode}
+          onClose={() => setModalVisible(false)}
+        />
+      </Modal>
+    </View>
   );
 };
+
 
 const $container: ViewStyle = {
   flex: 1,
@@ -69,5 +95,13 @@ const $image: ImageStyle = {
   marginRight: 8,
   borderRadius: 8,
 };
+
+const $button: TextStyle = {
+  marginTop: 10,
+  marginBottom: 4,
+  color: colors.text,
+  backgroundColor: colors.transparent,
+};
+
 
 export default AdvertCard;

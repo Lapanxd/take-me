@@ -14,8 +14,6 @@ function IgniteApp() {
   return <App hideSplashScreen={SplashScreen.hideAsync} />
 }
 
-if (Platform.OS !== "web") {
-  registerRootComponent(IgniteApp)
-}
+registerRootComponent(IgniteApp)
 
 export default IgniteApp

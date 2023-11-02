@@ -12,24 +12,18 @@ import { colors } from '../theme';
 
 interface Props {
   name: string;
-  image: string; // Ajout de la prop image
+  image: string; 
   description: string;
   onPress: (name: string) => void;
 }
 
-export const AdvertCard: React.FC<Props> = ({ name, image, description, onPress }) => {
+export const AdvertCard: React.FC<Props> = ({ name, image, onPress }) => {
   return (
     <TouchableOpacity onPress={() => onPress(name)}>
       <View style={$container}>
         <View style={$adcard}>
-          {/* Ajout de l'Image */}
+          <Text style={$name}>{name}</Text>
           <Image source={{ uri: image }} style={$image} />
-          <View style={$adcontent}>
-            <Text style={$name}>{name}</Text>
-            <View style={{ flexDirection: 'row' }}>
-              <Text style={$description}>{description}</Text>
-            </View>
-          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -44,7 +38,6 @@ const $container: ViewStyle = {
 };
 
 const $adcard: ViewStyle = {
-  // width: "50%",
   backgroundColor: 'white',
   borderRadius: 8,
   shadowColor: '#000',
@@ -55,29 +48,19 @@ const $adcard: ViewStyle = {
   shadowOpacity: 0.2,
   shadowRadius: 2,
   elevation: 2,
-  marginLeft: 50,
   padding: 16,
-  flexDirection: 'row',
-};
-
-const $adcontent: ViewStyle = {
-  padding: 16,
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center'
 };
 
 const $name: TextStyle = {
   fontSize: 24,
   fontWeight: 'bold',
   marginTop: 4,
+  marginBottom: 4,
   color: colors.text,
   backgroundColor: colors.transparent,
-};
-const $description: TextStyle = {
-  fontSize: 14,
-  marginTop: 4,
-  color: colors.text,
-  backgroundColor: colors.transparent,
-  flexShrink: 1,
-  flexWrap: 'wrap',
 };
 
 const $image: ImageStyle = {

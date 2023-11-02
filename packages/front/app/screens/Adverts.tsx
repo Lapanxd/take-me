@@ -97,14 +97,14 @@ const $advertscontent: ViewStyle = {
 
 const $advertslist: ViewStyle = {
   flexDirection: 'column',
-  width: 700,
-  height: 500,
+  width: '25%',
+  height: '100vh',
 };
 
 const $mapcontent: ViewStyle = {
   flexDirection: 'column',
-  width: 500,
-  height: 300,
+  width: '70%',
+  height: '100vh',
 };
 
 const $welcomeHeading: TextStyle = {

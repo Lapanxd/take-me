@@ -38,7 +38,11 @@ const config = {
     Login: {
       path: "",
     },
-    NewPage: 'newpage',
+    NewPage: "newpage",
+    AddAdvert: "addadvert",
+    Inscription: 'Inscription',
+    Connect: 'Connect',
+    Profil: 'Profil',
     Welcome: "welcome",
     Demo: {
       screens: {
@@ -48,6 +52,11 @@ const config = {
         DemoDebug: "debug",
         DemoPodcastList: "podcast",
         DemoCommunity: "community",
+      },
+    },
+    Advert: {
+      screens: {
+        AdvertList: "advertlist",
       },
     },
   },

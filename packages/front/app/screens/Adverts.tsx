@@ -10,7 +10,7 @@ import Map from '../components/Map';
 
 type Props = NativeStackScreenProps<RootStackParams, 'AdvertsStack'>;
 
-export const Adverts = ({ navigation }: Props) => {
+export const Adverts = () => {
   const annonces = [
     {
       adname: 'Chaise en bois',
@@ -67,9 +67,6 @@ export const Adverts = ({ navigation }: Props) => {
                   description={item.description}
                   geocode={item.geocode}
                   objetType={item.objectType.name}
-                  onPress={() => {
-                    navigation.navigate('Advert', { item: item });
-                  }}
                 />
               )}
               keyExtractor={(item, index) => index.toString()}

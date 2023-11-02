@@ -1,7 +1,7 @@
 import { NavigationContainer, NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { AddAdvertScreen, NewPage, Adverts, AdvertDetailScreen } from '../screens';
+import { AddAdvertScreen, NewPage, Adverts } from '../screens';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 export type RootStackParams = {
@@ -10,19 +10,14 @@ export type RootStackParams = {
   NewPage: undefined;
   // Adverts: undefined
   AdvertsStack: NavigatorScreenParams<AdvertsStackParams>;
-  AdvertDetailScreen: {
-    name: string;
-    // id: string
-  };
+
 };
 
 const RootStack = createDrawerNavigator<RootStackParams>();
 
 export type AdvertsStackParams = {
   Adverts: undefined;
-  AdvertDetailScreen: {
-    name: string;
-  };
+
 };
 const AdvertsStack = createNativeStackNavigator<AdvertsStackParams>();
 
@@ -35,7 +30,6 @@ const AdvertScreenStack = () => {
       }}
     >
       <AdvertsStack.Screen name="Adverts" component={Adverts} />
-      <AdvertsStack.Screen name="AdvertDetailScreen" component={AdvertDetailScreen} />
     </AdvertsStack.Navigator>
   );
 };

@@ -64,7 +64,10 @@
     "reactotron-mst": "3.1.4",
     "reactotron-react-js": "^3.3.7",
     "reactotron-react-native": "5.0.3",
-    "sort-by": "^1.2.0"
+    "sort-by": "^1.2.0",
+    "react-leaflet-cluster": "^2.1.0",
+    "react-native-bootsplash": "4.5.0",
+    "react-native-drawer": "^2.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

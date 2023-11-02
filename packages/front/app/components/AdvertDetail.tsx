@@ -13,30 +13,27 @@ interface Props {
     onClose: () => void;
 }
 export const AdvertDetail: React.FC<Props> = ({ name, image, description, geocode, onClose }) => {
-
-
-
     return (
         <View style={$container}>
             <View >
                 {/* Close button */}
                 <Pressable onPress={onClose}>
-                <CloseBurgerIcon color={'black'} size={40} />
+                    <CloseBurgerIcon color={'black'} size={40} />
                 </Pressable>
             </View>
             <View style={$advertcontent}>
                 <View style={$advertbloc}>
                     <ScrollView>
-              
-                            <View style={$adcontent}>
-                                <Text style={$title}>{name}</Text>
-                                <Image source={{ uri: image }} style={$image} />
-                                <Text style={$label}>Description:</Text>
-                                <View style={$contentdescription}>
-                                    <Text style={$description}>{description}</Text>
-                                </View>
 
+                        <View style={$adcontent}>
+                            <Text style={$title}>{name}</Text>
+                            <Image source={{ uri: image }} style={$image} />
+                            <Text style={$label}>Description:</Text>
+                            <View style={$contentdescription}>
+                                <Text style={$description}>{description}</Text>
                             </View>
+
+                        </View>
                     </ScrollView>
                 </View>
                 <View style={$mapcontent}>
@@ -50,20 +47,15 @@ export const AdvertDetail: React.FC<Props> = ({ name, image, description, geocod
 
 const $container: ViewStyle = {
     flex: 1,
-    // backgroundColor: colors.background,
     padding: 16,
     margin: 8,
 };
 
 
-const $adcard: ViewStyle = {
-    backgroundColor: 'white',
-    padding: 20,
-    flexDirection: 'row',
-};
-
 const $adcontent: ViewStyle = {
     padding: 16,
+    justifyContent: 'center',
+    alignItems: 'center'
 };
 
 const $title: TextStyle = {
@@ -113,7 +105,7 @@ const $advertbloc: ViewStyle = {
 
 const $mapcontent: ViewStyle = {
     flexDirection: 'column',
-    width: 300,
+    width: 500,
     height: 300,
 };
 export default AdvertDetail;

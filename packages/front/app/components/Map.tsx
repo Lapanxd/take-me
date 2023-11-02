@@ -4,6 +4,7 @@ import { View, ViewStyle, TouchableOpacity } from 'react-native';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
+import 'leaflet/dist/leaflet.css';
 
 interface Props {
     geocodes: number[];

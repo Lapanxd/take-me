@@ -5,7 +5,6 @@ import { LocalAuthGuard } from './guards/local-auth.guard';
 import { SignInUserDto } from '../../core/dtos/sign-in-user.dto';
 import { SignUpUserDto } from '../../core/dtos/sign-up-user.dto';
 import { RefreshJwtAuthGuard } from './guards/refresh-jwt-auth.guard';
-import * as process from 'process';
 
 @Controller('auth')
 export class AuthController {
@@ -22,7 +21,6 @@ export class AuthController {
   @UseGuards(LocalAuthGuard)
   @Post('sign-in')
   async signIn(@Body() signInUserDto: SignInUserDto) {
-    console.log(process.env.JWT_SECRET);
     return this.authService.signIn(signInUserDto);
   }
 

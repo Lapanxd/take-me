@@ -40,8 +40,8 @@ export const Map: React.FC<Props> = ({ geocodes, names }) => {
 
 const $mapcontent: ViewStyle = {
     flexDirection: 'column',
-    width: 500,
-    height: 300,
+    width: '100%',
+    height: '100vh',
 };
 
 export default Map;

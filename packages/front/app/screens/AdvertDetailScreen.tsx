@@ -6,10 +6,6 @@ import { RootStackParams } from '../navigators/MenuNavigator';
 import TopBackNavigation from '../components/TopBackNavigation';
 import TopDrawerNavigation from '../components/TopDrawerNavigation';
 import { ScrollView } from 'react-native-gesture-handler';
-import 'leaflet/dist/leaflet.css';
-import leaflet from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { Icon } from 'leaflet';
 import Map from '../components/Map';
 
 type Props = NativeStackScreenProps<RootStackParams, 'AdvertDetailScreen'>;

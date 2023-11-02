@@ -1,17 +1,12 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AdvertCard from '../components/AdvertCard';
-import React, { useState } from 'react';
+import React from 'react';
 import { TextStyle, View, ViewStyle, FlatList, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { colors, spacing } from '../theme';
 import { RootStackParams } from '../navigators/MenuNavigator';
 import TopDrawerNavigation from '../components/TopDrawerNavigation';
 import Map from '../components/Map';
-import 'leaflet/dist/leaflet.css';
-import leaflet from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-cluster';
-import { Icon } from 'leaflet';
 
 type Props = NativeStackScreenProps<RootStackParams, 'AdvertsStack'>;
 
@@ -61,6 +56,7 @@ export const Adverts = ({ navigation }: Props) => {
                   name={item.adname}
                   image={item.image}
                   description={item.description}
+                  geocode={item.geocode}
                   onPress={() => {
                     navigation.navigate('Advert', { item: item });
                   }}

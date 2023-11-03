@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AdvertCard from '../components/AdvertCard';
 import React from 'react';
-import { TextStyle, View, ViewStyle, FlatList, Text } from 'react-native';
+import { TextStyle, View, ViewStyle, FlatList, Text, useWindowDimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { colors, spacing } from '../theme';
 import { RootStackParams } from '../navigators/MenuNavigator';
@@ -11,6 +11,8 @@ import Map from '../components/Map';
 type Props = NativeStackScreenProps<RootStackParams, 'AdvertsStack'>;
 
 export const Adverts = () => {
+  const { width } = useWindowDimensions();
+  const isSmallScreen = width < 800;
   const annonces = [
     {
       adname: 'Chaise en bois',
@@ -55,9 +57,8 @@ export const Adverts = () => {
         <TopDrawerNavigation />
       </View>
       <Text style={$welcomeHeading}>Toutes les annonces</Text>
-      <View style={$advertscontent}>
-
-        <View style={$advertslist}>
+      <View style={isSmallScreen ? $advertsContentSmall : $advertsContentLarge}>
+        <View style={isSmallScreen ? $advertsListSmall : $advertsListLarge} >
           <ScrollView>
             <FlatList
               data={annonces}
@@ -67,7 +68,7 @@ export const Adverts = () => {
                   image={item.image}
                   description={item.description}
                   geocode={item.geocode}
-                  objetType={item.objectType.name}
+                  objectType={item.objectType.name}
                 />
               )}
               keyExtractor={(item, index) => index.toString()}
@@ -75,9 +76,17 @@ export const Adverts = () => {
           </ScrollView>
         </View>
         <ScrollView>
-          <View style={$mapbloc}>
-          <Map geocodes={geocodes} names={names} />
-          </View>
+          {isSmallScreen && (
+            <View style={$mapBlocSmall}>
+              <Map geocodes={geocodes} names={names} />
+            </View>
+          )}
+
+          {!isSmallScreen && (
+            <View style={$mapBlocLarge}>
+              <Map geocodes={geocodes} names={names} />
+            </View>
+          )}
         </ScrollView>
       </View>
     </View >
@@ -87,8 +96,6 @@ export const Adverts = () => {
 const $container: ViewStyle = {
   flex: 1,
   backgroundColor: colors.background,
-  padding: 16,
-  marginTop: 8,
 };
 const $header: ViewStyle = {
   flexDirection: 'row',
@@ -97,17 +104,39 @@ const $header: ViewStyle = {
   marginBottom: 16,
 };
 
-const $mapbloc: ViewStyle = {
+const $mapBlocSmall: ViewStyle = {
+  flex: 1,
   width: '100%',
+  height: '100vh',
+  backgroundColor: colors.background,
 };
 
-const $advertscontent: ViewStyle = {
-  flexDirection: 'row',
-};
-const $advertslist: ViewStyle = {
-  flexDirection: 'column',
-  width: '25%',
+const $mapBlocLarge: ViewStyle = {
+  width: '95%',
   height: '100vh',
+  backgroundColor: colors.background,
+};
+
+const $advertsContentSmall: ViewStyle = {
+  flexDirection: 'column',
+  backgroundColor: colors.background,
+};
+
+const $advertsContentLarge: ViewStyle = {
+  flexDirection: 'row',
+  backgroundColor: colors.background,
+};
+
+const $advertsListSmall: ViewStyle = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%'
+};
+
+const $advertsListLarge: ViewStyle = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '30%'
 };
 
 const $welcomeHeading: TextStyle = {

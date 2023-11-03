@@ -11,13 +11,13 @@ interface Props {
     image: string;
     description: string;
     geocode: number;
-    objectType: IObjectType;
+    objectType: string;
     onClose: () => void;
 }
 
-export const AdvertDetail: React.FC<Props> = ({ name, image, description, geocode, onClose }) => {
+export const AdvertDetail: React.FC<Props> = ({ name, image, description, geocode, objectType, onClose }) => {
     const { width } = useWindowDimensions();
-    const isSmallScreen = width < 600;
+    const isSmallScreen = width < 800;
     return (
         <View>
         <View style={$closeButton}>
@@ -34,6 +34,10 @@ export const AdvertDetail: React.FC<Props> = ({ name, image, description, geocod
                     <View style={$contentDescription}>
                         <Text style={$description}>{description}</Text>
                     </View>
+                    <Text style={$label}>Type:</Text>
+                    <Text style={$description}>
+                        {objectType}
+                    </Text>
                     </ScrollView>
             </View>
             {isSmallScreen && (
@@ -56,6 +60,7 @@ export const AdvertDetail: React.FC<Props> = ({ name, image, description, geocod
 
 const $closeButton: ViewStyle = {
     flex: 1,
+    padding: 30,
 };
 
 const $advertContentSmall: ViewStyle = {
@@ -64,7 +69,6 @@ const $advertContentSmall: ViewStyle = {
 
 const $advertContentLarge: ViewStyle = {
     flexDirection: 'row',
-
     margin: 50
 };
 
@@ -96,6 +100,7 @@ const $label: TextStyle = {
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 4,
+    marginTop: 8
 };
 
 const $contentDescription: ViewStyle = {

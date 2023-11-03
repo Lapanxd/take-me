@@ -80,7 +80,8 @@ const $adcard: ViewStyle = {
   padding: 16,
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+ 
 };
 
 const $name: TextStyle = {

@@ -14,7 +14,7 @@ export const Adverts = () => {
   const annonces = [
     {
       adname: 'Chaise en bois',
-      description: 'Chaise en bon état, couleur marron',
+      description: 'Chaise en bon état, couleur marron, Chaise en bon état, couleur marron; Chaise en bon état, couleur marron',
       geocode: [44.858, -0.5667],
       objectType: {
         id: 1,
@@ -56,6 +56,7 @@ export const Adverts = () => {
       </View>
       <Text style={$welcomeHeading}>Toutes les annonces</Text>
       <View style={$advertscontent}>
+
         <View style={$advertslist}>
           <ScrollView>
             <FlatList
@@ -74,9 +75,11 @@ export const Adverts = () => {
           </ScrollView>
         </View>
         <ScrollView>
-            <Map geocodes={geocodes} names={names} />
-          </ScrollView>
-    </View>
+          <View style={$mapbloc}>
+          <Map geocodes={geocodes} names={names} />
+          </View>
+        </ScrollView>
+      </View>
     </View >
   );
 };
@@ -94,19 +97,16 @@ const $header: ViewStyle = {
   marginBottom: 16,
 };
 
+const $mapbloc: ViewStyle = {
+  width: '100%',
+};
+
 const $advertscontent: ViewStyle = {
   flexDirection: 'row',
 };
-
 const $advertslist: ViewStyle = {
   flexDirection: 'column',
   width: '25%',
-  height: '100vh',
-};
-
-const $mapcontent: ViewStyle = {
-  flexDirection: 'column',
-  width: '70%',
   height: '100vh',
 };
 

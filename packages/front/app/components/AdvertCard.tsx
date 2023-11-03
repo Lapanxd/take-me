@@ -93,7 +93,7 @@ const $name: TextStyle = {
 };
 
 const $image: ImageStyle = {
-  width: 200,
+  width: '80%',
   height: 200,
   marginRight: 8,
   borderRadius: 8,
@@ -105,7 +105,7 @@ const $button: TextStyle = {
   color: colors.text,
   backgroundColor: colors.transparent,
   justifyContent: 'center',
-  alignItems: 'center',
+  alignItems: 'center'
 };
 
 

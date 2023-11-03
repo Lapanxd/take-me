@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ViewStyle, Text, Image, ImageStyle, TextStyle, Pressable } from 'react-native';
+import { View, ViewStyle, Text, Image, ImageStyle, TextStyle, Pressable, useWindowDimensions } from 'react-native';
 import Map from '../components/Map';
 import { ScrollView } from 'react-native-gesture-handler';
 import { colors } from '../theme';
@@ -14,52 +14,74 @@ interface Props {
     objectType: IObjectType;
     onClose: () => void;
 }
-export const AdvertDetail: React.FC<Props> = ({ name, image, description, geocode, onClose }) => {
-    return (
-        <View style={$container}>
-            <View >
-                {/* Close button */}
-                <Pressable onPress={onClose}>
-                    <CloseBurgerIcon color={'black'} size={40} />
-                </Pressable>
-            </View>
-            <View style={$advertcontent}>
-                <View style={$advertbloc}>
-                    <ScrollView>
 
-                        <View style={$adcontent}>
-                            <Text style={$title}>{name}</Text>
-                            <Image source={{ uri: image }} style={$image} />
-                            <Text style={$label}>Description:</Text>
-                            <View style={$contentdescription}>
-                                <Text style={$description}>{description}</Text>
-                            </View>
-                            {/* <Text>
-                                {objectType.name}
-                            </Text> */}
-                        </View>
+export const AdvertDetail: React.FC<Props> = ({ name, image, description, geocode, onClose }) => {
+    const { width } = useWindowDimensions();
+    const isSmallScreen = width < 600;
+    return (
+        <View>
+        <View style={$closeButton}>
+            <Pressable onPress={onClose}>
+                <CloseBurgerIcon color={'black'} size={40} />
+            </Pressable>
+        </View>
+        <View style={isSmallScreen ? $advertContentSmall : $advertContentLarge}>
+            <View style={isSmallScreen ? $adContentSmall : $adContentLarge}>
+                <ScrollView>
+                    <Text style={$title}>{name}</Text>
+                    <Image source={{ uri: image }} style={isSmallScreen ? $imageSmall : $imageLarge} />
+                    <Text style={$label}>Description:</Text>
+                    <View style={$contentDescription}>
+                        <Text style={$description}>{description}</Text>
+                    </View>
                     </ScrollView>
-                </View>
-                <View style={$mapcontent}>
+            </View>
+            {isSmallScreen && (
+                <View style={$mapContentSmall}>
                     <Map geocodes={[geocode]} names={[name]} selectedGeocode={geocode} />
                 </View>
+            )}
+     
+        {!isSmallScreen && (
+            <View style={$mapContentLarge}>
+                <Map geocodes={[geocode]} names={[name]} selectedGeocode={geocode} />
             </View>
-
-        </View>
+        )}
+           </View>
+    </View>
     );
 };
 
-const $container: ViewStyle = {
+
+
+const $closeButton: ViewStyle = {
     flex: 1,
-    padding: 16,
-    margin: 8,
 };
 
+const $advertContentSmall: ViewStyle = {
+    flexDirection: 'column',
+};
 
-const $adcontent: ViewStyle = {
+const $advertContentLarge: ViewStyle = {
+    flexDirection: 'row',
+
+    margin: 50
+};
+
+const $adContentLarge: ViewStyle = {
     padding: 16,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    width: '50%'
+
+};
+
+const $adContentSmall: ViewStyle = {
+    padding: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '80%'
+
 };
 
 const $title: TextStyle = {
@@ -76,9 +98,11 @@ const $label: TextStyle = {
     marginBottom: 4,
 };
 
-const $contentdescription: ViewStyle = {
+const $contentDescription: ViewStyle = {
     flexDirection: 'row',
+    margin: 10
 };
+
 const $description: TextStyle = {
     fontSize: 16,
     marginTop: 4,
@@ -88,28 +112,27 @@ const $description: TextStyle = {
     flexWrap: 'wrap',
 };
 
-const $image: ImageStyle = {
-    width: 300,
+const $imageSmall: ImageStyle = {
+    width: '100%',
+    height: 300,
+    borderRadius: 8,
+};
+
+const $imageLarge: ImageStyle = {
+    width: '50%',
     height: 300,
     marginRight: 8,
     borderRadius: 8,
 };
 
-const $advertcontent: ViewStyle = {
-    flexDirection: 'row',
+const $mapContentSmall: ViewStyle = {
+    flex: 1,
+    width: '100%',
+    height: 300,
 };
 
-const $advertbloc: ViewStyle = {
-    flexDirection: 'column',
-    width: 700,
-    height: 500,
-    justifyContent: 'center',
-    alignItems: 'center',
-};
-
-const $mapcontent: ViewStyle = {
-    flexDirection: 'column',
-    width: 500,
+const $mapContentLarge: ViewStyle = {
+    width: '70%',
     height: 300,
 };
 export default AdvertDetail;

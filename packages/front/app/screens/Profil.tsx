@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, ScrollView, Dimensions, useWindowDimensions, ImageBackground} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
@@ -9,6 +9,15 @@ const logoo = require('../../assets/images/logoo.png');
 
 export const Profil = ({ route }) => {
   const { nom, prenom, username, email, phone } = route.params;
+  const screenWidth = Dimensions.get('window').width;
+  const imageSizeFactor = 0.2;
+  const imageNavSize = 0.1;
+  const logoSize = 0.2;
+
+
+  const windowDimensions = useWindowDimensions();
+  const textSizeFactor = 0.01;
+
 
   const [nomProfil, setnom] = useState(nom);
   const [prenomProfil, setPrenom] = useState(prenom);
@@ -23,7 +32,7 @@ export const Profil = ({ route }) => {
   }
 
   function handleProfil() {
-    navigation.navigate('Profil', { nom: nom, prenom: prenom, username: username, email: email });
+    navigation.navigate('Profil', { nom, prenom, username, email });
   }
 
   const [image, setImage] = useState('');
@@ -95,15 +104,16 @@ export const Profil = ({ route }) => {
   };
   */
 
-  const [selectedOption, setSelectedOption] = useState<'Profil' | 'Securite'>('Profil');
+  //const [selectedOption, setSelectedOption] = useState<'Profil' | 'Securite'>('Profil');
   const [showOptions, setShowOptions] = useState(false);
 
   return (
+    
     <View style={styles.container}>
       {/* Barre de navigation */}
       <View style={styles.nav}>
         <TouchableOpacity style={styles.btnLogo} onPress={Return}>
-          <Image source={logoo} style={styles.logo} resizeMode="contain" />
+          <Image source={logoo} style={[styles.logo, { width: screenWidth * logoSize, height: screenWidth * logoSize }]} resizeMode="contain" />
         </TouchableOpacity>
 
         <TextInput
@@ -113,13 +123,13 @@ export const Profil = ({ route }) => {
         ></TextInput>
 
         <TouchableOpacity style={styles.btnAjout}>
-          <Text style={styles.txt_ajt_nav}>Ajouter un objet</Text>
+          <Text style={[styles.txt_ajt_nav, { fontSize: windowDimensions.width * textSizeFactor }]}>Ajouter un objet</Text>
         </TouchableOpacity>
 
         {image ? (
-          <Image source={{ uri: image }} style={styles.profileImage_nav} />
+          <Image source={{ uri: image }} style={[styles.profileImage_nav, { width: screenWidth * imageNavSize, height: screenWidth * imageNavSize }]} />
         ) : (
-          <Image source={defaultUser} style={styles.profileImage_nav} />
+          <Image source={defaultUser} style={[styles.profileImage_nav, { width: screenWidth * imageNavSize, height: screenWidth * imageNavSize }]} />
         )}
         <TouchableOpacity style={styles.btnMenu} onPress={() => setShowOptions(!showOptions)}>
           <Icon name="caret-down" size={25} color="black"></Icon>
@@ -128,122 +138,68 @@ export const Profil = ({ route }) => {
         {showOptions && (
           <View style={styles.optionsContainer}>
             <TouchableOpacity style={styles.option}>
-              <Text>Gérer mes annonces</Text>
+              <Text style={[{ fontSize: windowDimensions.width * textSizeFactor }]}>Gérer mes annonces</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.optionF}>
-              <Text>Mes favoris</Text>
+              <Text style={[{ fontSize: windowDimensions.width * textSizeFactor }]}>Mes favoris</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.optionC} onPress={handleProfil}>
-              <Text>Compte</Text>
+              <Text style={[{ fontSize: windowDimensions.width * textSizeFactor }]}>Compte</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.option}>
-              <Text>Centre d'aide</Text>
+              <Text style={[{ fontSize: windowDimensions.width * textSizeFactor }]}>Centre d'aide</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.option} onPress={handleLogout}>
-              <Text>Déconnexion</Text>
+              <Text style={[{ fontSize: windowDimensions.width * textSizeFactor }]}>Déconnexion</Text>
             </TouchableOpacity>
           </View>
         )}
       </View>
-
-      {/* Barre du formulaire*/}
-      <View style={styles.navForm}>
-        <Text style={styles.titreNav1}> Tableau de bord</Text>
-        <Text style={styles.titreNav2}> Compte & sécurité</Text>
-      </View>
-
-      {/* formulaire tableau de bord */}
-      <View style={styles.form_tbl_bord}>
-        <View style={styles.section1_tbl_bord}>
-          <Text style={styles.titre_tle_bord}>Compte & Sécurité</Text>
-
-          {image ? (
-            <Image source={{ uri: image }} style={styles.profileImage_Bord} />
-          ) : (
-            <Image source={defaultUser} style={styles.profileImage_Bord} />
-          )}
-          <Text style={styles.titre}>{username} </Text>
-          <TouchableOpacity style={styles.logoutBtn} onPress={handleLogout}>
-            <Icon name="sign-out" size={20} color="#212121" style={styles.logoutIcon}></Icon>
-
-            <Text style={styles.txtLogout}>Déconnexion</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.section2_tbl_bord}>
-          <TouchableOpacity style={styles.accueilBtn}>
-            <Text style={styles.txt_section2}>Accueil</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.annonceBtn}>
-            <Text style={styles.txt_section2}>Gérer mes annonces</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.ajoutBtn}>
-            <Text style={styles.txt_section2}>Ajouter un objet</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btnFavori}>
-            <Text style={styles.txt_section2}>Mes favoris</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.btnAide}>
-            <Text style={styles.txt_section2}>Centre d'aide</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {/* formulaire Compte & Profil */}
-      <View style={styles.formProfil}>
-        <TouchableOpacity style={styles.profilBtn} onPress={() => setSelectedOption('Profil')}>
-          <Text style={styles.btn_pTxt}>Compte</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.compteBtn} onPress={() => setSelectedOption('Securite')}>
-          <Text style={styles.btn_cTxt}>Sécurité</Text>
-        </TouchableOpacity>
+      
+      {/* formulaire Compte & Sécurité */}
+      <View style={styles.formProfil}>  
 
         {/* formulaire Profil */}
-        {selectedOption === 'Profil' && (
           <View style={styles.profilView}>
             <View style={styles.imgView}>
               {image ? (
-                <Image source={{ uri: image }} style={styles.profileImage} />
+                <Image source={{ uri: image }} style={[styles.profileImage, { width: screenWidth * imageSizeFactor, height: screenWidth * imageSizeFactor }]}/>
               ) : (
-                <Image source={defaultUser} style={styles.profileImage} />
+                <Image source={defaultUser} style={[styles.profileImage, { width: screenWidth * imageSizeFactor, height: screenWidth * imageSizeFactor }]} />
               )}
 
               <TouchableOpacity style={styles.imgDownload} onPress={pickImage}>
-                <Text style={styles.txt_btn_img}>Télécharger</Text>
+                <Text style={[styles.txt_btn_img, { fontSize: windowDimensions.width * textSizeFactor }]}>Télécharger</Text>
               </TouchableOpacity>
             </View>
 
-            <View style={styles.field}>
-              <Text>Nom</Text>
+            
+              <Text style={[{ fontSize: windowDimensions.width * textSizeFactor }]}>Nom</Text>
               <TextInput
                 style={styles.input}
                 onChangeText={(text) => setnom(text)}
                 value={nomProfil}
               />
 
-              <Text>Prénom</Text>
+              <Text style={[{ fontSize: windowDimensions.width * textSizeFactor }]}>Prénom</Text>
               <TextInput
                 style={styles.input}
                 onChangeText={(text) => setPrenom(text)}
                 value={prenomProfil}
               />
 
-              <Text>Nom d'utilisateur</Text>
+              <Text style={[{ fontSize: windowDimensions.width * textSizeFactor }]}>Nom d'utilisateur</Text>
               <TextInput
                 style={styles.input}
                 onChangeText={(text) => setUsername(text)}
                 value={usernameProfil}
               />
 
-              <Text>Email</Text>
+              <Text style={[{ fontSize: windowDimensions.width * textSizeFactor }]}>Email</Text>
               <TextInput
                 style={styles.input}
                 placeholder="Email"
@@ -251,16 +207,12 @@ export const Profil = ({ route }) => {
                 onChangeText={(text) => setEmail(text)}
                 value={emailCompte}
               />
-            </View>
           </View>
-        )}
-
-        {/* formulaire Compte */}
-        {selectedOption === 'Securite' && (
-          <View style={styles.compteView}>
+            
+        {/* formulaire Sécurité */}
+          <View style={styles.secuView}>
             <Text style={styles.txtPass}>Mettre à jours mon mot de passe</Text>
 
-            <View style={styles.field}>
               <Text>Mot de passe</Text>
               <TextInput
                 style={styles.input}
@@ -278,9 +230,9 @@ export const Profil = ({ route }) => {
                 onChangeText={(text) => setPhone(text)}
                 value={phoneCompte}
               />
-            </View>
+            
           </View>
-        )}
+
       </View>
     </View>
   );
@@ -289,8 +241,8 @@ export const Profil = ({ route }) => {
 const styles = StyleSheet.create({
   /* Conteneur Principal*/
   container: {
-    backgroundColor: 'white',
     flex: 1,
+    backgroundColor: 'white',
   },
 
   /* Barres de navigation*/
@@ -330,21 +282,16 @@ const styles = StyleSheet.create({
 
   logo: {
     position: 'absolute',
-    width: 220,
-    height: 50,
+    backgroundColor:'grey'
   },
 
   /* Formulaires*/
   formProfil: {
-    position: 'absolute',
-    marginLeft: '30%',
-    marginTop: '9%',
-    backgroundColor: 'white',
-    width: '70%',
-    height: '100%',
-    padding: 20,
-    borderLeftWidth: 1,
-    borderColor: '#FF9900',
+    flex: 1,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    backgroundColor:'blue'
+   
   },
 
   form_tbl_bord: {
@@ -354,11 +301,18 @@ const styles = StyleSheet.create({
     marginTop: '9%',
   },
 
-  field: {
-    position: 'absolute',
-    marginTop: '20%',
-    marginLeft: '35%',
-    padding: 10,
+  profilView: 
+  {
+    flex: 1,
+    marginTop:'10%',
+    paddingRight: 10,
+  },
+
+  secuView: 
+  {
+    flex: 1,
+    paddingLeft: 10,
+    marginTop:'29%',
   },
 
   section1_tbl_bord: {
@@ -427,10 +381,9 @@ const styles = StyleSheet.create({
   },
 
   txt_btn_img: {
-    fontSize: 18,
     alignSelf: 'center',
     justifyContent: 'center',
-    paddingVertical: 2,
+    paddingVertical: 5,
     color: '#FFFFFF',
   },
 
@@ -478,8 +431,7 @@ const styles = StyleSheet.create({
 
   txtPass: {
     position: 'absolute',
-    marginTop: '10%',
-    marginLeft: '35%',
+    marginLeft: '20%',
     fontSize: 18,
   },
 
@@ -496,8 +448,7 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    width: 300,
-    height: 40,
+    
     borderWidth: 1,
     borderRadius: 7,
     borderColor: 'rgba(128, 128, 128, .5)',
@@ -546,6 +497,7 @@ const styles = StyleSheet.create({
   },
 
   btnMenu: {
+    flex:1,
     position: 'absolute',
     marginLeft: '94%',
     marginTop: '3%',
@@ -619,20 +571,13 @@ const styles = StyleSheet.create({
     borderColor: '#FF9900',
   },
 
-  profilView: {},
-
-  compteView: {},
+ 
 
   imgView: {
     backgroundColor: 'grey',
   },
 
   profileImage: {
-    position: 'absolute',
-    width: 100,
-    height: 100,
-    marginTop: '5%',
-    marginLeft: '33%',
     borderRadius: 100,
     borderWidth: 5,
     borderColor: '#FF9900',
@@ -640,8 +585,7 @@ const styles = StyleSheet.create({
 
   profileImage_nav: {
     position: 'absolute',
-    width: 50,
-    height: 50,
+    
     marginTop: '1%',
     marginLeft: '90%',
     borderRadius: 100,

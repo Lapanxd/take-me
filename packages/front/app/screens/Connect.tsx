@@ -10,6 +10,7 @@ import {
   Dimensions,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { colors, spacing } from '../theme';
 import { useNavigation } from '@react-navigation/native';
 const userConn = require('../../assets/images/logoo.png');
 const background = require('../../assets/images/bg.jpg');

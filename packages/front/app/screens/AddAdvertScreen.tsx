@@ -59,7 +59,7 @@ const $adcard: ViewStyle = {
   shadowRadius: 2,
   elevation: 2,
   marginLeft: 50,
-  padding: '36px',
+  padding: 36,
 };
 const $title: TextStyle = {
   fontSize: 34,

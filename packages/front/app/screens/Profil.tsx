@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, TextInput, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
@@ -406,7 +406,6 @@ const styles = StyleSheet.create({
     position: 'absolute',
     marginTop: '22%',
     marginLeft: '10%',
-    fontFamily: 'Calibri',
     fontWeight: 'bold',
     fontSize: 16,
   },

@@ -11,9 +11,7 @@ import { AppStackScreenProps } from '../navigators'; // @demo remove-current-lin
 import { colors, spacing } from '../theme';
 import { useHeader } from '../utils/useHeader'; // @demo remove-current-line
 import { useSafeAreaInsetsStyle } from '../utils/useSafeAreaInsetsStyle';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Card } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import TopDrawerNavigation from 'app/components/TopDrawerNavigation';
 
 const welcomeLogo = require('../../assets/images/logo.png');

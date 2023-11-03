@@ -6,11 +6,11 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { colors, spacing } from '../theme';
 import { RootStackParams } from '../navigators/MenuNavigator';
 import TopDrawerNavigation from '../components/TopDrawerNavigation';
-import 'leaflet/dist/leaflet.css';
-import leaflet from 'leaflet';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-cluster';
-import { Icon } from 'leaflet';
+// import 'leaflet/dist/leaflet.css';
+// import leaflet from 'leaflet';
+// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+// import MarkerClusterGroup from 'react-leaflet-cluster';
+// import { Icon } from 'leaflet';
 
 type Props = NativeStackScreenProps<RootStackParams, 'AdvertsStack'>;
 
@@ -72,26 +72,25 @@ export const Adverts = ({ navigation }: Props) => {
           </ScrollView>
         </View>
         <View style={$mapcontent}>
-          <MapContainer
+          {/* <MapContainer
             center={[44.8378, -0.5667]}
             zoom={13}
             style={{ width: '100%', height: '80vh' }}
           >
-            {/* OPEN STREEN MAPS TILES */}
             <TileLayer
               attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
 
             <MarkerClusterGroup chunkedLoading>
-              {/* Mapping through the markers */}
+              {// Mapping through the markers }
               {annonces.map((marker) => (
                 <Marker position={marker.geocode} icon={customIcon}>
                   <Popup>{marker.adname}</Popup>
                 </Marker>
               ))}
             </MarkerClusterGroup>
-          </MapContainer>
+          </MapContainer> */}
         </View>
       </View>
     </View>

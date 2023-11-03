@@ -4,32 +4,40 @@ import { IObjectImage } from '../models/objectImage.model';
 import { IObjectType } from '../models/objectType.model';
 import { ObjectType } from './object-type.entity';
 import { ObjectImage } from './object-image.entity';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Advert implements IAdvert {
   @PrimaryGeneratedColumn()
+  @ApiProperty({ example: 1 })
   id: number;
 
   @Column()
+  @ApiProperty({ example: 'Canapé bleu' })
   name: string;
 
   @Column()
+  @ApiProperty({ example: 'Un super canapé bleu est plutôt bon état.' })
   description: string;
 
   @OneToOne(() => ObjectType)
   @JoinColumn()
+  @ApiProperty({ example: { id: 1, name: 'meuble' } })
   objectType: IObjectType;
 
   @OneToMany(() => ObjectImage, (objectImage: ObjectImage) => objectImage.advert, {
     cascade: true,
     eager: true,
   })
+  @ApiProperty({ example: ['url.com/img.png', 'url.com/img2.png'] })
   images: IObjectImage[];
 
   @Column()
+  @ApiProperty({ example: -20 })
   latitude: number;
 
   @Column()
+  @ApiProperty({ example: -10 })
   longitude: number;
 
   @Column({

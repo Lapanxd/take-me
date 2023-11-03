@@ -46,6 +46,27 @@ export const Adverts = () => {
       geocode: [44.8279, -0.567],
       image: 'https://rouen.blogs.com/.a/6a00e551daa20b88330133ee6b474d970b-700wi',
     },
+    {
+      adname: 'Étagère rouge',
+      description: 'Étagère blanche, 1m50',
+      geocode: [44.8375, -0.5667],
+      objectType: {
+        id: 1,
+        name: "meuble"
+      },
+      image:
+        'https://www.lafoirfouille.fr/medias/sys_master/images/images/h20/hc8/8892827336734/10000180640-0-1200Wx1200H.jpg',
+    },
+    {
+      adname: 'Canapé 2 places',
+      description: 'A nettoyer, bon état',
+      objectType: {
+        id: 1,
+        name: "meuble"
+      },
+      geocode: [44.8279, -0.567],
+      image: 'https://rouen.blogs.com/.a/6a00e551daa20b88330133ee6b474d970b-700wi',
+    },
   ];
 
   const geocodes = annonces.map((item) => item.geocode);
@@ -75,7 +96,6 @@ export const Adverts = () => {
             />
           </ScrollView>
         </View>
-        <ScrollView>
           {isSmallScreen && (
             <View style={$mapBlocSmall}>
               <Map geocodes={geocodes} names={names} />
@@ -87,7 +107,6 @@ export const Adverts = () => {
               <Map geocodes={geocodes} names={names} />
             </View>
           )}
-        </ScrollView>
       </View>
     </View >
   );
@@ -113,7 +132,7 @@ const $mapBlocSmall: ViewStyle = {
 
 const $mapBlocLarge: ViewStyle = {
   width: '95%',
-  height: '100vh',
+  height: '80vh',
   backgroundColor: colors.background,
 };
 
@@ -130,13 +149,16 @@ const $advertsContentLarge: ViewStyle = {
 const $advertsListSmall: ViewStyle = {
   justifyContent: 'center',
   alignItems: 'center',
-  width: '100%'
+  width: '100%',
+  backgroundColor: colors.background,
 };
 
 const $advertsListLarge: ViewStyle = {
   justifyContent: 'center',
   alignItems: 'center',
-  width: '30%'
+  width: '30%',
+  height: '80vh',
+  backgroundColor: colors.background,
 };
 
 const $welcomeHeading: TextStyle = {
@@ -144,5 +166,6 @@ const $welcomeHeading: TextStyle = {
   fontSize: 44,
   fontWeight: 'bold',
   padding: 16,
+  marginLeft: 50
 };
 export default Adverts;

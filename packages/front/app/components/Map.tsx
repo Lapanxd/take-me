@@ -5,6 +5,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 import 'leaflet/dist/leaflet.css';
+import { colors } from '../theme';
 
 interface Props {
     geocodes: number[];
@@ -43,6 +44,7 @@ const $mapcontent: ViewStyle = {
     flexDirection: 'column',
     width: '100%',
     height: '100vh',
+    backgroundColor: colors.transparent,
 };
 
 export default Map;

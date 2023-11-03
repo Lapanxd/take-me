@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Image, StyleSheet, TextInput, Text, TouchableOpacity } from 'react-native';
+import { SafeAreaView, Image, StyleSheet, TextInput, Text, TouchableOpacity, Dimensions } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import IconFolderOpen from '../icons/IconFolderOpen';
 import IconCamera from '../icons/IconCamera';
 
 import { useNavigation } from '@react-navigation/native';
 
-const defaultAdvert = require('../../assets/images/default_user.png');
-
+const { width, height } = Dimensions.get('window');
 
 const AdvertFormScreen = () => {
   const [name, onChangeName] = React.useState('');
@@ -59,7 +58,7 @@ const AdvertFormScreen = () => {
 
 
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.container}>
       <TextInput
         style={styles.input}
         onChangeText={onChangeName}
@@ -89,7 +88,7 @@ const AdvertFormScreen = () => {
       /> */}
 
 
-      {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
+      {image && <Image source={{ uri: image }} style={styles.image} />}
       <TouchableOpacity style={styles.imgDownload} onPress={pickImage}>
         <Text style={styles.txt_btn_img}><IconFolderOpen color='black' size={20} /> Télécharger depuis la galerie</Text>
       </TouchableOpacity>
@@ -106,6 +105,11 @@ const AdvertFormScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   input: {
     height: 40,
     margin: 12,
@@ -113,33 +117,37 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 7,
     marginTop: 10,
+    width: '80%',
   },
   btn: {
     backgroundColor: 'black',
     width: '60%',
     height: 40,
-    position: 'relative',
-    left: '17%',
     borderRadius: 7,
+    marginTop: 10,
   },
-
+  image: {
+    width: '80%',
+    height: width * 0.6,
+    marginTop: 10,
+  },
   txtBtn: {
     color: 'white',
     textAlign: 'center',
-    position: 'relative',
-    top: '20%',
+    lineHeight: 40,
   },
 
   txt_btn_img: {
     fontSize: 18,
     paddingVertical: 2,
     padding: 10,
+    flexDirection: 'row'
   },
   imgDownload: {
     borderColor: '#212121',
     height: 30,
     borderRadius: 5,
-    width: '60%',
+    width: '80%',
     margin: 10,
   },
 });

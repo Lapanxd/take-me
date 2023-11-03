@@ -3,7 +3,7 @@
 The application contains a Nest API, a React-native front end and a MySQL database.
 You will need Docker, Nodejs 16+ (npm), and Pnpm.
 
-## Installation
+## Installation & local run
 
 ### Database
 
@@ -19,34 +19,26 @@ $ docker compose up -d
 > Make sure to have pnpm installed
 
 ```bash
-
+# move to the right directory
 $ cd packages/api
+
 # install dependencies
 $ pnpm install
+
+# run the app (developpment mode)
+$ pnpm run dev
 ```
 
 ### Front
 
 ```bash
 # from the root directory, move to the front
-$ cd takeMe-Front
+$ cd packages/front
+
 # install dependencies
-$ npm install
-```
+$ pnpm install
 
-## Running the app
-
-### Front
-
-```bash
-$ cd takeMe-Front
-$ npm run expo:start
-```
-
-### API
-
-```bash
-$ cd packages/api
+# run the app (developpment mode)
 $ pnpm run start
 ```
 

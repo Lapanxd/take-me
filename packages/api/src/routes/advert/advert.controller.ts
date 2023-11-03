@@ -8,12 +8,14 @@ import {
   Patch,
   Post,
   UseGuards,
+  Req
 } from '@nestjs/common';
 import { AdvertService } from './advert.service';
 import { Advert } from '../../core/entities/advert.entity';
 import { CreateAdvertDto } from '../../core/dtos/create-advert.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AdvertDto } from '../../core/dtos/advert.dto';
+import { Request } from 'express'
 
 @Controller('adverts')
 export class AdvertController {
@@ -27,6 +29,13 @@ export class AdvertController {
 
   @Get()
   async findAll(): Promise<Advert[]> {
+    console.log("ça passe dans le endpoint find all");
+    return await this.advertService.findAll();
+  }
+
+  @Get('filtered')
+  async findAllFiltered(@Req() request: Request): Promise<Advert[]> {
+    console.log("ça passe dans le endpoint filtered");
     return await this.advertService.findAll();
   }
 

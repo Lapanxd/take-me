@@ -1,4 +1,13 @@
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  ManyToOne,
+  ManyToMany,
+} from 'typeorm';
 import { IAdvert } from '../models/advert.model';
 import { IObjectImage } from '../models/objectImage.model';
 import { IObjectType } from '../models/objectType.model';
@@ -16,8 +25,7 @@ export class Advert implements IAdvert {
   @Column()
   description: string;
 
-  @OneToOne(() => ObjectType)
-  @JoinColumn()
+  @ManyToOne(() => ObjectType, (objectType) => objectType.advert)
   objectType: IObjectType;
 
   @OneToMany(() => ObjectImage, (objectImage: ObjectImage) => objectImage.advert, {

@@ -5,17 +5,19 @@ import {
   Get,
   HttpCode,
   Param,
+  Query,
   Patch,
   Post,
   UseGuards,
-  Req
 } from '@nestjs/common';
 import { AdvertService } from './advert.service';
 import { Advert } from '../../core/entities/advert.entity';
 import { CreateAdvertDto } from '../../core/dtos/create-advert.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AdvertDto } from '../../core/dtos/advert.dto';
-import { Request } from 'express'
+import { Request } from 'express';
+import { ValidationPipe } from '../../core/pipes/validation.pipe';
+import { AdvertFiltersDto } from '../../core/dtos/advert-filters.dto';
 
 @Controller('adverts')
 export class AdvertController {
@@ -29,14 +31,15 @@ export class AdvertController {
 
   @Get()
   async findAll(): Promise<Advert[]> {
-    console.log("ça passe dans le endpoint find all");
+    console.log('ça passe dans le endpoint find all');
     return await this.advertService.findAll();
   }
 
   @Get('filtered')
-  async findAllFiltered(@Req() request: Request): Promise<Advert[]> {
-    console.log("ça passe dans le endpoint filtered");
-    return await this.advertService.findAll();
+  async findByFilter(
+    @Query(new ValidationPipe()) filteredParams: AdvertFiltersDto,
+  ): Promise<Advert[]> {
+    return await this.advertService.findByFilter(filteredParams);
   }
 
   @Get(':id')

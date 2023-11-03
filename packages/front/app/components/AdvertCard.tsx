@@ -13,6 +13,7 @@ import { colors } from '../theme';
 import IconEye from '../icons/IconEye';
 import AdvertDetail from './AdvertDetail';
 import { IObjectType } from '../core/models/ObjectType';
+import { ScrollView } from 'react-native-gesture-handler';
 
 interface Props {
   name: string;

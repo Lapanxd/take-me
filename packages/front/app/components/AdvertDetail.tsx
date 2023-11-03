@@ -4,7 +4,6 @@ import Map from '../components/Map';
 import { ScrollView } from 'react-native-gesture-handler';
 import { colors } from '../theme';
 import CloseBurgerIcon from '../icons/CloseBurgerIcon';
-import { IObjectType } from '../core/models/ObjectType';
 
 interface Props {
     name: string;
@@ -18,42 +17,49 @@ interface Props {
 export const AdvertDetail: React.FC<Props> = ({ name, image, description, geocode, objectType, onClose }) => {
     const { width } = useWindowDimensions();
     const isSmallScreen = width < 800;
-    return (
-        <View>
-        <View style={$closeButton}>
-            <Pressable onPress={onClose}>
-                <CloseBurgerIcon color={'black'} size={40} />
-            </Pressable>
-        </View>
-        <View style={isSmallScreen ? $advertContentSmall : $advertContentLarge}>
-            <View style={isSmallScreen ? $adContentSmall : $adContentLarge}>
-                <ScrollView>
-                    <Text style={$title}>{name}</Text>
-                    <Image source={{ uri: image }} style={isSmallScreen ? $imageSmall : $imageLarge} />
-                    <Text style={$label}>Description:</Text>
-                    <View style={$contentDescription}>
-                        <Text style={$description}>{description}</Text>
-                    </View>
-                    <Text style={$label}>Type:</Text>
-                    <Text style={$description}>
-                        {objectType}
-                    </Text>
-                    </ScrollView>
+
+    const detail = (
+        <>
+            <Text style={$title}>{name}</Text>
+            <Image source={{ uri: image }} style={isSmallScreen ? $imageSmall : $imageLarge} />
+            <Text style={$label}>Description:</Text>
+            <View style={$contentDescription}>
+                <Text style={$description}>{description}</Text>
             </View>
-            {isSmallScreen && (
-                <View style={$mapContentSmall}>
+            <Text style={$label}>Type:</Text>
+            <Text style={$description}>
+                {objectType}
+            </Text>
+        </>
+    )
+
+    const content = (
+        
+        <View>
+            <View style={$closeButton}>
+                <Pressable onPress={onClose}>
+                    <CloseBurgerIcon color={'black'} size={40} />
+                </Pressable>
+            </View>
+            <View style={isSmallScreen ? $advertContentSmall : $advertContentLarge}>
+                <View style={isSmallScreen ? $adContentSmall : $adContentLarge}>
+                    {isSmallScreen ? detail : (<ScrollView>
+                        {detail}
+                    </ScrollView>)}
+                </View>
+
+                <View style={isSmallScreen ? $mapContentSmall : $mapContentLarge }>
                     <Map geocodes={[geocode]} names={[name]} selectedGeocode={geocode} />
                 </View>
-            )}
-     
-        {!isSmallScreen && (
-            <View style={$mapContentLarge}>
-                <Map geocodes={[geocode]} names={[name]} selectedGeocode={geocode} />
             </View>
-        )}
-           </View>
-    </View>
-    );
+        </View>
+    )
+
+    return !isSmallScreen ? content : (
+        <ScrollView>
+        {content}
+        </ScrollView>
+    )
 };
 
 
@@ -76,7 +82,8 @@ const $adContentLarge: ViewStyle = {
     padding: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '50%'
+    width: '50%',
+    height: '80vh',
 
 };
 
@@ -84,7 +91,8 @@ const $adContentSmall: ViewStyle = {
     padding: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '80%'
+    width: '80%',
+    height: '80vh',
 
 };
 
@@ -121,23 +129,27 @@ const $imageSmall: ImageStyle = {
     width: '100%',
     height: 300,
     borderRadius: 8,
+    resizeMode: 'contain',
 };
 
 const $imageLarge: ImageStyle = {
-    width: '50%',
+    width: '100%',
     height: 300,
     marginRight: 8,
     borderRadius: 8,
+    resizeMode: 'contain',
 };
 
 const $mapContentSmall: ViewStyle = {
     flex: 1,
     width: '100%',
-    height: 300,
+    height: '100vh',
+    backgroundColor: colors.background,
 };
 
 const $mapContentLarge: ViewStyle = {
     width: '70%',
     height: 300,
+    backgroundColor: colors.background,
 };
 export default AdvertDetail;

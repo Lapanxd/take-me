@@ -54,6 +54,11 @@ const config = {
         DemoCommunity: 'community',
       },
     },
+    Advert: {
+      screens: {
+        AdvertList: 'advertlist',
+      },
+    },
   },
 };
 

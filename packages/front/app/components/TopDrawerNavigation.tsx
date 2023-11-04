@@ -1,6 +1,6 @@
-import CloseBurgerIcon from '../icons/CloseBurgerIcon';
+import CloseBurgerIcon from 'app/icons/CloseBurgerIcon';
 import React, { useState } from 'react';
-import { Modal, StyleSheet, Pressable, View, Dimensions } from 'react-native'; 
+import { Modal, StyleSheet, Pressable, View, Dimensions } from 'react-native'; // Importez Dimensions depuis 'react-native'
 import DrawerMenuIcon from '../icons/DrawerMenuIcon';
 import Menu from './Menu';
 
@@ -10,7 +10,7 @@ const TopDrawerNavigation = () => {
   return (
     <View style={styles.container}>
       <Modal
-        animationType="fade" 
+        animationType="fade" // Changez l'animation en "slide" ou ce que vous préférez
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -31,7 +31,7 @@ const TopDrawerNavigation = () => {
   );
 };
 
-const windowWidth = Dimensions.get('window').width; 
+const windowWidth = Dimensions.get('window').width; // Obtenez la largeur de la fenêtre
 
 const styles = StyleSheet.create({
   container: {

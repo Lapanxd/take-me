@@ -72,15 +72,10 @@ export const Adverts = () => {
   const geocodes = annonces.map((item) => item.geocode);
   const names = annonces.map((item) => item.adname);
 
-  return (
-    <View style={$container}>
-      <View style={$header}>
-        <TopDrawerNavigation />
-      </View>
-      <Text style={$welcomeHeading}>Toutes les annonces</Text>
-      <View style={isSmallScreen ? $advertsContentSmall : $advertsContentLarge}>
-        <View style={isSmallScreen ? $advertsListSmall : $advertsListLarge} >
-          <ScrollView>
+
+  const detail = (
+    <>
+              <ScrollView>
             <FlatList
               data={annonces}
               renderItem={({ item }) => (
@@ -95,7 +90,19 @@ export const Adverts = () => {
               keyExtractor={(item, index) => index.toString()}
             />
           </ScrollView>
-        </View>
+    </>
+  )
+
+  return (
+    <View style={$container}>
+      <View style={$header}>
+        <TopDrawerNavigation />
+      </View>
+      <Text style={$welcomeHeading}>Toutes les annonces</Text>
+      <View style={isSmallScreen ? $advertsContentSmall : $advertsContentLarge}>
+        <View style={isSmallScreen ? $advertsListSmall : $advertsListLarge} >
+{detail}
+         </View>
           {isSmallScreen && (
             <View style={$mapBlocSmall}>
               <Map geocodes={geocodes} names={names} />
@@ -132,7 +139,7 @@ const $mapBlocSmall: ViewStyle = {
 
 const $mapBlocLarge: ViewStyle = {
   width: '95%',
-  height: '80vh',
+  height: '100vh',
   backgroundColor: colors.background,
 };
 
@@ -157,7 +164,7 @@ const $advertsListLarge: ViewStyle = {
   justifyContent: 'center',
   alignItems: 'center',
   width: '30%',
-  height: '80vh',
+  height: '100vh',
   backgroundColor: colors.background,
 };
 

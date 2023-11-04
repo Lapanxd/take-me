@@ -1,60 +1,81 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AdvertCard from '../components/AdvertCard';
-import React, { useState } from 'react';
-import { TextStyle, View, ViewStyle, FlatList, Text } from 'react-native';
+import React from 'react';
+import { TextStyle, View, ViewStyle, FlatList, Text, useWindowDimensions } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { colors, spacing } from '../theme';
 import { RootStackParams } from '../navigators/MenuNavigator';
 import TopDrawerNavigation from '../components/TopDrawerNavigation';
-// import 'leaflet/dist/leaflet.css';
-// import leaflet from 'leaflet';
-// import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-// import MarkerClusterGroup from 'react-leaflet-cluster';
-// import { Icon } from 'leaflet';
+import Map from '../components/Map';
 
 type Props = NativeStackScreenProps<RootStackParams, 'AdvertsStack'>;
 
-export const Adverts = ({ navigation }: Props) => {
-  const [annonces, setAnnonces] = useState([
+export const Adverts = () => {
+  const { width } = useWindowDimensions();
+  const isSmallScreen = width < 800;
+  const annonces = [
     {
       adname: 'Chaise en bois',
-      description: 'Chaise en bon état, couleur marron',
-      quantity: '1',
+      description: 'Chaise en bon état, couleur marron, Chaise en bon état, couleur marron; Chaise en bon état, couleur marron',
       geocode: [44.858, -0.5667],
+      objectType: {
+        id: 1,
+        name: "meuble"
+      },
       image:
         'https://images.unsplash.com/photo-1562113530-57ba467cea38?auto=format&fit=crop&q=80&w=1299&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
     },
     {
       adname: 'Étagère blanche',
       description: 'Étagère blanche, 1m50',
-      quantity: '1',
       geocode: [44.8375, -0.5667],
+      objectType: {
+        id: 1,
+        name: "meuble"
+      },
       image:
         'https://www.lafoirfouille.fr/medias/sys_master/images/images/h20/hc8/8892827336734/10000180640-0-1200Wx1200H.jpg',
     },
     {
       adname: 'Canapé 3 places',
       description: 'A nettoyer, bon état',
-      quantity: '1',
+      objectType: {
+        id: 1,
+        name: "meuble"
+      },
       geocode: [44.8279, -0.567],
       image: 'https://rouen.blogs.com/.a/6a00e551daa20b88330133ee6b474d970b-700wi',
     },
-  ]);
+    {
+      adname: 'Étagère rouge',
+      description: 'Étagère blanche, 1m50',
+      geocode: [44.8375, -0.5667],
+      objectType: {
+        id: 1,
+        name: "meuble"
+      },
+      image:
+        'https://www.lafoirfouille.fr/medias/sys_master/images/images/h20/hc8/8892827336734/10000180640-0-1200Wx1200H.jpg',
+    },
+    {
+      adname: 'Canapé 2 places',
+      description: 'A nettoyer, bon état',
+      objectType: {
+        id: 1,
+        name: "meuble"
+      },
+      geocode: [44.8279, -0.567],
+      image: 'https://rouen.blogs.com/.a/6a00e551daa20b88330133ee6b474d970b-700wi',
+    },
+  ];
 
-  // create custom icon
-  // const customIcon = new Icon({
-  //   iconUrl: 'https://cdn-icons-png.flaticon.com/512/447/447031.png',
-  //   iconSize: [38, 38],
-  // });
-  return (
-    <View style={$container}>
-      <View style={$header}>
-        <TopDrawerNavigation />
-      </View>
-      <Text style={$welcomeHeading}>Toutes les annonces</Text>
-      <View style={$advertscontent}>
-        <View style={$advertslist}>
-          <ScrollView>
+  const geocodes = annonces.map((item) => item.geocode);
+  const names = annonces.map((item) => item.adname);
+
+
+  const detail = (
+    <>
+              <ScrollView>
             <FlatList
               data={annonces}
               renderItem={({ item }) => (
@@ -62,46 +83,45 @@ export const Adverts = ({ navigation }: Props) => {
                   name={item.adname}
                   image={item.image}
                   description={item.description}
-                  onPress={() => {
-                    navigation.navigate('Advert', { item: item });
-                  }}
+                  geocode={item.geocode}
+                  objectType={item.objectType.name}
                 />
               )}
               keyExtractor={(item, index) => index.toString()}
             />
           </ScrollView>
-        </View>
-        <View style={$mapcontent}>
-          {/* <MapContainer
-            center={[44.8378, -0.5667]}
-            zoom={13}
-            style={{ width: '100%', height: '80vh' }}
-          >
-            <TileLayer
-              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
+    </>
+  )
 
-            <MarkerClusterGroup chunkedLoading>
-              {// Mapping through the markers }
-              {annonces.map((marker) => (
-                <Marker position={marker.geocode} icon={customIcon}>
-                  <Popup>{marker.adname}</Popup>
-                </Marker>
-              ))}
-            </MarkerClusterGroup>
-          </MapContainer> */}
-        </View>
+  return (
+    <View style={$container}>
+      <View style={$header}>
+        <TopDrawerNavigation />
       </View>
-    </View>
+      <Text style={$welcomeHeading}>Toutes les annonces</Text>
+      <View style={isSmallScreen ? $advertsContentSmall : $advertsContentLarge}>
+        <View style={isSmallScreen ? $advertsListSmall : $advertsListLarge} >
+{detail}
+         </View>
+          {isSmallScreen && (
+            <View style={$mapBlocSmall}>
+              <Map geocodes={geocodes} names={names} />
+            </View>
+          )}
+
+          {!isSmallScreen && (
+            <View style={$mapBlocLarge}>
+              <Map geocodes={geocodes} names={names} />
+            </View>
+          )}
+      </View>
+    </View >
   );
 };
 
 const $container: ViewStyle = {
   flex: 1,
   backgroundColor: colors.background,
-  padding: 16,
-  marginTop: 8,
 };
 const $header: ViewStyle = {
   flexDirection: 'row',
@@ -110,20 +130,42 @@ const $header: ViewStyle = {
   marginBottom: 16,
 };
 
-const $advertscontent: ViewStyle = {
+const $mapBlocSmall: ViewStyle = {
+  flex: 1,
+  width: '100%',
+  height: '100vh',
+  backgroundColor: colors.background,
+};
+
+const $mapBlocLarge: ViewStyle = {
+  width: '95%',
+  height: '100vh',
+  backgroundColor: colors.background,
+};
+
+const $advertsContentSmall: ViewStyle = {
+  flexDirection: 'column',
+  backgroundColor: colors.background,
+};
+
+const $advertsContentLarge: ViewStyle = {
   flexDirection: 'row',
+  backgroundColor: colors.background,
 };
 
-const $advertslist: ViewStyle = {
-  flexDirection: 'column',
-  width: 700,
-  height: 500,
+const $advertsListSmall: ViewStyle = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '100%',
+  backgroundColor: colors.background,
 };
 
-const $mapcontent: ViewStyle = {
-  flexDirection: 'column',
-  width: 500,
-  height: 300,
+const $advertsListLarge: ViewStyle = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  width: '30%',
+  height: '100vh',
+  backgroundColor: colors.background,
 };
 
 const $welcomeHeading: TextStyle = {
@@ -131,5 +173,6 @@ const $welcomeHeading: TextStyle = {
   fontSize: 44,
   fontWeight: 'bold',
   padding: 16,
+  marginLeft: 50
 };
 export default Adverts;

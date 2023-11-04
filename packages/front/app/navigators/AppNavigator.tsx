@@ -38,7 +38,6 @@ export type AppStackParamList = {
   Welcome: undefined;
   Login: undefined; // @demo remove-current-line
   NewPage: undefined; // @demo remove-current-line
-  Advert: NavigatorScreenParams<AdvertTabParamList>;
   AddAdvert: undefined;
   Adverts: undefined;
 
@@ -83,7 +82,6 @@ const AppStack = observer(function AppStack() {
           <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
           {/* @demo remove-block-start */}
           <Stack.Screen name="NewPage" component={Screens.NewPage} />
-          <Stack.Screen name="Advert" component={Screens.AdvertDetailScreen} />
           <Stack.Screen name="AddAdvert" component={Screens.AddAdvertScreen} />
           <Stack.Screen name="Adverts" component={Screens.Adverts} />
 
@@ -93,7 +91,7 @@ const AppStack = observer(function AppStack() {
         </>
       ) : (
         <>
-          <Stack.Screen name="Login" component={Screens.LoginScreen} />
+          <Stack.Screen name="Inscription" component={Screens.Inscription} />
         </>
       )}
       {/* @demo remove-block-end */}

@@ -10,11 +10,13 @@ import {
   Dimensions,
 } from 'react-native';
 
-import { FigureImage } from 'react-bootstrap';
-import { colors, spacing } from '../theme';
 import { useNavigation } from '@react-navigation/native';
+<<<<<<< HEAD
+const register = require('../../assets/images/logoo.PNG');
+=======
 import LinearGradient from 'react-native-linear-gradient';
 const register = require('../../assets/images/logoo.png');
+>>>>>>> release/1.0
 const background = require('../../assets/images/bg.jpg');
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;

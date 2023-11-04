@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 const defaultUser = require('../../assets/images/default_user.png');
-const logoo = require('../../assets/images/logoo.PNG');
+const logoo = require('../../assets/images/logoo.png');
 
 export const Profil = ({ route }) => {
   const { nom, prenom, username, email, phone } = route.params;

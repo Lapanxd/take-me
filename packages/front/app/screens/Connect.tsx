@@ -11,7 +11,13 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
+<<<<<<< HEAD
 const userConn = require('../../assets/images/logoo.PNG');
+=======
+import LinearGradient from 'react-native-linear-gradient';
+import { bg } from 'date-fns/locale';
+const userConn = require('../../assets/images/logoo.png');
+>>>>>>> release/1.0
 const background = require('../../assets/images/bg.jpg');
 
 const screenWidth = Dimensions.get('window').width;

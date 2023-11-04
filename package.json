@@ -1,0 +1,26 @@
+{
+  "name": "take-me",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+  },
+  "overrides": {
+    "react-error-overlay": "6.0.9"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "pnpm": {
+    "overrides": {
+      "uuid": "3.4.0"
+    }
+  },
+  "resolutions": {
+    "@types/react": "^18",
+    "@types/react-dom": "^18"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

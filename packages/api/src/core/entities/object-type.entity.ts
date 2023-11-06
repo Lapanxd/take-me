@@ -1,5 +1,6 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { IObjectType } from '../models/objectType.model';
+import { Advert } from './advert.entity';
 
 @Entity()
 export class ObjectType implements IObjectType {
@@ -8,4 +9,7 @@ export class ObjectType implements IObjectType {
 
   @Column()
   name: string;
+
+  @OneToMany(() => Advert, (advert) => advert.objectType)
+  advert: Advert;
 }

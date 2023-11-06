@@ -1,11 +1,13 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Advert } from '../../core/entities/advert.entity';
-import { Repository } from 'typeorm';
+import { Like, Repository } from 'typeorm';
 import { CreateAdvertDto } from '../../core/dtos/create-advert.dto';
 import { ObjectType } from '../../core/entities/object-type.entity';
 import { ObjectImage } from '../../core/entities/object-image.entity';
 import { AdvertDto } from '../../core/dtos/advert.dto';
+import { AdvertFiltersDto } from '../../core/dtos/advert-filters.dto';
+import { cond } from 'lodash';
 
 @Injectable()
 export class AdvertService {
@@ -46,6 +48,21 @@ export class AdvertService {
 
   async findAll(): Promise<Advert[]> {
     return await this.advertRepository.find();
+  }
+
+  async findByFilter(filters: AdvertFiltersDto): Promise<Advert[]> {
+    const { objectType, city} = filters;
+    const condition: { objectType?: ObjectType, city?, publicationDate? } = {};
+
+    if (objectType) {
+      condition.objectType = await this.objectTypeRepository.findOneBy({
+        id: objectType,
+      });
+    }
+
+    //@TODO filter by city
+
+    return await this.advertRepository.find({ where: condition });
   }
 
   async findById(id: number): Promise<Advert> {

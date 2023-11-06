@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   Param,
+  Query,
   Patch,
   Post,
   UseGuards,
@@ -14,6 +15,9 @@ import { Advert } from '../../core/entities/advert.entity';
 import { CreateAdvertDto } from '../../core/dtos/create-advert.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { AdvertDto } from '../../core/dtos/advert.dto';
+import { Request } from 'express';
+import { ValidationPipe } from '../../core/pipes/validation.pipe';
+import { AdvertFiltersDto } from '../../core/dtos/advert-filters.dto';
 
 @Controller('adverts')
 export class AdvertController {
@@ -27,7 +31,15 @@ export class AdvertController {
 
   @Get()
   async findAll(): Promise<Advert[]> {
+    console.log('ça passe dans le endpoint find all');
     return await this.advertService.findAll();
+  }
+
+  @Get('filtered')
+  async findByFilter(
+    @Query(new ValidationPipe()) filteredParams: AdvertFiltersDto,
+  ): Promise<Advert[]> {
+    return await this.advertService.findByFilter(filteredParams);
   }
 
   @Get(':id')

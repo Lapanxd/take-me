@@ -19,7 +19,6 @@ import { ApiOkResponse } from '@nestjs/swagger';
 import { Request } from 'express';
 import { ValidationPipe } from '../../core/pipes/validation.pipe';
 import { AdvertFiltersDto } from '../../core/dtos/advert-filters.dto';
-import { ApiOkResponse } from '@nestjs/swagger';
 
 @Controller('adverts')
 export class AdvertController {

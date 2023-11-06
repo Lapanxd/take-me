@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
-import { SafeAreaView, Image, StyleSheet, TextInput, Text, TouchableOpacity, Dimensions } from 'react-native';
+import {
+  SafeAreaView,
+  Image,
+  StyleSheet,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import IconFolderOpen from '../icons/IconFolderOpen';
 import IconCamera from '../icons/IconCamera';
@@ -19,7 +27,6 @@ const AdvertFormScreen = () => {
       navigation.navigate('<Adverts>', {
         name: name,
         description: description,
-
       });
     } else {
       setError('Veuillez remplir tous les champs');
@@ -56,7 +63,6 @@ const AdvertFormScreen = () => {
     }
   };
 
-
   return (
     <SafeAreaView style={styles.container}>
       <TextInput
@@ -64,7 +70,6 @@ const AdvertFormScreen = () => {
         onChangeText={onChangeName}
         value={name}
         placeholder="Nom de l'annonce"
-
       />
       <TextInput
         style={styles.input}
@@ -87,14 +92,18 @@ const AdvertFormScreen = () => {
         placeholder="Localisation de l'objet"
       /> */}
 
-
       {image && <Image source={{ uri: image }} style={styles.image} />}
       <TouchableOpacity style={styles.imgDownload} onPress={pickImage}>
-        <Text style={styles.txt_btn_img}><IconFolderOpen color='black' size={20} /> Télécharger depuis la galerie</Text>
+        <Text style={styles.txt_btn_img}>
+          <IconFolderOpen color="black" size={20} /> Télécharger depuis la galerie
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.imgDownload} onPress={pickImageCamera}>
-        <Text style={styles.txt_btn_img}><IconCamera color='black' size={20} />Prendre une photo</Text>
+        <Text style={styles.txt_btn_img}>
+          <IconCamera color="black" size={20} />
+          Prendre une photo
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={[styles.btn]} onPress={handleSubmit}>
@@ -141,7 +150,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     paddingVertical: 2,
     padding: 10,
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   imgDownload: {
     borderColor: '#212121',
@@ -151,6 +160,5 @@ const styles = StyleSheet.create({
     margin: 10,
   },
 });
-
 
 export default AdvertFormScreen;

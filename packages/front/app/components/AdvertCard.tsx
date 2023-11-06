@@ -33,7 +33,9 @@ export const AdvertCard: React.FC<Props> = ({ name, image, description, geocode,
           <View style={$adcard}>
             <Text style={$name}>{name}</Text>
             <Image source={{ uri: image }} style={$image} />
-            <Text style={$button}>Regarder le détail <IconEye color={'black'} size={20} /></Text>
+            <Text style={$button}>
+              Regarder le détail <IconEye color={'black'} size={20} />
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -59,7 +61,6 @@ export const AdvertCard: React.FC<Props> = ({ name, image, description, geocode,
   );
 };
 
-
 const $container: ViewStyle = {
   flex: 1,
   backgroundColor: colors.background,
@@ -82,7 +83,6 @@ const $adcard: ViewStyle = {
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
- 
 };
 
 const $name: TextStyle = {
@@ -107,8 +107,7 @@ const $button: TextStyle = {
   color: colors.text,
   backgroundColor: colors.transparent,
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
 };
-
 
 export default AdvertCard;

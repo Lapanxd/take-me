@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-const userConn = require('../../assets/images/logoo.PNG');
+const userConn = require('../../assets/images/logoo.png');
 const background = require('../../assets/images/bg.jpg');
 
 const screenWidth = Dimensions.get('window').width;

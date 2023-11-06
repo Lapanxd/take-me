@@ -22,11 +22,10 @@ export const AddAdvertScreen = () => {
               <Text style={$title}>Ajouter une annonce</Text>
               <AdvertForm handleOnSubmit={handleOnSubmit} />
             </View>
-            </View>
+          </View>
         </ScrollView>
       </View>
-
-    </React.Fragment >
+    </React.Fragment>
   );
 };
 
@@ -42,9 +41,9 @@ const $header: ViewStyle = {
 };
 
 const $content: ViewStyle = {
-justifyContent: 'center',
-alignItems: 'center',
-flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'row',
 };
 
 const $adcard: ViewStyle = {

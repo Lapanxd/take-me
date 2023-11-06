@@ -16,8 +16,9 @@ const TopBackNavigation = () => {
           navigation.goBack();
         }}
       >
-        <Text>Retour <BackIcon color="#333" size={20} /></Text>
-        
+        <Text>
+          Retour <BackIcon color="#333" size={20} />
+        </Text>
       </TouchableHighlight>
     </View>
   );

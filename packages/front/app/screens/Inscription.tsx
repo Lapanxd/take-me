@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
-const register = require('../../assets/images/logoo.PNG');
+const register = require('../../assets/images/logoo.png');
 const background = require('../../assets/images/bg.jpg');
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;

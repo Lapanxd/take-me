@@ -16,11 +16,12 @@ export const Adverts = () => {
   const annonces = [
     {
       adname: 'Chaise en bois',
-      description: 'Chaise en bon état, couleur marron, Chaise en bon état, couleur marron; Chaise en bon état, couleur marron',
+      description:
+        'Chaise en bon état, couleur marron, Chaise en bon état, couleur marron; Chaise en bon état, couleur marron',
       geocode: [44.858, -0.5667],
       objectType: {
         id: 1,
-        name: "meuble"
+        name: 'meuble',
       },
       image:
         'https://images.unsplash.com/photo-1562113530-57ba467cea38?auto=format&fit=crop&q=80&w=1299&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -31,7 +32,7 @@ export const Adverts = () => {
       geocode: [44.8375, -0.5667],
       objectType: {
         id: 1,
-        name: "meuble"
+        name: 'meuble',
       },
       image:
         'https://www.lafoirfouille.fr/medias/sys_master/images/images/h20/hc8/8892827336734/10000180640-0-1200Wx1200H.jpg',
@@ -41,7 +42,7 @@ export const Adverts = () => {
       description: 'A nettoyer, bon état',
       objectType: {
         id: 1,
-        name: "meuble"
+        name: 'meuble',
       },
       geocode: [44.8279, -0.567],
       image: 'https://rouen.blogs.com/.a/6a00e551daa20b88330133ee6b474d970b-700wi',
@@ -52,7 +53,7 @@ export const Adverts = () => {
       geocode: [44.8375, -0.5667],
       objectType: {
         id: 1,
-        name: "meuble"
+        name: 'meuble',
       },
       image:
         'https://www.lafoirfouille.fr/medias/sys_master/images/images/h20/hc8/8892827336734/10000180640-0-1200Wx1200H.jpg',
@@ -62,7 +63,7 @@ export const Adverts = () => {
       description: 'A nettoyer, bon état',
       objectType: {
         id: 1,
-        name: "meuble"
+        name: 'meuble',
       },
       geocode: [44.8279, -0.567],
       image: 'https://rouen.blogs.com/.a/6a00e551daa20b88330133ee6b474d970b-700wi',
@@ -72,26 +73,25 @@ export const Adverts = () => {
   const geocodes = annonces.map((item) => item.geocode);
   const names = annonces.map((item) => item.adname);
 
-
   const detail = (
     <>
-              <ScrollView>
-            <FlatList
-              data={annonces}
-              renderItem={({ item }) => (
-                <AdvertCard
-                  name={item.adname}
-                  image={item.image}
-                  description={item.description}
-                  geocode={item.geocode}
-                  objectType={item.objectType.name}
-                />
-              )}
-              keyExtractor={(item, index) => index.toString()}
+      <ScrollView>
+        <FlatList
+          data={annonces}
+          renderItem={({ item }) => (
+            <AdvertCard
+              name={item.adname}
+              image={item.image}
+              description={item.description}
+              geocode={item.geocode}
+              objectType={item.objectType.name}
             />
-          </ScrollView>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </ScrollView>
     </>
-  )
+  );
 
   return (
     <View style={$container}>
@@ -100,22 +100,20 @@ export const Adverts = () => {
       </View>
       <Text style={$welcomeHeading}>Toutes les annonces</Text>
       <View style={isSmallScreen ? $advertsContentSmall : $advertsContentLarge}>
-        <View style={isSmallScreen ? $advertsListSmall : $advertsListLarge} >
-{detail}
-         </View>
-          {isSmallScreen && (
-            <View style={$mapBlocSmall}>
-              <Map geocodes={geocodes} names={names} />
-            </View>
-          )}
+        <View style={isSmallScreen ? $advertsListSmall : $advertsListLarge}>{detail}</View>
+        {isSmallScreen && (
+          <View style={$mapBlocSmall}>
+            <Map geocodes={geocodes} names={names} />
+          </View>
+        )}
 
-          {!isSmallScreen && (
-            <View style={$mapBlocLarge}>
-              <Map geocodes={geocodes} names={names} />
-            </View>
-          )}
+        {!isSmallScreen && (
+          <View style={$mapBlocLarge}>
+            <Map geocodes={geocodes} names={names} />
+          </View>
+        )}
       </View>
-    </View >
+    </View>
   );
 };
 
@@ -173,6 +171,6 @@ const $welcomeHeading: TextStyle = {
   fontSize: 44,
   fontWeight: 'bold',
   padding: 16,
-  marginLeft: 50
+  marginLeft: 50,
 };
 export default Adverts;

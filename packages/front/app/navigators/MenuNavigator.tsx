@@ -10,14 +10,12 @@ export type RootStackParams = {
   NewPage: undefined;
   // Adverts: undefined
   AdvertsStack: NavigatorScreenParams<AdvertsStackParams>;
-
 };
 
 const RootStack = createDrawerNavigator<RootStackParams>();
 
 export type AdvertsStackParams = {
   Adverts: undefined;
-
 };
 const AdvertsStack = createNativeStackNavigator<AdvertsStackParams>();
 

@@ -4,7 +4,7 @@ import { View, ViewStyle, TouchableOpacity } from 'react-native';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
-import 'leaflet/dist/leaflet.css';
+// import 'leaflet/dist/leaflet.css';
 import { colors } from '../theme';
 
 interface Props {
@@ -44,7 +44,7 @@ export const Map: React.FC<Props> = ({ geocodes, names }) => {
 const $mapcontent: ViewStyle = {
   flexDirection: 'column',
   width: '100%',
-  height: '100vh',
+  height: '100%',
   backgroundColor: colors.transparent,
 };
 

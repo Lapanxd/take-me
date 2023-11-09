@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -9,10 +9,105 @@ import {
   useWindowDimensions,
   ImageBackground,
 } from 'react-native';
+import {ISignUpUser} from "../core/models/SignUpUser";
+import {authService} from "../core/services/api/auth.service";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from '@react-navigation/native';
+
+
 
 export const SignUp = () => {
   const { width } = useWindowDimensions();
   const isSmallScreen = width < 1130;
+    const navigator = useNavigation() as any;
+
+    const [lastname, setLastname] = useState('');
+    const [firstname, setFirstname] = useState('');
+    const [mail, setMail] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [lastnameError, setLastnameError] = useState('');
+    const [firstnameError, setFirstnameError] = useState('');
+    const [mailError, setMailError] = useState('');
+    const [passwordError, setPasswordError] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+    const isEmailValid = (email) => {
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        return emailPattern.test(email);
+    };
+
+    const isPasswordsMatching = (password: string, confirmPassword: string) => {
+        return password === confirmPassword;
+    };
+
+    function checkForm(formData: ISignUpUser) {
+        setLastnameError('');
+        setFirstnameError('');
+        setMailError('');
+        setPasswordError('');
+        setConfirmPasswordError('');
+
+        if (!firstname) {
+            setFirstnameError('Prénom requis');
+            return;
+        }
+
+        if (!formData.lastname) {
+            setLastnameError('Nom requis');
+            return;
+        }
+
+        if (!mail) {
+            setMailError('Adresse mail requis');
+        } else if (!isEmailValid(mail)) {
+            setMailError('Adresse mail non valide');
+            return;
+        }
+
+        if (!password && !confirmPassword) {
+            setPasswordError('Mot de passe requis');
+            return;
+        } else if (password && confirmPassword && !isPasswordsMatching(password, confirmPassword)) {
+            setConfirmPasswordError('Confirmation de mot de passe requis');
+            return;
+        }
+
+        return true;
+    }
+
+    async function inscription() {
+        const isFormValid = checkForm({
+            firstname,
+            lastname,
+            email: mail,
+            password,
+            confirmPassword,
+        });
+
+        if (isFormValid) {
+            try {
+                const user = await authService.signUp({
+                    firstname: firstname,
+                    lastname: lastname,
+                    email: mail,
+                    password: password,
+                    city: 'Bordeaux',
+                });
+
+                await authService.signIn({
+                    email: mail,
+                    password,
+                });
+
+                if (await AsyncStorage.getItem('accessToken')) {
+                    navigator.navigate('Profil');
+                }
+            } catch (err) {
+                console.log(err);
+            }
+        }
+    }
 
   return (
     <ImageBackground source={require('../../assets/images/bg.jpg')} style={styles.container}>

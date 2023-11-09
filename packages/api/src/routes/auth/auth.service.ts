@@ -1,15 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable, UnauthorizedException} from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
 import { SignInUserDto } from '../../core/dtos/sign-in-user.dto';
 import { UnauthorizedHttp } from '../../core/exceptions/user.exceptions';
 import { User } from '../../core/entities/user.entity';
+import {ConfigService} from "@nestjs/config";
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly userService: UsersService,
     private readonly jwtService: JwtService,
+    private readonly configService : ConfigService,
   ) {}
 
   async signIn(signInUserDto: SignInUserDto) {
@@ -24,12 +26,19 @@ export class AuthService {
     }
 
     const payload = { sub: user.id, email: user.email };
-    const accessToken = await this.jwtService.signAsync(payload);
-    const refreshToken = await this.jwtService.signAsync(payload, {
-      expiresIn: '7d',
+
+    const accessToken = await this.jwtService.signAsync(payload, {
+      secret: this.configService.get<string>('JWT_SECRET'),
+      expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
     });
 
-    return { accessToken: accessToken, refreshToken: refreshToken };
+    const refreshPayload = {sub: user.id};
+    const refreshToken = await this.jwtService.signAsync(refreshPayload, {
+      secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      expiresIn: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRATION_TIME'),
+    })
+
+    return { accessToken, refreshToken };
   }
 
   async validateUser(email: string, pass: string): Promise<any> {
@@ -41,12 +50,22 @@ export class AuthService {
     return null;
   }
 
-  async refreshToken(user: User) {
-    if (!user) throw new UnauthorizedHttp();
+  async refreshToken(refreshToken : string) : Promise<{ accessToken : string}> {
+    try {
+      const decoded = await this.jwtService.verifyAsync(refreshToken, {
+        secret : this.configService.get<string>('JWT_REFRESH_SECRET'),
+      });
 
-    const payload = { sub: user.id, email: user.email };
-    const accessToken = await this.jwtService.signAsync(payload);
+      const payload = {sub: decoded.sub, email: decoded.email};
 
-    return { accessToken: accessToken };
+      const accessToken = await this.jwtService.signAsync(payload, {
+        secret: this.configService.get<string>('JWT_SECRET'),
+        expiresIn : this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
+      });
+
+      return {accessToken};
+    } catch (e) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
   }
 }

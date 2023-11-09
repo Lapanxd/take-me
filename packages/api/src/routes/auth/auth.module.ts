@@ -9,13 +9,17 @@ import { User } from '../../core/entities/user.entity';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { RefreshTokenStrategy } from './strategies/refresh-token.strategy';
+import {ConfigService} from "@nestjs/config";
 
 @Module({
   imports: [
     UsersModule,
-    JwtModule.register({
-      secret: 'SamHSrSp4eiMneglcwIvCvKaTJGHtnY8', //TODO use .env instead of writing it like this
-      signOptions: { expiresIn: '1h' },
+    JwtModule.registerAsync({
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get('JWT_SECRET'),
+        signOptions: {expiresIn: configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME')}
+      }),
+      inject: [ConfigService],
     }),
     TypeOrmModule.forFeature([User]),
   ],

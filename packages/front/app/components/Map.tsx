@@ -4,8 +4,8 @@ import { View, ViewStyle, TouchableOpacity } from 'react-native';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 // import MarkerClusterGroup from 'react-leaflet-cluster';
-// import 'leaflet/dist/leaflet.css';
-import { WebView } from 'react-native-webview';
+import 'leaflet/dist/leaflet.css';
+// import { WebView } from 'react-native-webview';
 
 import { colors } from '../theme';
 
@@ -30,13 +30,13 @@ export const Map: React.FC<Props> = ({ geocodes, names }) => {
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <MarkerClusterGroup chunkedLoading>
+          {/* <MarkerClusterGroup chunkedLoading>
             {geocodes.map((geocode, index) => (
               <Marker key={index} position={geocode} icon={customIcon}>
                 <Popup>{names[index]}</Popup>
               </Marker>
             ))}
-          </MarkerClusterGroup>
+          </MarkerClusterGroup> */}
         </MapContainer>
       </View>
     </TouchableOpacity>

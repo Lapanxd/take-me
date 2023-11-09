@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { navigate } from 'app/navigators';
+import { authService } from 'app/core/services/api/auth.service';
 const background = require('../../assets/images/bg.jpg');
 const logo = require('../../assets/images/logooo.png');
 const screenWidth = Dimensions.get('window').width;
@@ -29,12 +30,18 @@ export const SignIn = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  function connexion() {
-    if (mail === 'user' && password === '123') {
-      navigate.navigate('Profil', { mail: mail });
-    } else {
-      setError('Adresse mail ou mot de passe incorrect');
-    }
+  async function connexion() {
+    console.log(mail, password);
+    await authService.signIn({
+      email: mail,
+      password,
+    });
+
+    // if (mail === 'user' && password === '123') {
+    //   navigate.navigate('Profil', { mail: mail });
+    // } else {
+    //   setError('Adresse mail ou mot de passe incorrect');
+    // }
   }
 
   function inscription() {

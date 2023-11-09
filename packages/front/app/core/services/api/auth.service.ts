@@ -5,10 +5,12 @@ import { IAdvert } from '../../models/Advert';
 import { ISignUpUser } from '../../models/SignUpUser';
 import { ISignInUser } from '../../models/SignInUser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useStores } from '../../helpers/useStores';
 
 export class AuthService {
   apisauce: ApisauceInstance;
   config: ApiConfig;
+  authenticationStore;
 
   constructor() {
     this.config = {
@@ -39,6 +41,8 @@ export class AuthService {
 
   async signIn(user: ISignInUser): Promise<void> {
     try {
+      console.log('dans le service');
+
       const response: ApiResponse<{ accessToken: string; refreshToken: string }> =
         await this.apisauce.post(`/auth/sign-in`, user);
 
@@ -46,8 +50,18 @@ export class AuthService {
         return;
       }
 
-      await AsyncStorage.setItem('accessToken', response.data.accessToken);
-      await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
+      const {
+        authenticationStore: { setAuthToken, setRefreshToken, isAuthenticated },
+      } = useStores();
+
+      console.log(response.data);
+
+      setAuthToken(response.data.accessToken);
+      setRefreshToken(response.data.accessToken);
+
+      if (isAuthenticated) {
+        console.log('isAuthenticated');
+      }
     } catch (err) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${err.message}\n}`, err.stack);

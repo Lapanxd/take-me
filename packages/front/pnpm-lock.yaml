@@ -128,6 +128,9 @@ dependencies:
   react-native-vector-icons:
     specifier: ^10.0.1
     version: 10.0.1
+  react-native-webview:
+    specifier: ^13.6.2
+    version: 13.6.2(react-native@0.72.6)(react@18.2.0)
   reactotron-mst:
     specifier: 3.1.4
     version: 3.1.4(mobx-state-tree@5.1.5)(mobx@6.6.0)(reactotron-core-client@2.8.10)
@@ -10851,6 +10854,18 @@ packages:
     transitivePeerDependencies:
       - encoding
     dev: true
+
+  /react-native-webview@13.6.2(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-QzhQ5JCU+Nf2W285DtvCZOVQy/MkJXMwNDYPZvOWQbAOgxJMSSO+BtqXTMA1UPugDsko6PxJ0TxSlUwIwJijDg==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      escape-string-regexp: 2.0.0
+      invariant: 2.2.4
+      react: 18.2.0
+      react-native: 0.72.6(@babel/core@7.23.2)(@babel/preset-env@7.23.2)(react@18.2.0)
+    dev: false
 
   /react-native@0.72.6(@babel/core@7.23.2)(@babel/preset-env@7.23.2)(react@18.2.0):
     resolution: {integrity: sha512-RafPY2gM7mcrFySS8TL8x+TIO3q7oAlHpzEmC7Im6pmXni6n1AuufGaVh0Narbr1daxstw7yW7T9BKW5dpVc2A==}

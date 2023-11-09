@@ -5,7 +5,10 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import MarkerClusterGroup from 'react-leaflet-cluster';
 // import 'leaflet/dist/leaflet.css';
+import { WebView } from 'react-native-webview';
+
 import { colors } from '../theme';
+
 
 interface Props {
   geocodes: number[];

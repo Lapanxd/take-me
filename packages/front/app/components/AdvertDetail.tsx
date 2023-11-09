@@ -9,7 +9,7 @@ import {
   Pressable,
   useWindowDimensions,
 } from 'react-native';
-import Map from '../components/Map';
+// import Map from '../components/Map';
 import { ScrollView } from 'react-native-gesture-handler';
 import { colors } from '../theme';
 import CloseBurgerIcon from '../icons/CloseBurgerIcon';
@@ -60,7 +60,7 @@ export const AdvertDetail: React.FC<Props> = ({
         </View>
 
         <View style={isSmallScreen ? $mapContentSmall : $mapContentLarge}>
-          <Map geocodes={[geocode]} names={[name]} selectedGeocode={geocode} />
+          {/* <Map geocodes={[geocode]} names={[name]} selectedGeocode={geocode} /> */}
         </View>
       </View>
     </View>

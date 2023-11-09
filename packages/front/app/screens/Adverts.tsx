@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { colors, spacing } from '../theme';
 import { RootStackParams } from '../navigators/MenuNavigator';
 import TopDrawerNavigation from '../components/TopDrawerNavigation';
-import Map from '../components/Map';
+// import Map from '../components/Map';
 
 type Props = NativeStackScreenProps<RootStackParams, 'AdvertsStack'>;
 
@@ -103,13 +103,13 @@ export const Adverts = () => {
         <View style={isSmallScreen ? $advertsListSmall : $advertsListLarge}>{detail}</View>
         {isSmallScreen && (
           <View style={$mapBlocSmall}>
-            <Map geocodes={geocodes} names={names} />
+            {/* <Map geocodes={geocodes} names={names} /> */}
           </View>
         )}
 
         {!isSmallScreen && (
           <View style={$mapBlocLarge}>
-            <Map geocodes={geocodes} names={names} />
+            {/* <Map geocodes={geocodes} names={names} /> */}
           </View>
         )}
       </View>

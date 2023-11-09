@@ -54,9 +54,9 @@ const $centerBox: ViewStyle = {
 
 const $searchBar: ViewStyle = {
   backgroundColor: colors.background,
-  borderRadius: '40px',
-  width: '300px',
-  margin: '20px',
-  padding: '20px',
+  borderRadius: 40,
+  width: 300,
+  margin: 20,
+  padding: 20,
 };
 export default NewPage;

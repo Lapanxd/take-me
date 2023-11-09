@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   Image,
@@ -11,10 +11,13 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import IconFolderOpen from '../icons/IconFolderOpen';
 import IconCamera from '../icons/IconCamera';
+import * as Location from 'expo-location';
 
 import { useNavigation } from '@react-navigation/native';
 
 const { width, height } = Dimensions.get('window');
+
+
 
 const AdvertFormScreen = () => {
   const [name, onChangeName] = React.useState('');
@@ -22,6 +25,31 @@ const AdvertFormScreen = () => {
   // const [geocode, onChangeText] = React.useState('');
   const [image, setImage] = useState('');
   const [error, setError] = useState('');
+
+  const [locationServiceEnabled, setLocationServiceEnabled] = useState(false);
+  const [displayCurrentAddress, setDisplayCurrentAddress] = useState(
+    'Wait, we are fetching you location...'
+  );
+
+  useEffect(() => {
+    CheckIfLocationEnabled();
+  }, []);
+
+  const CheckIfLocationEnabled = async () => {
+    let enabled = await Location.hasServicesEnabledAsync();
+
+    if (!enabled) {
+      Alert.alert(
+        'Location Service not enabled',
+        'Please enable your location services to continue',
+        [{ text: 'OK' }],
+        { cancelable: false }
+      );
+    } else {
+      setLocationServiceEnabled(enabled);
+    }
+  };
+
   const handleSubmit = () => {
     if (name && description) {
       navigation.navigate('<Adverts>', {
@@ -77,7 +105,9 @@ const AdvertFormScreen = () => {
         value={description}
         placeholder="Description"
       />
+   <Text >What's your address?</Text>
 
+      <Text >{displayCurrentAddress}</Text>
       {/* <TextInput
         style={styles.input}
         onChangeText={onChangeText}

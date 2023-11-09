@@ -10,6 +10,7 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  useWindowDimensions,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { navigate } from 'app/navigators';
@@ -18,7 +19,8 @@ const logo = require('../../assets/images/logooo.png');
 const screenWidth = Dimensions.get('window').width;
 
 export const SignIn = () => {
-  const isMobile = screenWidth <= 768;
+  const { width } = useWindowDimensions();
+  const isMobile = width <= 1300;
   const navigate = useNavigation() as any;
 
   const [mail, setMail] = useState('');
@@ -27,7 +29,7 @@ export const SignIn = () => {
 
   function connexion() {
     if (mail === 'user' && password === '123') {
-      navigate.navigate('Profil', { mail: mail });
+      navigate.navigate('Profil');
     } else {
       setError('Adresse mail ou mot de passe incorrect');
     }
@@ -55,7 +57,7 @@ export const SignIn = () => {
           <Text style={styles.label}>Adresse e-mail</Text>
           <TextInput
             style={styles.input}
-            placeholder="Nom d'utilisateur"
+            placeholder="exemple@gmail.com"
             placeholderTextColor="rgba(128, 128, 128, .5)"
             onChangeText={(text) => setMail(text)}
           />

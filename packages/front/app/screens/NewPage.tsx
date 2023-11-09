@@ -2,8 +2,8 @@ import React from 'react';
 import { View, ViewStyle, Text, ImageBackground, ImageStyle } from 'react-native';
 import { colors } from '../theme';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParams } from 'app/navigators/MenuNavigator';
-import TopDrawerNavigation from 'app/components/TopDrawerNavigation';
+import { RootStackParams } from '../navigators/MenuNavigator';
+import TopDrawerNavigation from '../components/TopDrawerNavigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const image = {

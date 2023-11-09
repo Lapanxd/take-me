@@ -93,6 +93,7 @@ const styles = StyleSheet.create({
     marginLeft: 'auto',
     marginRight: '15%',
     top:'20%'
+    
   },
 
   logo:

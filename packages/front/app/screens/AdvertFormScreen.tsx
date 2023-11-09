@@ -1,239 +1,164 @@
 import React, { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { v4 as uuidv4 } from 'uuid';
-import { ViewStyle, Text, Image, ImageStyle, TextStyle, PermissionsAndroid } from 'react-native';
-import { colors } from '../theme';
-import * as ImagePicker from 'react-native-image-picker';
-import IconCamera from '../icons/IconCamera';
+import {
+  SafeAreaView,
+  Image,
+  StyleSheet,
+  TextInput,
+  Text,
+  TouchableOpacity,
+  Dimensions,
+} from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import IconFolderOpen from '../icons/IconFolderOpen';
+import IconCamera from '../icons/IconCamera';
 
-export const AdvertForm = (props) => {
-  const [Advert, setAdvert] = useState({
-    adname: props.Advert ? props.Advert.adname : '',
-    description: props.Advert ? props.Advert.description : '',
-    quantity: props.Advert ? props.Advert.quantity : '',
-    latitude: props.Advert ? props.Advert.latitude : '',
-    longitude: props.Advert ? props.Advert.longitude : '',
-    date: props.Advert ? props.Advert.date : '',
-  });
+import { useNavigation } from '@react-navigation/native';
 
-  const [errorMsg, setErrorMsg] = useState('');
-  const { adname, description, quantity, latitude, longitude, date } = Advert;
+const { width, height } = Dimensions.get('window');
 
-  const handleOnSubmit = (event) => {
-    event.preventDefault();
-    const values = [adname, description, quantity, latitude, longitude, date];
-    let errorMsg = '';
-
-    const allFieldsFilled = values.every((field) => {
-      const value = `${field}`.trim();
-      return value !== '' && value !== '0';
+const AdvertFormScreen = () => {
+  const [name, onChangeName] = React.useState('');
+  const [description, onChangeDescription] = React.useState('');
+  // const [geocode, onChangeText] = React.useState('');
+  const [image, setImage] = useState('');
+  const [error, setError] = useState('');
+  const handleSubmit = () => {
+    if (name && description) {
+      navigation.navigate('<Adverts>', {
+        name: name,
+        description: description,
+      });
+    } else {
+      setError('Veuillez remplir tous les champs');
+    }
+  };
+  const navigation = useNavigation() as any;
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
     });
 
-    if (allFieldsFilled) {
-      const Advert = {
-        id: uuidv4(),
-        adname,
-        description,
-        quantity,
-        latitude,
-        longitude,
-        date: new Date(),
-      };
-      props.handleOnSubmit(Advert);
-    } else {
-      errorMsg = 'Please fill out all the fields.';
-    }
-    setErrorMsg(errorMsg);
-  };
+    console.log(result);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    switch (name) {
-      case 'quantity':
-        if (value === '' || parseInt(value) === +value) {
-          setAdvert((prevState) => ({
-            ...prevState,
-            [name]: value,
-          }));
-        }
-        break;
-      case 'latitude':
-        if (value === '' || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
-          setAdvert((prevState) => ({
-            ...prevState,
-            [name]: value,
-          }));
-        }
-        break;
-      case 'longitude':
-        if (value === '' || value.match(/^\d{1,}(\.\d{0,2})?$/)) {
-          setAdvert((prevState) => ({
-            ...prevState,
-            [name]: value,
-          }));
-        }
-        break;
-      default:
-        setAdvert((prevState) => ({
-          ...prevState,
-          [name]: value,
-        }));
+    if (!result.canceled) {
+      setImage(result.assets[0].uri);
     }
   };
 
-  const [responseCamera, setResponseCamera] = React.useState(null);
-  const [responseGallery, setResponseGallery] = React.useState(null);
-
-  const openCameraWithPermission = async () => {
-    try {
-      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA, {
-        title: 'App Camera Permission',
-        message: 'App needs access to your camera ',
-        buttonNeutral: 'Ask Me Later',
-        buttonNegative: 'Cancel',
-        buttonPositive: 'OK',
+  const pickImageCamera = async () => {
+    const cameraPermission = await ImagePicker.requestCameraPermissionsAsync();
+    if (cameraPermission.status === 'granted') {
+      let result = await ImagePicker.launchCameraAsync({
+        allowsEditing: true,
+        aspect: [4, 3],
+        quality: 1,
       });
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        ImagePicker.launchCamera(
-          {
-            mediaType: 'photo',
-            includeBase64: false,
-            maxHeight: 200,
-            maxWidth: 200,
-          },
-          (response) => {
-            console.log(response);
-            setResponseCamera(response);
-            setResponseGallery(null);
-          },
-        );
-      } else {
-        console.log('Camera permission denied');
+
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
       }
-    } catch (err) {
-      console.warn(err);
     }
   };
+
   return (
-    <div className="main-form">
-      {errorMsg && <p className="errorMsg">{errorMsg}</p>}
-      <Form onSubmit={handleOnSubmit}>
-        <Form.Group controlId="name">
-          <Form.Label>Titre</Form.Label>
-          <Form.Control
-            className="input-control"
-            type="text"
-            name="adname"
-            value={adname}
-            placeholder="Enter name of Advert"
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            className="input-control"
-            type="text"
-            name="description"
-            value={description}
-            placeholder="Enter name of description"
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="quantity">
-          <Form.Label>Quantité</Form.Label>
-          <Form.Control
-            className="input-control"
-            type="number"
-            name="quantity"
-            value={quantity}
-            placeholder="Enter available quantity"
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="longitude">
-          <Form.Label>Longitude</Form.Label>
-          <Form.Control
-            className="input-control"
-            type="number"
-            name="longitude"
-            value={longitude}
-            placeholder="longitude"
-            onChange={handleInputChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="latitude">
-          <Form.Label>Latitude</Form.Label>
-          <Form.Control
-            className="input-control"
-            type="number"
-            name="latitude"
-            value={latitude}
-            placeholder="latitude"
-            onChange={handleInputChange}
-          />
-        </Form.Group>
+    <SafeAreaView style={styles.container}>
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeName}
+        value={name}
+        placeholder="Nom de l'annonce"
+      />
+      <TextInput
+        style={styles.input}
+        onChangeText={onChangeDescription}
+        value={description}
+        placeholder="Description"
+      />
 
-        <TouchableOpacity onPress={() => openCameraWithPermission()}>
-          {responseCamera === null ? (
-            <Text style={$text}>
-              <IconCamera size={20} color={'black'} /> Prendre une photo
-            </Text>
-          ) : (
-            <Image style={$image} source={{ uri: responseCamera.uri }} />
-          )}
-        </TouchableOpacity>
+      {/* <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={geocode}
+        placeholder="Localisation de l'objet"
+      /> */}
 
-        <TouchableOpacity
-          onPress={() =>
-            ImagePicker.launchImageLibrary(
-              {
-                mediaType: 'photo',
-                includeBase64: false,
-                maxHeight: 900,
-                maxWidth: 900,
-              },
-              (response) => {
-                setResponseGallery(response);
-                setResponseCamera(null);
-              },
-            )
-          }
-        >
-          {responseGallery === null ? (
-            <Text style={$text}>
-              {' '}
-              <IconFolderOpen size={20} color={'black'} /> Choisir une photo
-            </Text>
-          ) : (
-            <Image style={$image} source={{ uri: responseGallery.uri }} />
-          )}
-        </TouchableOpacity>
+      {/* <TextInput
+        style={styles.input}
+        onChangeText={onChangeText}
+        value={geocode}
+        placeholder="Localisation de l'objet"
+      /> */}
 
-        <Button variant="dark" type="submit" className="submit-btn py-2 px-4 mt-4">
-          Submit
-        </Button>
-      </Form>
-    </div>
+      {image && <Image source={{ uri: image }} style={styles.image} />}
+      <TouchableOpacity style={styles.imgDownload} onPress={pickImage}>
+        <Text style={styles.txt_btn_img}>
+          <IconFolderOpen color="black" size={20} /> Télécharger depuis la galerie
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.imgDownload} onPress={pickImageCamera}>
+        <Text style={styles.txt_btn_img}>
+          <IconCamera color="black" size={20} />
+          Prendre une photo
+        </Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={[styles.btn]} onPress={handleSubmit}>
+        <Text style={styles.txtBtn}>Créer une annonce</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
-export default AdvertForm;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderRadius: 7,
+    marginTop: 10,
+    width: '80%',
+  },
+  btn: {
+    backgroundColor: 'black',
+    width: '60%',
+    height: 40,
+    borderRadius: 7,
+    marginTop: 10,
+  },
+  image: {
+    width: '80%',
+    height: width * 0.6,
+    marginTop: 10,
+  },
+  txtBtn: {
+    color: 'white',
+    textAlign: 'center',
+    lineHeight: 40,
+  },
 
-const $btnImg: ViewStyle = {
-  backgroundColor: colors.cardbg,
-  marginTop: '4px',
-  padding: '4px',
-  justifyContent: 'center',
-};
-const $image: ImageStyle = {
-  width: 100,
-  height: 100,
-  borderRadius: 8,
-};
+  txt_btn_img: {
+    fontSize: 18,
+    paddingVertical: 2,
+    padding: 10,
+    flexDirection: 'row',
+  },
+  imgDownload: {
+    borderColor: '#212121',
+    height: 30,
+    borderRadius: 5,
+    width: '80%',
+    margin: 10,
+  },
+});
 
-const $text: TextStyle = {
-  marginTop: 10,
-};
+export default AdvertFormScreen;

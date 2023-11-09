@@ -1,5 +1,5 @@
 import React from 'react';
-// import AdvertForm from './AdvertFormScreen';
+import AdvertForm from './AdvertFormScreen';
 import { View, ViewStyle, TextStyle, Text } from 'react-native';
 import { colors } from '../theme';
 import TopDrawerNavigation from 'app/components/TopDrawerNavigation';
@@ -17,9 +17,11 @@ export const AddAdvertScreen = () => {
           <TopDrawerNavigation />
         </View>
         <ScrollView>
-          <View style={$adcard}>
-            <Text style={$title}>Ajouter une annonce</Text>
-            {/* <AdvertForm handleOnSubmit={handleOnSubmit} /> */}
+          <View style={$content}>
+            <View style={$adcard}>
+              <Text style={$title}>Ajouter une annonce</Text>
+              <AdvertForm handleOnSubmit={handleOnSubmit} />
+            </View>
           </View>
         </ScrollView>
       </View>
@@ -37,6 +39,13 @@ const $header: ViewStyle = {
   alignItems: 'center',
   marginBottom: 16,
 };
+
+const $content: ViewStyle = {
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexDirection: 'row',
+};
+
 const $adcard: ViewStyle = {
   width: '50%',
   backgroundColor: 'white',
@@ -51,7 +60,6 @@ const $adcard: ViewStyle = {
   elevation: 2,
   marginLeft: 50,
   padding: '36px',
-  // flexDirection: 'row',
 };
 const $title: TextStyle = {
   fontSize: 34,

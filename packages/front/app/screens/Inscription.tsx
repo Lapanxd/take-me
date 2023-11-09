@@ -1,261 +1,236 @@
-import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  TextInput,
-  ImageStyle,
-  StyleSheet,
-  Image,
-  TouchableOpacity,
-  Dimensions,
-} from 'react-native';
-
-import { useNavigation } from '@react-navigation/native';
-const register = require('../../assets/images/logoo.png');
+import React, {useState} from 'react';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Dimensions, ImageBackground, Image, KeyboardAvoidingView, Platform } from 'react-native';
+import { useNavigation} from '@react-navigation/native';
+import { navigate } from 'app/navigators';
 const background = require('../../assets/images/bg.jpg');
+const logo = require('../../assets/images/logooo.png');
 const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
 
 export const Inscription = () => {
-  const [prenom, setPrenom] = useState('');
-  const [nom, setnom] = useState('');
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmpass, setConfirmpass] = useState('');
-  const [error, setError] = useState('');
-  const [errorPass, setErrorPass] = useState('');
+  const isMobile = screenWidth <= 768;
+  const navigate = useNavigation() as any;
 
-  const handleLogin = () => {
-    if (prenom && nom && username && email && password && confirmpass) {
-      if (confirmpass !== password) {
-        setErrorPass('Le mot de passe ne correspond pas');
-      } else {
-        navigation.navigate('Profil', {
-          prenom: prenom,
-          nom: nom,
-          username: username,
-          email: email,
-        });
-      }
+const [nom, setNom] = useState('');
+const [prenom, setPrenom] = useState('');
+const [mail, setMail] = useState('');
+const [password, setPassword] = useState('');
+const [confirmPassword, setConfirmPassword] = useState('');
+const [nomError, setNomError] = useState('');
+const [prenomError, setPrenomError] = useState('');
+const [mailError, setMailError] = useState('');
+const [passwordError, setPasswordError] = useState('');
+const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+
+
+function inscription() {
+  setNomError('');
+  setPrenomError('');
+  setMailError('');
+  setPasswordError('');
+  setConfirmPasswordError('');
+
+  if (!nom) {
+    setNomError('Nom requis');
+  }
+
+  if (!prenom) {
+    setPrenomError('Prénom requis');
+  }
+
+  if (!mail) {
+    setMailError('Adresse mail requis');
+  }
+
+  if (!password) {
+    setPasswordError('Mot de passe requis');
+  }
+
+  if (!confirmPassword) {
+    setConfirmPasswordError('Confirmation de mot de passe requis');
+  }
+
+  if (nom && prenom && mail && password && confirmPassword) {
+    if (password === confirmPassword) {
+      // Inscription réussie
+      navigate.navigate('Connect');
+
+      alert('Inscription réussie');
     } else {
-      setError('Veuillez remplir tous les champs');
+      setPasswordError('Les mots de passe ne correspondent pas');
     }
-  };
+  }
+}
 
-  const navigation = useNavigation() as any;
-
-  useEffect(() => {
-    // Réinitialise les champs d'entrée lors du montage du composant
-    setPrenom('');
-    setnom('');
-    setUsername('');
-    setPassword('');
-    setConfirmpass('');
-  }, []);
 
   return (
-    <View style={styles.container}>
-      <Image source={background} style={styles.bg} />
+    <ImageBackground source={background} style={styles.container}>
+      <KeyboardAvoidingView style={{ flex: 1 }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <Image source={logo} style={styles.logo}/>
 
-      <View style={styles.$form}>
-        <Image style={$Register} source={register} resizeMode="contain" />
-        <Text style={styles.inscriptionText}>Inscription</Text>
-        <View style={styles.contain}>
-          <TextInput
-            style={styles.inpNom}
-            placeholder="Nom"
-            placeholderTextColor="rgba(128, 128, 128, .5)"
-            value={nom}
-            onChangeText={(text) => setnom(text)}
+      <View style={[styles.form, isMobile && styles.centerForm, isMobile ? styles.centerForm : styles.rightForm]}>
+        <Text style={styles.title}>Inscrivez-vous</Text>
+        <View style={styles.inlineInput}>
+          <View style={styles.inputContainer}>
+        <Text style={styles.label}>Nom</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Nom "
+          placeholderTextColor="rgba(128, 128, 128, .5)"
+          onChangeText={(text) => setNom(text)}
           />
+          <Text style={styles.errorText}>{nomError}</Text>
 
-          <TextInput
-            style={styles.inpPrenom}
-            placeholder="Prenom"
-            placeholderTextColor="rgba(128, 128, 128, .5)"
-            value={prenom}
-            onChangeText={(text) => setPrenom(text)}
-          />
-
-          <TextInput
-            style={styles.input}
-            placeholder="Nom d utilisateur"
-            placeholderTextColor="rgba(128, 128, 128, .5)"
-            value={username}
-            onChangeText={(text) => setUsername(text)}
-          />
-
-          <TextInput
-            style={styles.input}
-            placeholder="monmail@mail.com"
-            placeholderTextColor="rgba(128, 128, 128, .5)"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-          />
-
-          <TextInput
-            style={styles.input}
-            placeholder="Mot de passe"
-            placeholderTextColor="rgba(128, 128, 128, .5)"
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            secureTextEntry={true}
-          />
-
-          <TextInput
-            style={styles.input}
-            placeholder="Confirmer le mot de passe"
-            placeholderTextColor="rgba(128, 128, 128, .5)"
-            value={confirmpass}
-            onChangeText={(text) => setConfirmpass(text)}
-            secureTextEntry={true}
-          />
-          <Text style={styles.errorText}>{error}</Text>
-          <Text style={styles.errorText}>{errorPass}</Text>
-
-          <View style={styles.btnView}>
-            {/* Bouton Connecter, MDP_O, Inscription*/}
-            <TouchableOpacity style={[styles.btn]} onPress={handleLogin}>
-              <Text style={styles.txtBtn}>S'inscrire</Text>
-            </TouchableOpacity>
           </View>
-        </View>
+
+        <View style={styles.inputContainer}>
+          <Text style={styles.label}>Prénom</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Prénom"
+          placeholderTextColor="rgba(128, 128, 128, .5)"
+          onChangeText={(text) => setPrenom(text)}
+          />
+          <Text style={styles.errorText}>{prenomError}</Text>
+
+          </View>
+          </View>
+        <Text style={styles.label}>Adresse e-mail</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="user@gmail.com"
+          placeholderTextColor="rgba(128, 128, 128, .5)"
+          onChangeText={(text) => setMail(text)}
+          />
+          <Text style={styles.errorText}>{mailError}</Text>
+
+        <Text style={styles.label}>Mot de passe</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="********"
+          placeholderTextColor="rgba(128, 128, 128, .5)"
+          secureTextEntry={true}
+          onChangeText={(text) => setPassword(text)}
+          />
+          <Text style={styles.errorText}>{passwordError}</Text>
+
+          <Text style={styles.label}>Confirmer le mot de passe</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="********"
+          placeholderTextColor="rgba(128, 128, 128, .5)"
+          secureTextEntry={true}
+          onChangeText={(text) => setConfirmPassword(text)}
+          />
+          <Text style={styles.errorText}>{confirmPasswordError}</Text>
+
+
+        <TouchableOpacity style={styles.registerButton} onPress={inscription}>
+          <Text style={styles.buttonText}>S'inscrire</Text>
+        </TouchableOpacity>
+
       </View>
-    </View>
+      </KeyboardAvoidingView>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
     flex: 1,
+    backgroundColor: '#FFFFFF',
   },
-
-  bg: {
-    position: 'absolute',
-    width: screenWidth / 2,
-    height: screenHeight,
-    marginLeft: '50%',
-  },
-
-  nav: {
+  form: {
     width: '100%',
-    height: '10%',
-    backgroundColor: 'grey',
+    maxWidth: 414,
+    height:'100%',
+    maxHeight: 450,
+    top: '15%',
+    backgroundColor:'rgba(234, 234, 234, .6)',
+    borderRadius:10,
+    alignItems:'center'
+  },
+  centerForm: {
+    alignItems: 'center',
+    justifyContent:'center',
+  },
+  rightForm: {
+    marginLeft: 'auto',
+    marginRight: '15%',
+    top:'20%',
+    backgroundColor:'rgba(190, 190, 190, .6)'
   },
 
-  btnView: {
-    padding: 8,
+  logo:
+  {
+    marginLeft: 'auto',
+    marginRight: '20%',
+    top:'10%'
+
   },
 
-  btn: {
-    backgroundColor: 'black',
-    width: '60%',
-    height: 40,
+  title: {
+    fontSize: 28,
+    marginBottom: 20,
+    alignSelf:'center',
+    paddingBottom:30,
+    paddingTop:30,
+
+  },
+
+  label:
+  {
     position: 'relative',
-    left: '17%',
-    borderRadius: 7,
-  },
-
-  txtBtn: {
-    color: 'white',
-    textAlign: 'center',
-    position: 'relative',
-    top: '20%',
-  },
-
-  btnPass: {
-    textAlign: 'center',
-    position: 'relative',
-    top: 10,
-  },
-
-  txtPass: {},
-
-  btnReg: {
-    textAlign: 'center',
-    position: 'relative',
-    top: 20,
-  },
-
-  hoveredButton: {
-    color: 'grey',
-  },
-
-  txtReg: {},
-
-  inscriptionText: {
-    position: 'absolute',
-    marginTop: '35%',
-    marginLeft: '25%',
-    fontSize: 25,
-  },
-
-  $form: {
-    width: '50%',
-    height: '100%',
-    borderRadius: 7,
-  },
-
-  contain: {
-    position: 'absolute',
-    top: '45%',
-    marginLeft: '25%',
-  },
-
-  label: {
-    fontSize: 18,
-    marginBottom: 5,
-  },
-
-  inpNom: {
-    width: 130,
-    height: 35,
-    borderWidth: 1,
-    borderRadius: 7,
-    padding: 10,
-    marginTop: 10,
-  },
-
-  inpPrenom: {
-    position: 'absolute',
-    width: 130,
-    height: 35,
-    top: 10,
-    borderWidth: 1,
-    borderRadius: 7,
-    padding: 8,
-    left: '55%',
+    alignSelf: 'flex-start',
+    marginLeft: '6%'
   },
 
   input: {
-    width: 300,
-    height: 35,
+    width: '90%',
+    height: 40,
     borderWidth: 1,
     borderRadius: 7,
     padding: 10,
-    marginTop: 10,
+    marginBottom: 10,
+    backgroundColor: ("white")
+  },
+
+  inlineInput: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    left:'5%'
+  },
+  inputContainer: {
+    flex: 1,
+    marginRight: 20,
+    right:'1%'
+  },
+
+  buttonText: {
+    color: 'white',
+  },
+
+  registerButton: {
+    backgroundColor: 'green',
+    width: '60%',
+    height: 40,
+    borderRadius: 7,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf:'center',
+    top: '10%',
   },
 
   errorText: {
     color: 'red',
     fontSize: 12,
-    marginBottom: 10,
-  },
+    marginLeft: '6%',
+    position: 'relative',
+    alignSelf: 'flex-start',
 
-  error: {
-    color: 'red',
-    fontSize: 12,
-  },
+  }
+
 });
-
-const $Register: ImageStyle = {
-  position: 'absolute',
-  height: '20%',
-  width: '30%',
-  marginTop: '15%',
-  marginLeft: '25%',
-};
 
 export default Inscription;

@@ -11,7 +11,7 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import IconFolderOpen from '../icons/IconFolderOpen';
 import IconCamera from '../icons/IconCamera';
-import * as Location from 'expo-location';
+// import * as Location from 'expo-location';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -25,6 +25,7 @@ const AdvertFormScreen = () => {
   // const [geocode, onChangeText] = React.useState('');
   const [image, setImage] = useState('');
   const [error, setError] = useState('');
+  const [address, setAddress] = useState('');
 
   const [locationServiceEnabled, setLocationServiceEnabled] = useState(false);
   const [displayCurrentAddress, setDisplayCurrentAddress] = useState(
@@ -105,9 +106,12 @@ const AdvertFormScreen = () => {
         value={description}
         placeholder="Description"
       />
-   <Text >What's your address?</Text>
-
-      <Text >{displayCurrentAddress}</Text>
+<TextInput
+  style={styles.input}
+  onChangeText={setAddress}
+  value={address}
+  placeholder="Entrez votre adresse"
+/>
       {/* <TextInput
         style={styles.input}
         onChangeText={onChangeText}

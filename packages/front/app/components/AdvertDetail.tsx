@@ -18,7 +18,7 @@ interface Props {
   name: string;
   image: string;
   description: string;
-  geocode: number;
+  geocode: [number, number];
   objectType: string;
   onClose: () => void;
 }

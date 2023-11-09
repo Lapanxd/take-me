@@ -73,30 +73,22 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isAuthenticated ? 'Connect' : 'NewPage'} // @demo remove-current-line
+      initialRouteName={isAuthenticated ? 'Adverts' : 'Connect'}
     >
-      {/* @demo remove-block-start */}
       {isAuthenticated ? (
         <>
-          {/* @demo remove-block-end */}
-          <Stack.Screen name="Welcome" component={Screens.WelcomeScreen} />
-          {/* @demo remove-block-start */}
           <Stack.Screen name="NewPage" component={Screens.NewPage} />
           <Stack.Screen name="AddAdvert" component={Screens.AddAdvertScreen} />
-          <Stack.Screen name="Adverts" component={Screens.Adverts} />
-
           <Stack.Screen name="Inscription" component={Screens.Inscription} />
-          <Stack.Screen name="Connect" component={Screens.Connect} />
           <Stack.Screen name="Profil" component={Screens.Profil} />
         </>
       ) : (
         <>
+          <Stack.Screen name="Connect" component={Screens.Connect} />
+          <Stack.Screen name="Adverts" component={Screens.Adverts} />
           <Stack.Screen name="Inscription" component={Screens.Inscription} />
         </>
       )}
-      {/* @demo remove-block-end */}
-      {/** 🔥 Your screens go here */}
-      {/* IGNITE_GENERATOR_ANCHOR_APP_STACK_SCREENS */}
     </Stack.Navigator>
   );
 });

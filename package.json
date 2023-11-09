@@ -2,14 +2,12 @@
   "name": "take-me",
   "version": "0.0.1",
   "private": true,
-  "scripts": {
-  },
+  "scripts": {},
   "overrides": {
     "react-error-overlay": "6.0.9"
   },
   "dependencies": {
-  },
-  "devDependencies": {
+    "react-native-webview": "^13.6.2"
   },
   "pnpm": {
     "overrides": {

@@ -53,7 +53,7 @@ export class AuthService {
   async refreshToken(refreshToken : string) : Promise<{ accessToken : string}> {
     try {
       const decoded = await this.jwtService.verifyAsync(refreshToken, {
-        secret : this.configService.get<string>('JWT_REFRESH_TOKEN'),
+        secret : this.configService.get<string>('JWT_REFRESH_SECRET'),
       });
 
       const payload = {sub: decoded.sub, email: decoded.email};

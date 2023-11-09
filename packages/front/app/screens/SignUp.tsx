@@ -19,7 +19,7 @@ const background = require('../../assets/images/bg.jpg');
 const logo = require('../../assets/images/logooo.png');
 const screenWidth = Dimensions.get('window').width;
 
-export const Inscription = () => {
+export const SignUp = () => {
   const isMobile = screenWidth <= 768;
   const navigator = useNavigation() as any;
 
@@ -279,4 +279,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Inscription;
+export default SignUp;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -19,6 +19,7 @@ import { authService } from 'app/core/services/api/auth.service';
 const background = require('../../assets/images/bg.jpg');
 const logo = require('../../assets/images/logooo.png');
 const screenWidth = Dimensions.get('window').width;
+import { useStores } from '../core/helpers/useStores';
 
 export const SignIn = () => {
   const { width } = useWindowDimensions();
@@ -30,18 +31,17 @@ export const SignIn = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
+  const {
+    authenticationStore: { checkAuthentication },
+  } = useStores();
+
   async function connexion() {
-    console.log(mail, password);
     await authService.signIn({
       email: mail,
       password,
     });
 
-    // if (mail === 'user' && password === '123') {
-    //   navigate.navigate('Profil', { mail: mail });
-    // } else {
-    //   setError('Adresse mail ou mot de passe incorrect');
-    // }
+    await checkAuthentication();
   }
 
   function inscription() {

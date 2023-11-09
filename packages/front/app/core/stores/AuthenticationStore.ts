@@ -1,17 +1,14 @@
-import { Instance, SnapshotOut, types } from 'mobx-state-tree';
+import { Instance, SnapshotOut, types, flow } from 'mobx-state-tree';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AuthenticationStoreModel = types
   .model('AuthenticationStore')
   .props({
     authToken: types.maybe(types.string),
     refreshToken: types.maybe(types.string),
-    authEmail: '',
+    isAuthenticated: types.optional(types.boolean, false),
   })
-  .views((store) => ({
-    get isAuthenticated() {
-      return !!store.authToken;
-    },
-  }))
+  .views((store) => ({}))
   .actions((store) => ({
     setAuthToken(value?: string) {
       store.authToken = value;
@@ -23,6 +20,11 @@ export const AuthenticationStoreModel = types
       store.authToken = undefined;
       store.refreshToken = undefined;
     },
+    checkAuthentication: flow(function* () {
+      const result = yield AsyncStorage.getItem('accessToken');
+      console.log('result', !!result);
+      store.isAuthenticated = !!result;
+    }),
   }));
 
 export interface AuthenticationStore extends Instance<typeof AuthenticationStoreModel> {}

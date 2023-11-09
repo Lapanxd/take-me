@@ -19,7 +19,6 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
   return (
     <View style={$container}>
       <Text style={$title}>Menu</Text>
-
       <TouchableOpacity onPress={() => navigateAndClose('Adverts')}>
         <Text style={$link}>Toutes les annonces</Text>
       </TouchableOpacity>
@@ -28,6 +27,9 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigateAndClose('NewPage')}>
         <Text style={$link}>Accueil</Text>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => navigateAndClose('Profil')}>
+        <Text style={$link}>Profil</Text>
       </TouchableOpacity>
     </View>
   );

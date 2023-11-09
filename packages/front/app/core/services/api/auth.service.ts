@@ -1,16 +1,13 @@
 import { ApiResponse, ApisauceInstance, create } from 'apisauce';
 import { ApiConfig } from './api.types';
 import Config from 'app/config';
-import { IAdvert } from '../../models/Advert';
 import { ISignUpUser } from '../../models/SignUpUser';
 import { ISignInUser } from '../../models/SignInUser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useStores } from '../../helpers/useStores';
 
 export class AuthService {
   apisauce: ApisauceInstance;
   config: ApiConfig;
-  authenticationStore;
 
   constructor() {
     this.config = {
@@ -27,9 +24,9 @@ export class AuthService {
     });
   }
 
-  async signUp(user: ISignUpUser) {
+  async signUp(user: ISignUpUser): Promise<ISignUpUser> {
     try {
-      const response: ApiResponse<IAdvert> = await this.apisauce.post(`/auth/sign-up`, user);
+      const response: ApiResponse<ISignUpUser> = await this.apisauce.post(`/auth/sign-up`, user);
       return response.data;
     } catch (err) {
       if (__DEV__) {
@@ -39,10 +36,9 @@ export class AuthService {
     }
   }
 
-  async signIn(user: ISignInUser): Promise<void> {
+  async signIn(user: ISignInUser): Promise<any> {
+    //@TODO mettre un vrai type plutôt que any
     try {
-      console.log('dans le service');
-
       const response: ApiResponse<{ accessToken: string; refreshToken: string }> =
         await this.apisauce.post(`/auth/sign-in`, user);
 
@@ -50,18 +46,12 @@ export class AuthService {
         return;
       }
 
-      const {
-        authenticationStore: { setAuthToken, setRefreshToken, isAuthenticated },
-      } = useStores();
+      await AsyncStorage.setItem('accessToken', response.data.accessToken);
+      await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
 
-      console.log(response.data);
+      console.log(response.data.accessToken);
 
-      setAuthToken(response.data.accessToken);
-      setRefreshToken(response.data.accessToken);
-
-      if (isAuthenticated) {
-        console.log('isAuthenticated');
-      }
+      return { accessToken: response.data.accessToken, refreshToken: response.data.refreshToken };
     } catch (err) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${err.message}\n}`, err.stack);

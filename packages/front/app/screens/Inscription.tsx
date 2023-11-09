@@ -1,59 +1,62 @@
 import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
   Dimensions,
-  ImageBackground,
   Image,
+  ImageBackground,
   KeyboardAvoidingView,
   Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { authService } from 'app/core/services/api/auth.service';
-import { navigate } from 'app/navigators';
+import { ISignUpUser } from '../core/models/SignUpUser';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const background = require('../../assets/images/bg.jpg');
 const logo = require('../../assets/images/logooo.png');
 const screenWidth = Dimensions.get('window').width;
 
 export const Inscription = () => {
   const isMobile = screenWidth <= 768;
-  const navigate = useNavigation() as any;
+  const navigator = useNavigation() as any;
+
+  const [lastname, setLastname] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [mail, setMail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [lastnameError, setLastnameError] = useState('');
+  const [firstnameError, setFirstnameError] = useState('');
+  const [mailError, setMailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
   const isEmailValid = (email) => {
     const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     return emailPattern.test(email);
   };
 
-  const [nom, setNom] = useState('');
-  const [prenom, setPrenom] = useState('');
-  const [mail, setMail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [nomError, setNomError] = useState('');
-  const [prenomError, setPrenomError] = useState('');
-  const [mailError, setMailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
-  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const isPasswordsMatching = (password: string, confirmPassword: string) => {
+    return password === confirmPassword;
+  };
 
-  async function inscription() {
-    setNomError('');
-    setPrenomError('');
+  function checkForm(formData: ISignUpUser) {
+    setLastnameError('');
+    setFirstnameError('');
     setMailError('');
     setPasswordError('');
     setConfirmPasswordError('');
 
-    if (!nom) {
-      setNomError('Nom requis');
-
+    if (!firstname) {
+      setFirstnameError('Prénom requis');
       return;
     }
 
-    if (!prenom) {
-      setPrenomError('Prénom requis');
-
+    if (!formData.lastname) {
+      setLastnameError('Nom requis');
       return;
     }
 
@@ -61,40 +64,49 @@ export const Inscription = () => {
       setMailError('Adresse mail requis');
     } else if (!isEmailValid(mail)) {
       setMailError('Adresse mail non valide');
-
       return;
     }
 
-    if (!password) {
+    if (!password && !confirmPassword) {
       setPasswordError('Mot de passe requis');
-
       return;
-    }
-
-    if (!confirmPassword) {
+    } else if (password && confirmPassword && !isPasswordsMatching(password, confirmPassword)) {
       setConfirmPasswordError('Confirmation de mot de passe requis');
-
       return;
     }
 
-    if (nom && prenom && mail) {
-      if (password && password === confirmPassword) {
-        // Inscription réussie
-        //navigate.navigate('Connect');
-        console.log(nom, prenom, mail, password);
+    return true;
+  }
 
+  async function inscription() {
+    const isFormValid = checkForm({
+      firstname,
+      lastname,
+      email: mail,
+      password,
+      confirmPassword,
+    });
+
+    if (isFormValid) {
+      try {
         const user = await authService.signUp({
-          firstname: prenom,
-          lastname: nom,
+          firstname: firstname,
+          lastname: lastname,
           email: mail,
           password: password,
           city: 'Bordeaux',
         });
 
-        console.log(user);
-        //alert('Inscription réussie');
-      } else {
-        setPasswordError('Les mots de passe ne correspondent pas');
+        await authService.signIn({
+          email: mail,
+          password,
+        });
+
+        if (await AsyncStorage.getItem('accessToken')) {
+          navigator.navigate('Profil');
+        }
+      } catch (err) {
+        console.log(err);
       }
     }
   }
@@ -122,9 +134,9 @@ export const Inscription = () => {
                 style={styles.input}
                 placeholder="Nom "
                 placeholderTextColor="rgba(128, 128, 128, .5)"
-                onChangeText={(text) => setNom(text)}
+                onChangeText={(text) => setLastname(text)}
               />
-              <Text style={styles.errorText}>{nomError}</Text>
+              <Text style={styles.errorText}>{lastnameError}</Text>
             </View>
 
             <View style={styles.inputContainer}>
@@ -133,9 +145,9 @@ export const Inscription = () => {
                 style={styles.input}
                 placeholder="Prénom"
                 placeholderTextColor="rgba(128, 128, 128, .5)"
-                onChangeText={(text) => setPrenom(text)}
+                onChangeText={(text) => setFirstname(text)}
               />
-              <Text style={styles.errorText}>{prenomError}</Text>
+              <Text style={styles.errorText}>{firstnameError}</Text>
             </View>
           </View>
           <Text style={styles.label}>Adresse e-mail</Text>

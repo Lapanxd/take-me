@@ -27,7 +27,7 @@ export class AuthService {
 
   async signUp(user: ISignUpUser) {
     try {
-      const response: ApiResponse<IAdvert> = await this.apisauce.post(`/auth/sign-up}`, user);
+      const response: ApiResponse<IAdvert> = await this.apisauce.post(`/auth/sign-up`, user);
       return response.data;
     } catch (err) {
       if (__DEV__) {

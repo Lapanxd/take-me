@@ -15,14 +15,14 @@ function ProfileIcon(props: Props) {
         stroke={props.color}
         strokeLinecap="round"
         strokeLinejoin="round"
-        strokeWidth={32}
+        strokeWidth={40}
       />
       <Path
         d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z"
         fill="none"
         stroke={props.color}
         strokeMiterlimit={10}
-        strokeWidth={32}
+        strokeWidth={40}
       />
     </Svg>
   );

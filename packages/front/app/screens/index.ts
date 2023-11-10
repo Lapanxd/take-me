@@ -1,4 +1,4 @@
-import Connect from './Connect';
+import SignIn from './SignIn';
 
 export * from './WelcomeScreen';
 // @demo remove-block-start
@@ -9,6 +9,6 @@ export * from './ErrorScreen/ErrorBoundary';
 export * from './NewPage';
 export * from './AddAdvertScreen';
 export * from './Adverts';
-export * from './Inscription';
-export * from './Connect';
+export * from './SignUp';
+export * from './SignIn';
 export * from './Profil';

@@ -42,8 +42,8 @@ export type AppStackParamList = {
   Adverts: undefined;
 
   Profil: undefined;
-  Inscription: undefined;
-  Connect: undefined;
+  SingUp: undefined;
+  SignIn: undefined;
 
   // 🔥 Your screens go here
   // IGNITE_GENERATOR_ANCHOR_APP_STACK_PARAM_LIST
@@ -79,14 +79,14 @@ const AppStack = observer(function AppStack() {
         <>
           <Stack.Screen name="NewPage" component={Screens.NewPage} />
           <Stack.Screen name="AddAdvert" component={Screens.AddAdvertScreen} />
-          <Stack.Screen name="Inscription" component={Screens.Inscription} />
+          <Stack.Screen name="Inscription" component={Screens.SignUp} />
           <Stack.Screen name="Profil" component={Screens.Profil} />
         </>
       ) : (
         <>
-          <Stack.Screen name="Connect" component={Screens.Connect} />
+          <Stack.Screen name="Connect" component={Screens.SignIn} />
           <Stack.Screen name="Adverts" component={Screens.Adverts} />
-          <Stack.Screen name="Inscription" component={Screens.Inscription} />
+          <Stack.Screen name="Inscription" component={Screens.SignUp} />
         </>
       )}
     </Stack.Navigator>

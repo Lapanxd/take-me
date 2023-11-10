@@ -92,19 +92,13 @@ export const SignUp = () => {
   }
 
   async function inscription() {
-    // let isFormValid = checkForm({
-    //   firstname,
-    //   lastname,
-    //   email: mail,
-    //   password,
-    //   confirmPassword,
-    // });
-
-    /* * * * * * * * *
-     * @TODO IL FAUT CHANGER CA /!\ (décommenter au dessus)
-     * * * * * * * * */
-
-    const isFormValid = true; // @TODO Il faudra enlever cette ligne
+    let isFormValid = checkForm({
+      firstname,
+      lastname,
+      email: mail,
+      password,
+      confirmPassword,
+    });
 
     if (isFormValid) {
       try {
@@ -137,6 +131,7 @@ export const SignUp = () => {
 
         {/* Colonne de droite avec le formulaire */}
         <View style={isSmallScreen ? styles.rightColumnSmall : styles.rightColumnLarge}>
+          <Image source={require('../../assets/images/logooo.png')} style={styles.logo}></Image>
           <View style={styles.formContainer}>
             <Text style={styles.title}>Inscrivez-vous</Text>
             <View style={styles.inlineInput}>
@@ -187,7 +182,7 @@ export const SignUp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f0f0f0',
+    flexDirection: 'row',
   },
   columnContainerSmall: {
     flex: 1,
@@ -202,16 +197,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  logo: {
+    flex: 1,
+    marginLeft: '15%',
+  },
+
   rightColumnSmall: {
     flex: 1,
-    top: '50%',
+    top: '70%',
     alignSelf: 'center',
     alignItems: 'center',
   },
   rightColumnLarge: {
     flex: 1,
     marginLeft: '60%',
-    top: '20%',
+    top: '50%',
   },
   image: {
     width: '100%', // Ajuste la largeur à la taille de la colonne
@@ -219,10 +219,10 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   formContainer: {
-    width: '50%', // Ajuste la largeur à la taille de la colonne
+    width: '80%', // Ajuste la largeur à la taille de la colonne
     padding: 20,
     borderRadius: 10,
-    backgroundColor: 'grey',
+    backgroundColor: 'rgba(190, 190, 190, .5)',
   },
   title: {
     fontSize: 24,
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   button: {
-    backgroundColor: '#3498db',
+    backgroundColor: '#212121',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',
@@ -259,7 +259,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
   },
 });
 

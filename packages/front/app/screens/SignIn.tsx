@@ -23,7 +23,7 @@ import { useStores } from '../core/helpers/useStores';
 
 export const SignIn = () => {
   const { width } = useWindowDimensions();
-  const isScreenSmall = width < 1090;
+  const isSmallScreen = width < 1130;
 
   const navigate = useNavigation() as any;
 
@@ -49,142 +49,105 @@ export const SignIn = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
-        <View style={isScreenSmall ? styles.columnContainerSmall : styles.columnContainerLarge}>
-          <ImageBackground source={background} style={styles.leftColumn}></ImageBackground>
+    <ImageBackground source={require('../../assets/images/bg.jpg')} style={styles.container}>
+      <View style={isSmallScreen ? styles.columnContainerSmall : styles.columnContainerLarge}>
+        {/* Colonne de gauche avec l'image */}
 
-          <View style={styles.rightColumn}>
-            <Image source={logo} style={styles.logo} />
-            <View style={styles.formLeft}>
-              <View style={styles.formContainer}>
-                <Text style={styles.title}>Connexion</Text>
-                <Text style={styles.label}>Adresse e-mail</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Nom d'utilisateur"
-                  placeholderTextColor="rgba(128, 128, 128, .5)"
-                  onChangeText={(text) => setMail(text)}
-                />
-                <Text style={styles.label}>Mot de passe</Text>
-                <TextInput
-                  style={styles.input}
-                  placeholder="Mot de passe"
-                  placeholderTextColor="rgba(128, 128, 128, .5)"
-                  secureTextEntry={true}
-                  onChangeText={(text) => setPassword(text)}
-                />
+        {/* Colonne de droite avec le formulaire */}
+        <View style={isSmallScreen ? styles.rightColumnSmall : styles.rightColumnLarge}>
+          <Image source={require('../../assets/images/logooo.png')} style={styles.logo}></Image>
+          <View style={styles.formContainer}>
+            <Text style={styles.title}>Inscrivez-vous</Text>
 
-                <Text style={styles.error}>{error}</Text>
-                <TouchableOpacity style={styles.loginButton} onPress={connexion}>
-                  <Text style={styles.buttonText}>Se connecter</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.forgotPassword}>
-                  <Text style={styles.forgotPasswordText}>Mot de passe oublié ?</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.registerButton} onPress={inscription}>
-                  <Text style={styles.buttonText}>S'inscrire</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
+            <TextInput
+              style={styles.input}
+              placeholder="exemple@gmail.com"
+              placeholderTextColor="#888"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Mot de passe"
+              placeholderTextColor="#888"
+              secureTextEntry
+            />
+
+            <TouchableOpacity style={styles.loginButton} onPress={connexion}>
+              <Text style={styles.buttonText}>Se connecter</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.forgotPassword}>
+              <Text style={styles.forgotPasswordText}>Mot de passe oublié ?</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.registerButton} onPress={inscription}>
+              <Text style={styles.buttonText}>S'inscrire</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAvoidingView>
-    </View>
+      </View>
+    </ImageBackground>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  form: {
-    width: '100%',
-    maxWidth: 414,
-    height: '100%',
-    maxHeight: 414,
-    top: '20%',
-    backgroundColor: 'rgba(190, 190, 190, .6)',
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  centerForm: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  rightForm: {
-    marginLeft: 'auto',
-    marginRight: '15%',
-    top: '20%',
+    flexDirection: 'row',
   },
   columnContainerSmall: {
     flex: 1,
-    position: 'absolute',
-    width: '100%',
+    flexDirection: 'column',
   },
   columnContainerLarge: {
     flex: 1,
-    flexDirection: 'row', // Deux colonnes pour les grands écrans
+    flexDirection: 'row',
   },
   leftColumn: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  rightColumn: {
+  logo: {
     flex: 1,
-    top: '10%',
+    marginLeft: '15%',
+  },
+
+  rightColumnSmall: {
+    flex: 1,
+    top: '70%',
+    alignSelf: 'center',
+    alignItems: 'center',
+  },
+  rightColumnLarge: {
+    flex: 1,
+    marginLeft: '55%',
+    top: '30%',
+    padding: 40,
+  },
+  image: {
+    width: '100%', // Ajuste la largeur à la taille de la colonne
+    height: '100%', // Ajuste la hauteur à la taille de la colonne
+    resizeMode: 'cover',
   },
   formContainer: {
-    flex: 1,
-    width: '50%',
-    height: '100%',
-    left: '25%',
-    top: '10%',
-    backgroundColor: 'rgba(190, 190, 190, .6)',
+    width: '80%', // Ajuste la largeur à la taille de la colonne
+    padding: 20,
     borderRadius: 10,
+    backgroundColor: 'rgba(190, 190, 190, .5)',
   },
-
-  formLeft: {
-    flex: 1,
-    marginTop: '30%',
-    maxHeight: '100%',
-  },
-
-  logo: {
-    marginLeft: '30%',
-    width: 270,
-    height: 80,
-  },
-
   title: {
     fontSize: 24,
+    fontWeight: 'bold',
     marginBottom: 20,
     alignSelf: 'center',
-    paddingBottom: 30,
-    paddingTop: 30,
-  },
-
-  label: {
-    position: 'relative',
-    alignSelf: 'flex-start',
-    marginLeft: '10%',
   },
   input: {
-    marginBottom: 10,
-    padding: 10,
+    width: '100%',
+    height: 40,
     borderWidth: 1,
-    borderColor: 'gray',
     borderRadius: 5,
-    width: '80%',
-    alignSelf: 'center',
+    padding: 5,
+    marginBottom: 10,
     backgroundColor: 'white',
   },
-
   loginButton: {
     backgroundColor: '#212121',
     width: '60%',
@@ -202,7 +165,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   forgotPasswordText: {
-    color: 'blue',
+    color: '212121',
   },
   registerButton: {
     backgroundColor: 'green',
@@ -213,14 +176,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     marginTop: 10,
-  },
-
-  error: {
-    color: 'red',
-    alignSelf: 'flex-start',
-    marginLeft: '6%',
-
-    marginBottom: 5,
   },
 });
 

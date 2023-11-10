@@ -2,6 +2,7 @@ import { Button, TextInput, Touchable, TouchableOpacity, View } from 'react-nati
 import { typography } from '../theme';
 import { useStores } from '../core';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React from 'react';
 
 export const ProfilTest = () => {
   const {
@@ -36,12 +37,10 @@ export const ProfilTest = () => {
             placeholderTextColor="gray"
             placeholder="Rechercher un objet"
           />
-          <TouchableOpacity style={styles.addAdvertButton}>+ Ajouter un objet</TouchableOpacity>
+          <TouchableOpacity style={styles.addAdvertButton}></TouchableOpacity>
         </View>
         <View style={{ flex: 1 }}>
-          <TouchableOpacity style={styles.addAdvertButton} onPress={logOut}>
-            Log out
-          </TouchableOpacity>
+          <TouchableOpacity style={styles.addAdvertButton} onPress={logOut}></TouchableOpacity>
         </View>
       </View>
     </View>

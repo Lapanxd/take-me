@@ -54,18 +54,23 @@ export const SignUp = () => {
     setPasswordError('');
     setConfirmPasswordError('');
 
+    console.log('ici c bon');
+
     if (!firstname) {
       setFirstnameError('Prénom requis');
+      console.log('prénom');
       return;
     }
 
     if (!formData.lastname) {
       setLastnameError('Nom requis');
+      console.log('nom');
       return;
     }
 
     if (!mail) {
       setMailError('Adresse mail requis');
+      console.log('mail');
     } else if (!isEmailValid(mail)) {
       setMailError('Adresse mail non valide');
       return;
@@ -73,24 +78,33 @@ export const SignUp = () => {
 
     if (!password && !confirmPassword) {
       setPasswordError('Mot de passe requis');
+      console.log('pwd');
       return;
     } else if (password && confirmPassword && !isPasswordsMatching(password, confirmPassword)) {
       setConfirmPasswordError('Confirmation de mot de passe requis');
+      console.log('pwd');
       return;
     }
+
+    console.log('c bon');
 
     return true;
   }
 
   async function inscription() {
-    console.log('here');
-    const isFormValid = checkForm({
-      firstname,
-      lastname,
-      email: mail,
-      password,
-      confirmPassword,
-    });
+    // let isFormValid = checkForm({
+    //   firstname,
+    //   lastname,
+    //   email: mail,
+    //   password,
+    //   confirmPassword,
+    // });
+
+    /* * * * * * * * *
+     * @TODO IL FAUT CHANGER CA /!\ (décommenter au dessus)
+     * * * * * * * * */
+
+    const isFormValid = true; // @TODO Il faudra enlever cette ligne
 
     if (isFormValid) {
       try {
@@ -109,7 +123,6 @@ export const SignUp = () => {
           });
 
           await checkAuthentication();
-          navigator.navigate('adverts');
         }
       } catch (err) {
         console.log(err);
@@ -118,81 +131,57 @@ export const SignUp = () => {
   }
 
   return (
-      <ImageBackground source={background} style={styles.container}>
-        <KeyboardAvoidingView
-            style={{ flex: 1 }}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
-          <Image source={logo} style={styles.logo} />
+    <ImageBackground source={require('../../assets/images/bg.jpg')} style={styles.container}>
+      <View style={isSmallScreen ? styles.columnContainerSmall : styles.columnContainerLarge}>
+        {/* Colonne de gauche avec l'image */}
 
-          <View
-              style={[
-                styles.form,
-                isMobile && styles.centerForm,
-                isMobile ? styles.centerForm : styles.rightForm,
-              ]}
-          >
+        {/* Colonne de droite avec le formulaire */}
+        <View style={isSmallScreen ? styles.rightColumnSmall : styles.rightColumnLarge}>
+          <View style={styles.formContainer}>
             <Text style={styles.title}>Inscrivez-vous</Text>
             <View style={styles.inlineInput}>
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>Nom</Text>
                 <TextInput
-                    style={styles.input}
-                    placeholder="Nom "
-                    placeholderTextColor="rgba(128, 128, 128, .5)"
-                    onChangeText={(text) => setNom(text)}
+                  style={styles.input}
+                  placeholder="Nom "
+                  placeholderTextColor="rgba(128, 128, 128, .5)"
                 />
-                <Text style={styles.errorText}>{nomError}</Text>
               </View>
 
               <View style={styles.inputContainer}>
-                <Text style={styles.label}>Prénom</Text>
                 <TextInput
-                    style={styles.input}
-                    placeholder="Prénom"
-                    placeholderTextColor="rgba(128, 128, 128, .5)"
-                    onChangeText={(text) => setPrenom(text)}
+                  style={styles.input}
+                  placeholder="Prénom"
+                  placeholderTextColor="rgba(128, 128, 128, .5)"
                 />
-                <Text style={styles.errorText}>{prenomError}</Text>
               </View>
             </View>
-
-              <Text style={styles.label}>Adresse e-mail</Text>
-              <TextInput
-                  style={styles.input}
-                  placeholder="user@gmail.com"
-                  placeholderTextColor="rgba(128, 128, 128, .5)"
-                  onChangeText={(text) => setMail(text)}
-              />
-              <Text style={styles.errorText}>{mailError}</Text>
-              <Text style={styles.label}>Mot de passe</Text>
-              <TextInput
-                  style={styles.input}
-                  placeholder="********"
-                  placeholderTextColor="rgba(128, 128, 128, .5)"
-                  secureTextEntry={true}
-                  onChangeText={(text) => setPassword(text)}
-              />
-              <Text style={styles.errorText}>{passwordError}</Text>
-
-              <Text style={styles.label}>Confirmer le mot de passe</Text>
-              <TextInput
-                  style={styles.input}
-                  placeholder="********"
-                  placeholderTextColor="rgba(128, 128, 128, .5)"
-                  secureTextEntry={true}
-                  onChangeText={(text) => setConfirmPassword(text)}
-              />
-              <Text style={styles.errorText}>{confirmPasswordError}</Text>
-              <TouchableOpacity style={styles.registerButton} onPress={inscription}>
-                  <Text style={styles.buttonText}>S'inscrire</Text>
-              </TouchableOpacity>
+            <TextInput
+              style={styles.input}
+              placeholder="exemple@gmail.com"
+              placeholderTextColor="#888"
+            />
+            <TextInput style={styles.input} placeholder="Ville" placeholderTextColor="#888" />
+            <TextInput
+              style={styles.input}
+              placeholder="Mot de passe"
+              placeholderTextColor="#888"
+              secureTextEntry
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Mot de passe"
+              placeholderTextColor="#888"
+              secureTextEntry
+            />
+            <TouchableOpacity style={styles.button} onPress={inscription}>
+              <Text style={styles.buttonText}>S'inscrire</Text>
+            </TouchableOpacity>
           </View>
-        </KeyboardAvoidingView>
-      </ImageBackground>
+        </View>
+      </View>
+    </ImageBackground>
   );
-
-              );
 };
 
 const styles = StyleSheet.create({

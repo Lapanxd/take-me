@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
+import { Header } from '../components';
 
 const logo = require('../../assets/images/logooo.png');
 const screenWidth = Dimensions.get('window').width;

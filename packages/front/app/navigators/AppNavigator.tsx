@@ -20,6 +20,7 @@ import { useStores } from '../core'; // @demo remove-current-line
 import { AdvertNavigator, AdvertTabParamList } from './AdvertNavigator';
 import { navigationRef, useBackButtonHandler } from './navigationUtilities';
 import { colors } from '../../app/theme';
+import { ProfilTest } from '../../app/screens';
 
 /**
  * This type allows TypeScript to know what routes are defined in this navigator
@@ -64,29 +65,29 @@ export type AppStackScreenProps<T extends keyof AppStackParamList> = NativeStack
 const Stack = createNativeStackNavigator<AppStackParamList>();
 
 const AppStack = observer(function AppStack() {
-  // @demo remove-block-start
   const {
     authenticationStore: { isAuthenticated },
   } = useStores();
 
-  // @demo remove-block-end
+  console.log('isAuthenticated', isAuthenticated);
+
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isAuthenticated ? 'Adverts' : 'Connect'}
+      initialRouteName={isAuthenticated ? 'Connect' : 'Adverts'}
     >
       {isAuthenticated ? (
         <>
+          <Stack.Screen name="Adverts" component={Screens.Adverts} />
           <Stack.Screen name="NewPage" component={Screens.NewPage} />
           <Stack.Screen name="AddAdvert" component={Screens.AddAdvertScreen} />
-          <Stack.Screen name="Inscription" component={Screens.SignUp} />
-          <Stack.Screen name="Profil" component={Screens.Profil} />
+          <Stack.Screen name="Profil" component={Screens.ProfilTest} />
         </>
       ) : (
         <>
           <Stack.Screen name="Connect" component={Screens.SignIn} />
-          <Stack.Screen name="Adverts" component={Screens.Adverts} />
           <Stack.Screen name="Inscription" component={Screens.SignUp} />
+          <Stack.Screen name="Adverts" component={Screens.Adverts} />
         </>
       )}
     </Stack.Navigator>
@@ -102,11 +103,7 @@ export const AppNavigator = observer(function AppNavigator(props: NavigationProp
   useBackButtonHandler((routeName) => exitRoutes.includes(routeName));
 
   return (
-    <NavigationContainer
-      ref={navigationRef}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-      {...props}
-    >
+    <NavigationContainer ref={navigationRef} theme={DefaultTheme} {...props}>
       <AppStack />
     </NavigationContainer>
   );

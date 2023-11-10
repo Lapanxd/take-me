@@ -1,11 +1,20 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import AdvertCard from '../components/AdvertCard';
 import React from 'react';
-import { TextStyle, View, ViewStyle, FlatList, Text, useWindowDimensions } from 'react-native';
+import {
+  TextStyle,
+  View,
+  ViewStyle,
+  FlatList,
+  Text,
+  useWindowDimensions,
+  Button,
+} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { colors, spacing } from '../theme';
 import { RootStackParams } from '../navigators/MenuNavigator';
 import TopDrawerNavigation from '../components/TopDrawerNavigation';
+import { useStores } from '../core';
 import Map from '../components/Map';
 
 type Props = NativeStackScreenProps<RootStackParams, 'AdvertsStack'>;

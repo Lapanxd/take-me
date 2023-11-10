@@ -1,34 +1,30 @@
-import { Instance, SnapshotOut, types } from 'mobx-state-tree';
+import { Instance, SnapshotOut, types, flow } from 'mobx-state-tree';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const AuthenticationStoreModel = types
   .model('AuthenticationStore')
   .props({
     authToken: types.maybe(types.string),
-    authEmail: '',
+    refreshToken: types.maybe(types.string),
+    isAuthenticated: types.optional(types.boolean, false),
   })
-  .views((store) => ({
-    get isAuthenticated() {
-      return !!store.authToken;
-    },
-    get validationError() {
-      if (store.authEmail.length === 0) return "can't be blank";
-      if (store.authEmail.length < 6) return 'must be at least 6 characters';
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(store.authEmail))
-        return 'must be a valid email address';
-      return '';
-    },
-  }))
+  .views((store) => ({}))
   .actions((store) => ({
     setAuthToken(value?: string) {
       store.authToken = value;
     },
-    setAuthEmail(value: string) {
-      store.authEmail = value.replace(/ /g, '');
+    setRefreshToken(value?: string) {
+      store.refreshToken = value;
     },
     logout() {
       store.authToken = undefined;
-      store.authEmail = '';
+      store.refreshToken = undefined;
     },
+    checkAuthentication: flow(function* () {
+      const result = yield AsyncStorage.getItem('accessToken');
+      console.log('result', !!result);
+      store.isAuthenticated = !!result;
+    }),
   }));
 
 export interface AuthenticationStore extends Instance<typeof AuthenticationStoreModel> {}

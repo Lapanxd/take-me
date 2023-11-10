@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, ViewStyle, Text, ImageBackground, ImageStyle } from 'react-native';
+import { View, ViewStyle, Text, ImageBackground, ImageStyle, Button } from 'react-native';
 import { colors } from '../theme';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParams } from '../navigators/MenuNavigator';
 import TopDrawerNavigation from '../components/TopDrawerNavigation';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const image = {
   uri: 'https://images.unsplash.com/photo-1462212210333-335063b676bc?auto=format&fit=crop&q=80&w=1632&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -13,8 +14,14 @@ const image = {
 type Props = NativeStackScreenProps<RootStackParams, 'NewPage'>;
 
 export const NewPage = ({ navigation }: Props) => {
+  async function test() {
+    await AsyncStorage.removeItem('accessToken');
+    await AsyncStorage.removeItem('refreshToken');
+  }
+
   return (
     <React.Fragment>
+      <Button onPress={test}></Button>
       <View style={$container}>
         <ImageBackground source={image} style={$imagebg}>
           <View style={$header}>

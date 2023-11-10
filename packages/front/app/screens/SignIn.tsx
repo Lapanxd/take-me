@@ -38,7 +38,7 @@ export const SignIn = () => {
   }
 
   function inscription() {
-    navigate.navigate('SignUp');
+    navigate.navigate('Inscription');
   }
 
   return (

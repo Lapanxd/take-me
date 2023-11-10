@@ -121,12 +121,6 @@ const styles = StyleSheet.create({
     marginRight: '15%',
     top: '20%',
   },
-  logo: {
-    marginLeft: 'auto',
-    marginRight: '20%',
-    top: '10%',
-    backgroundColor: 'white',
-  },
   columnContainerSmall: {
     flex: 1,
     position: 'absolute',
@@ -160,6 +154,13 @@ const styles = StyleSheet.create({
     marginTop: '30%',
     maxHeight: '100%',
   },
+
+  logo: {
+    marginLeft: '30%',
+    width: 270,
+    height: 80,
+  },
+
   title: {
     fontSize: 24,
     marginBottom: 20,

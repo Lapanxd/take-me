@@ -28,7 +28,7 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
   } = useStores();
 
   function goNext() {
-    navigation.navigate('Connect');
+    navigation.navigate('SignIn');
   }
 
   useHeader(

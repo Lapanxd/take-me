@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   Image,
@@ -7,21 +7,31 @@ import {
   Text,
   TouchableOpacity,
   Dimensions,
+  View,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import IconFolderOpen from '../icons/IconFolderOpen';
 import IconCamera from '../icons/IconCamera';
-
 import { useNavigation } from '@react-navigation/native';
+import GeocodeEarthAutocomplete from 'react-geocode-earth-autocomplete';
 
 const { width, height } = Dimensions.get('window');
 
 const AdvertFormScreen = () => {
   const [name, onChangeName] = React.useState('');
   const [description, onChangeDescription] = React.useState('');
-  // const [geocode, onChangeText] = React.useState('');
   const [image, setImage] = useState('');
   const [error, setError] = useState('');
+  const [address, setAddress] = useState('');
+  const [selectedAddress, setSelectedAddress] = useState({
+    description: '',
+    latitude: null,
+    longitude: null,
+  });
+
+  const navigation = useNavigation() as any;
+
+
   const handleSubmit = () => {
     if (name && description) {
       navigation.navigate('<Adverts>', {
@@ -32,7 +42,7 @@ const AdvertFormScreen = () => {
       setError('Veuillez remplir tous les champs');
     }
   };
-  const navigation = useNavigation() as any;
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -63,6 +73,7 @@ const AdvertFormScreen = () => {
     }
   };
 
+
   return (
     <SafeAreaView style={styles.container}>
       <TextInput
@@ -78,20 +89,70 @@ const AdvertFormScreen = () => {
         placeholder="Description"
       />
 
-      {/* <TextInput
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={geocode}
-        placeholder="Localisation de l'objet"
-      /> */}
 
-      {/* <TextInput
+      <GeocodeEarthAutocomplete
+        searchOptions={{
+          api_key: "ge-13910afc8a883b7a",
+        }}
+        value={address}
+        onChange={(newAddress) => {
+          setAddress(newAddress);
+        }}
+        onSelect={(newAddress) => {
+          setSelectedAddress({
+            description: newAddress.description,
+            latitude: newAddress.geometry?.location.lat,
+            longitude: newAddress.geometry?.location.lng,
+          });
+        }}
+      >
+        {(props) => (
+          <div>
+            <input
+              {...props.getInputProps({
+                placeholder: 'Entrez adresse',
+                style: {
+                  ...props.style,
+                  height: 20,
+                  margin: 12,
+                  borderWidth: 1,
+                  padding: 10,
+                  borderRadius: 7,
+                  marginTop: 10,
+                  width: '80%',
+                },
+              })}
+            />
+            <div>
+              {props.loading && <div>Loading...</div>}
+              {props.suggestions.map((suggestion) => {
+                const className = suggestion.active
+                  ? 'suggestion-item--active'
+                  : 'suggestion-item';
+                const style = suggestion.active
+                  ? { backgroundColor: '#fafafa', cursor: 'pointer', }
+                  : { backgroundColor: '#ffffff', cursor: 'pointer', };
+                return (
+                  <div
+                    {...props.getSuggestionItemProps(suggestion, {
+                      className,
+                      style,
+                    })}
+                  >
+                    <span>{suggestion.description}</span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+      </GeocodeEarthAutocomplete>
+      <TextInput
         style={styles.input}
-        onChangeText={onChangeText}
-        value={geocode}
-        placeholder="Localisation de l'objet"
-      /> */}
-
+        value={selectedAddress.description}
+        placeholder="Adresse"
+        editable={false}
+      />
       {image && <Image source={{ uri: image }} style={styles.image} />}
       <TouchableOpacity style={styles.imgDownload} onPress={pickImage}>
         <Text style={styles.txt_btn_img}>
@@ -152,6 +213,7 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
   },
+
   imgDownload: {
     borderColor: '#212121',
     height: 30,

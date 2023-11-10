@@ -1,26 +1,27 @@
 import React, { useState } from 'react';
 import {
-    Dimensions,
-    Image,
-    ImageBackground,
-    KeyboardAvoidingView,
-    Platform,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity, useWindowDimensions,
-    View,
+  Dimensions,
+  Image,
+  ImageBackground,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
 } from 'react-native';
-import {ISignUpUser} from "../core/models/SignUpUser";
-import {authService} from "../core/services/api/auth.service";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { ISignUpUser } from '../core/models/SignUpUser';
+import { authService } from '../core/services/api/auth.service';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { useStores } from '../core';
 
 export const SignUp = () => {
   const { width } = useWindowDimensions();
   const isSmallScreen = width < 1130;
-    const navigator = useNavigation() as any;
+  const navigator = useNavigation() as any;
 
   const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
@@ -82,6 +83,7 @@ export const SignUp = () => {
   }
 
   async function inscription() {
+    console.log('here');
     const isFormValid = checkForm({
       firstname,
       lastname,
@@ -116,61 +118,81 @@ export const SignUp = () => {
   }
 
   return (
-    <ImageBackground source={require('../../assets/images/bg.jpg')} style={styles.container}>
-      <View style={isSmallScreen ? styles.columnContainerSmall : styles.columnContainerLarge}>
-        {/* Colonne de gauche avec l'image */}
+      <ImageBackground source={background} style={styles.container}>
+        <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
+          <Image source={logo} style={styles.logo} />
 
-        {/* Colonne de droite avec le formulaire */}
-        <View style={isSmallScreen ? styles.rightColumnSmall : styles.rightColumnLarge}>
-          <View style={styles.formContainer}>
+          <View
+              style={[
+                styles.form,
+                isMobile && styles.centerForm,
+                isMobile ? styles.centerForm : styles.rightForm,
+              ]}
+          >
             <Text style={styles.title}>Inscrivez-vous</Text>
             <View style={styles.inlineInput}>
               <View style={styles.inputContainer}>
+                <Text style={styles.label}>Nom</Text>
                 <TextInput
-                  style={styles.input}
-                  placeholder="Nom "
-                  placeholderTextColor="rgba(128, 128, 128, .5)"
+                    style={styles.input}
+                    placeholder="Nom "
+                    placeholderTextColor="rgba(128, 128, 128, .5)"
+                    onChangeText={(text) => setNom(text)}
                 />
+                <Text style={styles.errorText}>{nomError}</Text>
               </View>
 
               <View style={styles.inputContainer}>
+                <Text style={styles.label}>Prénom</Text>
                 <TextInput
-                  style={styles.input}
-                  placeholder="Prénom"
-                  placeholderTextColor="rgba(128, 128, 128, .5)"
+                    style={styles.input}
+                    placeholder="Prénom"
+                    placeholderTextColor="rgba(128, 128, 128, .5)"
+                    onChangeText={(text) => setPrenom(text)}
                 />
+                <Text style={styles.errorText}>{prenomError}</Text>
               </View>
             </View>
 
-            <TextInput
-              style={styles.input}
-              placeholder="exemple@gmail.com"
-              placeholderTextColor="#888"
-            />
+              <Text style={styles.label}>Adresse e-mail</Text>
+              <TextInput
+                  style={styles.input}
+                  placeholder="user@gmail.com"
+                  placeholderTextColor="rgba(128, 128, 128, .5)"
+                  onChangeText={(text) => setMail(text)}
+              />
+              <Text style={styles.errorText}>{mailError}</Text>
+              <Text style={styles.label}>Mot de passe</Text>
+              <TextInput
+                  style={styles.input}
+                  placeholder="********"
+                  placeholderTextColor="rgba(128, 128, 128, .5)"
+                  secureTextEntry={true}
+                  onChangeText={(text) => setPassword(text)}
+              />
+              <Text style={styles.errorText}>{passwordError}</Text>
 
-            <TextInput style={styles.input} placeholder="Ville" placeholderTextColor="#888" />
-
-            <TextInput
-              style={styles.input}
-              placeholder="Mot de passe"
-              placeholderTextColor="#888"
-              secureTextEntry
-            />
-
-            <TextInput
-              style={styles.input}
-              placeholder="Mot de passe"
-              placeholderTextColor="#888"
-              secureTextEntry
-            />
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>S'inscrire</Text>
-            </TouchableOpacity>
+              <Text style={styles.label}>Confirmer le mot de passe</Text>
+              <TextInput
+                  style={styles.input}
+                  placeholder="********"
+                  placeholderTextColor="rgba(128, 128, 128, .5)"
+                  secureTextEntry={true}
+                  onChangeText={(text) => setConfirmPassword(text)}
+              />
+              <Text style={styles.errorText}>{confirmPasswordError}</Text>
+              <TouchableOpacity style={styles.registerButton} onPress={inscription}>
+                  <Text style={styles.buttonText}>S'inscrire</Text>
+              </TouchableOpacity>
           </View>
-        </View>
-      </View>
-    </ImageBackground>
+        </KeyboardAvoidingView>
+      </ImageBackground>
   );
+
+              );
 };
 
 const styles = StyleSheet.create({

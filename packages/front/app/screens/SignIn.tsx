@@ -94,44 +94,6 @@ export const SignIn = () => {
         </View>
       </KeyboardAvoidingView>
     </View>
-        <Image source={logo} style={styles.logo} />
-        <View
-          style={[
-            styles.form,
-            isMobile && styles.centerForm,
-            isMobile ? styles.centerForm : styles.rightForm,
-          ]}
-        >
-          <Text style={styles.title}>Connexion</Text>
-          <Text style={styles.label}>Adresse e-mail</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Nom d'utilisateur"
-            placeholderTextColor="rgba(128, 128, 128, .5)"
-            onChangeText={(text) => setMail(text)}
-          />
-          <Text style={styles.label}>Mot de passe</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Mot de passe"
-            placeholderTextColor="rgba(128, 128, 128, .5)"
-            secureTextEntry={true}
-            onChangeText={(text) => setPassword(text)}
-          />
-
-          <Text style={styles.error}>{error}</Text>
-          <TouchableOpacity style={styles.loginButton} onPress={connexion}>
-            <Text style={styles.buttonText}>Se connecter</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>Mot de passe oublié ?</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.registerButton} onPress={inscription}>
-            <Text style={styles.buttonText}>S'inscrire</Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    </ImageBackground>
   );
 };
 
@@ -159,7 +121,6 @@ const styles = StyleSheet.create({
     marginRight: '15%',
     top: '20%',
   },
-
   logo: {
     marginLeft: 'auto',
     marginRight: '20%',
@@ -199,13 +160,6 @@ const styles = StyleSheet.create({
     marginTop: '30%',
     maxHeight: '100%',
   },
-
-  logo: {
-    marginLeft: '30%',
-    width: 270,
-    height: 80,
-  },
-
   title: {
     fontSize: 24,
     marginBottom: 20,

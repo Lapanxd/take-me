@@ -1,2 +1,5 @@
 .idea
 node_modules/
+packages/api/.env
+packages/api/pnpm-lock.yalm
+packages/front/pnpm-lock.yalm

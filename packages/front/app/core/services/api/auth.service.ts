@@ -26,7 +26,6 @@ export class AuthService {
 
   async signUp(user: ISignUpUser): Promise<ISignUpUser> {
     try {
-      console.log(user);
       const response: ApiResponse<ISignUpUser> = await this.apisauce.post(`/auth/sign-up`, user);
       return response.data;
     } catch (err) {

@@ -6,5 +6,5 @@
  * https://reactnative.dev/docs/security#storing-sensitive-info
  */
 export default {
-  API_URL: 'http://localhost:3000', //@TODO change this xd
+  API_URL: 'take-me-api.vercel.app',
 };

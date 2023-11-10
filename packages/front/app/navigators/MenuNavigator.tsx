@@ -5,10 +5,12 @@ import { AddAdvertScreen, NewPage, Adverts } from '../screens';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 export type RootStackParams = {
-  // AuthStack: undefined
   AddAdvert: undefined;
   NewPage: undefined;
-  // Adverts: undefined
+  Profil: undefined;
+  Adverts: undefined;
+  Connect: undefined;
+  Inscription: undefined;
   AdvertsStack: NavigatorScreenParams<AdvertsStackParams>;
 };
 
@@ -32,31 +34,7 @@ const AdvertScreenStack = () => {
   );
 };
 
-// export type AuthStackParams = {
-//   Login: undefined;
-//   Register: undefined;
-// };
-
-// const AuthStack = createNativeStackNavigator<AuthStackParams>();
-// const AuthScreenStack = () => {
-//   return (
-//     <AuthStack.Navigator>
-//       <AuthStack.Screen name="Login" component={LoginScreen}></AuthStack.Screen>
-//       <AuthStack.Screen name="Register" component={RegisterScreen}></AuthStack.Screen>
-//     </AuthStack.Navigator>
-//   );
-// };
-
 export function MenuNavigator() {
-  // const user = useSelector(
-  //   (state: Appstate) => { state.currentUser}
-  // )
-  // const renderContent = () => {
-  //   const isLoggedIn = false
-
-  //    if (isLoggedIn) {
-  //     return <>
-
   return (
     <NavigationContainer>
       <RootStack.Navigator
@@ -68,15 +46,11 @@ export function MenuNavigator() {
         })}
       >
         <RootStack.Screen name="AdvertsStack" component={AdvertScreenStack} />
-
         <RootStack.Screen name="NewPage" component={NewPage} />
-
         <RootStack.Screen name="AddAdvert" component={AddAdvertScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );
-
-  // return <AuthScreenStack />;
 }
 
 export default MenuNavigator;

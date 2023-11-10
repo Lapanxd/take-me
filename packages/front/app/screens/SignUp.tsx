@@ -1,18 +1,134 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
-  View,
+  Dimensions,
+  Image,
+  ImageBackground,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  Image,
   useWindowDimensions,
-  ImageBackground,
+  View,
 } from 'react-native';
+import { ISignUpUser } from '../core/models/SignUpUser';
+import { authService } from '../core/services/api/auth.service';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { useStores } from '../core';
 
 export const SignUp = () => {
   const { width } = useWindowDimensions();
   const isSmallScreen = width < 1130;
+  const navigator = useNavigation() as any;
+
+  const [lastname, setLastname] = useState('');
+  const [firstname, setFirstname] = useState('');
+  const [mail, setMail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [lastnameError, setLastnameError] = useState('');
+  const [firstnameError, setFirstnameError] = useState('');
+  const [mailError, setMailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  const isEmailValid = (email) => {
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailPattern.test(email);
+  };
+
+  const isPasswordsMatching = (password: string, confirmPassword: string) => {
+    return password === confirmPassword;
+  };
+
+  const {
+    authenticationStore: { checkAuthentication },
+  } = useStores();
+
+  function checkForm(formData: ISignUpUser) {
+    setLastnameError('');
+    setFirstnameError('');
+    setMailError('');
+    setPasswordError('');
+    setConfirmPasswordError('');
+
+    console.log('ici c bon');
+
+    if (!firstname) {
+      setFirstnameError('Prénom requis');
+      console.log('prénom');
+      return;
+    }
+
+    if (!formData.lastname) {
+      setLastnameError('Nom requis');
+      console.log('nom');
+      return;
+    }
+
+    if (!mail) {
+      setMailError('Adresse mail requis');
+      console.log('mail');
+    } else if (!isEmailValid(mail)) {
+      setMailError('Adresse mail non valide');
+      return;
+    }
+
+    if (!password && !confirmPassword) {
+      setPasswordError('Mot de passe requis');
+      console.log('pwd');
+      return;
+    } else if (password && confirmPassword && !isPasswordsMatching(password, confirmPassword)) {
+      setConfirmPasswordError('Confirmation de mot de passe requis');
+      console.log('pwd');
+      return;
+    }
+
+    console.log('c bon');
+
+    return true;
+  }
+
+  async function inscription() {
+    // let isFormValid = checkForm({
+    //   firstname,
+    //   lastname,
+    //   email: mail,
+    //   password,
+    //   confirmPassword,
+    // });
+
+    /* * * * * * * * *
+     * @TODO IL FAUT CHANGER CA /!\ (décommenter au dessus)
+     * * * * * * * * */
+
+    const isFormValid = true; // @TODO Il faudra enlever cette ligne
+
+    if (isFormValid) {
+      try {
+        const user = await authService.signUp({
+          firstname: firstname,
+          lastname: lastname,
+          email: mail,
+          password: password,
+          city: 'Bordeaux',
+        });
+
+        if (user) {
+          await authService.signIn({
+            email: mail,
+            password,
+          });
+
+          await checkAuthentication();
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  }
 
   return (
     <ImageBackground source={require('../../assets/images/bg.jpg')} style={styles.container}>
@@ -40,29 +156,25 @@ export const SignUp = () => {
                 />
               </View>
             </View>
-
             <TextInput
               style={styles.input}
               placeholder="exemple@gmail.com"
               placeholderTextColor="#888"
             />
-
             <TextInput style={styles.input} placeholder="Ville" placeholderTextColor="#888" />
-
             <TextInput
               style={styles.input}
               placeholder="Mot de passe"
               placeholderTextColor="#888"
               secureTextEntry
             />
-
             <TextInput
               style={styles.input}
               placeholder="Mot de passe"
               placeholderTextColor="#888"
               secureTextEntry
             />
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={inscription}>
               <Text style={styles.buttonText}>S'inscrire</Text>
             </TouchableOpacity>
           </View>

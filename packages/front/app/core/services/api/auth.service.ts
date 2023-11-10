@@ -1,7 +1,6 @@
 import { ApiResponse, ApisauceInstance, create } from 'apisauce';
 import { ApiConfig } from './api.types';
 import Config from 'app/config';
-import { IAdvert } from '../../models/Advert';
 import { ISignUpUser } from '../../models/SignUpUser';
 import { ISignInUser } from '../../models/SignInUser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -25,9 +24,10 @@ export class AuthService {
     });
   }
 
-  async signUp(user: ISignUpUser) {
+  async signUp(user: ISignUpUser): Promise<ISignUpUser> {
     try {
-      const response: ApiResponse<IAdvert> = await this.apisauce.post(`/auth/sign-up`, user);
+      console.log(user);
+      const response: ApiResponse<ISignUpUser> = await this.apisauce.post(`/auth/sign-up`, user);
       return response.data;
     } catch (err) {
       if (__DEV__) {
@@ -37,7 +37,8 @@ export class AuthService {
     }
   }
 
-  async signIn(user: ISignInUser): Promise<void> {
+  async signIn(user: ISignInUser): Promise<any> {
+    //@TODO mettre un vrai type plutôt que any
     try {
       const response: ApiResponse<{ accessToken: string; refreshToken: string }> =
         await this.apisauce.post(`/auth/sign-in`, user);
@@ -48,6 +49,10 @@ export class AuthService {
 
       await AsyncStorage.setItem('accessToken', response.data.accessToken);
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
+
+      console.log(response.data.accessToken);
+
+      return { accessToken: response.data.accessToken, refreshToken: response.data.refreshToken };
     } catch (err) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${err.message}\n}`, err.stack);

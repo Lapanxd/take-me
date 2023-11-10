@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -15,9 +15,11 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { navigate } from 'app/navigators';
+import { authService } from 'app/core/services/api/auth.service';
 const background = require('../../assets/images/bg.jpg');
 const logo = require('../../assets/images/logooo.png');
 const screenWidth = Dimensions.get('window').width;
+import { useStores } from '../core/helpers/useStores';
 
 export const SignIn = () => {
   const { width } = useWindowDimensions();
@@ -29,12 +31,17 @@ export const SignIn = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  function connexion() {
-    if (mail === 'user' && password === '123') {
-      navigate.navigate('Profil', { mail: mail });
-    } else {
-      setError('Adresse mail ou mot de passe incorrect');
-    }
+  const {
+    authenticationStore: { checkAuthentication },
+  } = useStores();
+
+  async function connexion() {
+    await authService.signIn({
+      email: mail,
+      password,
+    });
+
+    await checkAuthentication();
   }
 
   function inscription() {
@@ -93,6 +100,31 @@ export const SignIn = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFFFFF',
+  },
+  form: {
+    width: '100%',
+    maxWidth: 414,
+    height: '100%',
+    maxHeight: 414,
+    top: '20%',
+    backgroundColor: 'rgba(190, 190, 190, .6)',
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  centerForm: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  rightForm: {
+    marginLeft: 'auto',
+    marginRight: '15%',
+    top: '20%',
+  },
+  logo: {
+    marginLeft: 'auto',
+    marginRight: '20%',
+    top: '10%',
     backgroundColor: 'white',
   },
   columnContainerSmall: {
@@ -128,13 +160,6 @@ const styles = StyleSheet.create({
     marginTop: '30%',
     maxHeight: '100%',
   },
-
-  logo: {
-    marginLeft: '30%',
-    width: 270,
-    height: 80,
-  },
-
   title: {
     fontSize: 24,
     marginBottom: 20,

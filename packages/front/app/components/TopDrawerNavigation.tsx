@@ -8,7 +8,7 @@ const TopDrawerNavigation = () => {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <View style={styles.container}>
+    <View>
       <Modal
         animationType="fade"
         transparent={true}
@@ -19,12 +19,12 @@ const TopDrawerNavigation = () => {
       >
         <View style={styles.modalView}>
           <Menu onClose={() => setModalVisible(false)} />
-          <Pressable style={styles.button} onPress={() => setModalVisible(!modalVisible)}>
+          <Pressable onPress={() => setModalVisible(!modalVisible)}>
             <CloseBurgerIcon color={'black'} size={40} />
           </Pressable>
         </View>
       </Modal>
-      <Pressable style={[styles.button, styles.buttonbg]} onPress={() => setModalVisible(true)}>
+      <Pressable onPress={() => setModalVisible(true)}>
         <DrawerMenuIcon color={'black'} size={40} />
       </Pressable>
     </View>
@@ -34,16 +34,11 @@ const TopDrawerNavigation = () => {
 const windowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    margin: 30,
-  },
   modalView: {
-    width: windowWidth, // Utilisez la largeur de la fenêtre pour occuper tout l'écran
-    height: '100vh',
+    width: windowWidth,
     flexDirection: 'row',
     backgroundColor: 'white',
-    justifyContent: 'flex-end', // Pour positionner le contenu à droite
+    justifyContent: 'flex-end',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -53,15 +48,6 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
     padding: 50,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonbg: {
-    borderRadius: 80,
-    backgroundColor: 'white',
   },
 });
 

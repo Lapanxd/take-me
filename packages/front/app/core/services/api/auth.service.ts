@@ -4,6 +4,7 @@ import Config from 'app/config';
 import { ISignUpUser } from '../../models/SignUpUser';
 import { ISignInUser } from '../../models/SignInUser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IUser } from '../../models/User';
 
 export class AuthService {
   apisauce: ApisauceInstance;
@@ -39,15 +40,18 @@ export class AuthService {
   async signIn(user: ISignInUser): Promise<any> {
     //@TODO mettre un vrai type plutôt que any
     try {
-      const response: ApiResponse<{ accessToken: string; refreshToken: string }> =
+      const response: ApiResponse<{ user: IUser; accessToken: string; refreshToken: string }> =
         await this.apisauce.post(`/auth/sign-in`, user);
 
       if (!response) {
         return;
       }
 
+      console.log(response);
+
       await AsyncStorage.setItem('accessToken', response.data.accessToken);
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
+      await AsyncStorage.setItem('userId', response.data.user.id.toString());
 
       console.log(response.data.accessToken);
 

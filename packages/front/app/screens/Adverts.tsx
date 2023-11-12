@@ -1,4 +1,4 @@
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import AdvertCard from '../components/AdvertCard';
 import React from 'react';
 import {
@@ -9,6 +9,7 @@ import {
   Text,
   useWindowDimensions,
   Button,
+  TouchableOpacity,
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { colors, spacing } from '../theme';
@@ -16,10 +17,14 @@ import { RootStackParams } from '../navigators/MenuNavigator';
 import TopDrawerNavigation from '../components/TopDrawerNavigation';
 import { useStores } from '../core';
 import Map from '../components/Map';
+import { Header } from '../components';
+import { useNavigation } from '@react-navigation/native';
 
 type Props = NativeStackScreenProps<RootStackParams, 'AdvertsStack'>;
 
 export const Adverts = () => {
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
+
   const { width } = useWindowDimensions();
   const isSmallScreen = width < 800;
   const annonces = [
@@ -85,28 +90,26 @@ export const Adverts = () => {
   const detail = (
     <>
       {/* <ScrollView> */}
-        <FlatList
-          data={annonces}
-          renderItem={({ item }) => (
-            <AdvertCard
-              name={item.adname}
-              image={item.image}
-              description={item.description}
-              geocode={item.geocode}
-              objectType={item.objectType.name}
-            />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
+      <FlatList
+        data={annonces}
+        renderItem={({ item }) => (
+          <AdvertCard
+            name={item.adname}
+            image={item.image}
+            description={item.description}
+            geocode={item.geocode}
+            objectType={item.objectType.name}
+          />
+        )}
+        keyExtractor={(item, index) => index.toString()}
+      />
       {/* </ScrollView> */}
     </>
   );
 
   return (
     <View style={$container}>
-      <View style={$header}>
-        <TopDrawerNavigation />
-      </View>
+      <Header></Header>
       <Text style={$welcomeHeading}>Toutes les annonces</Text>
       <View style={isSmallScreen ? $advertsContentSmall : $advertsContentLarge}>
         <View style={isSmallScreen ? $advertsListSmall : $advertsListLarge}>{detail}</View>
@@ -122,6 +125,16 @@ export const Adverts = () => {
           </View>
         )}
       </View>
+      {width < 915 ? (
+        <TouchableOpacity style={styles.addAdvertButton}>
+          <Text
+            style={{ color: '#ffffff', fontWeight: 'bold' }}
+            onPress={() => navigation.navigate('AddAdvert')}
+          >
+            + Ajouter une annonce
+          </Text>
+        </TouchableOpacity>
+      ) : null}
     </View>
   );
 };
@@ -181,5 +194,16 @@ const $welcomeHeading: TextStyle = {
   fontWeight: 'bold',
   padding: 16,
   marginLeft: 50,
+};
+
+const styles = {
+  addAdvertButton: {
+    backgroundColor: '#212121',
+    position: 'fixed',
+    bottom: 30,
+    right: 30,
+    borderRadius: 7,
+    padding: 15,
+  },
 };
 export default Adverts;

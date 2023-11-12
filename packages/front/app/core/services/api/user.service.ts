@@ -4,6 +4,7 @@ import Config from 'app/config';
 import { IUpdateAdvert } from '../../models/UpdateAdvert';
 import { IUser } from '../../models/User';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IUpdateUser } from '../../models/UpdateUser';
 
 export class UserService {
   apisauce: ApisauceInstance;
@@ -42,7 +43,7 @@ export class UserService {
     }
   }
 
-  async update(updateAdvert: IUpdateAdvert): Promise<void> {
+  async update(updateAdvert: IUpdateUser): Promise<void> {
     try {
       const response: ApiResponse<void> = await this.apisauce.patch(`/adverts}`, updateAdvert, {
         headers: { Authorization: `Bearer ${await this.getAccessToken()}` },

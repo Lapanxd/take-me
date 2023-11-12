@@ -53,8 +53,6 @@ export class AuthService {
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
       await AsyncStorage.setItem('userId', response.data.id);
 
-      console.log(response.data.accessToken);
-
       return { accessToken: response.data.accessToken, refreshToken: response.data.refreshToken };
     } catch (err) {
       if (__DEV__) {

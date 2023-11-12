@@ -31,11 +31,11 @@ export class UserService {
 
   async findOne(id: number): Promise<IUser> {
     try {
-      console.log(await this.getAccessToken());
-
-      const response: ApiResponse<IUser> = await this.apisauce.get(`/users/${id}`, {
-        headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
+      this.apisauce.setHeaders({
+        Authorization: `Bearer ${await this.getAccessToken()}`,
       });
+
+      const response: ApiResponse<IUser> = await this.apisauce.get(`/users/${id}`, {});
       return response.data;
     } catch (err) {
       if (__DEV__) {
@@ -47,7 +47,7 @@ export class UserService {
 
   async update(updateAdvert: IUpdateUser): Promise<void> {
     try {
-      const response: ApiResponse<void> = await this.apisauce.patch(`/adverts}`, updateAdvert, {
+      const response: ApiResponse<void> = await this.apisauce.patch(`/adverts`, updateAdvert, {
         headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
       });
       return response.data;

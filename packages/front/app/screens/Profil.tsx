@@ -28,7 +28,10 @@ export const Profil = () => {
 
   async function updateUser() {
     const user = await userService.findOne(21);
-    console.log(user);
+    setLastname(user.lastname);
+    setFirstname(user.firstname);
+    setEmail(user.email);
+    setCity(user.city);
   }
 
   updateUser();
@@ -89,25 +92,13 @@ export const Profil = () => {
             Mettre à jour mon mot de passe
           </Text>
           <Text style={styles.inputLabel}>Ancien mot de passe</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={(text) => setFirstname(text)}
-            value={firstname}
-          />
+          <TextInput style={styles.input} onChangeText={(text) => setFirstname(text)} />
 
           <Text style={styles.inputLabel}>Nouveau mot de passe</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={(text) => setFirstname(text)}
-            value={firstname}
-          />
+          <TextInput style={styles.input} onChangeText={(text) => setFirstname(text)} />
 
           <Text style={styles.inputLabel}>Confirmation nouveau mot de passe</Text>
-          <TextInput
-            style={styles.input}
-            onChangeText={(text) => setFirstname(text)}
-            value={firstname}
-          />
+          <TextInput style={styles.input} onChangeText={(text) => setFirstname(text)} />
 
           <TouchableOpacity style={styles.button}>
             <Text

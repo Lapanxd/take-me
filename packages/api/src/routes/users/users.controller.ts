@@ -15,7 +15,6 @@ export class UsersController {
     return await this.usersService.findByCredentials(email);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findById(@Param('id') id: number): Promise<User> {
     console.log(id);

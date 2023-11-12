@@ -20,7 +20,6 @@ export class AuthController {
     return this.userService.create(signUpUserDto);
   }
 
-  @UseGuards(LocalAuthGuard)
   @Post('sign-in')
   async signIn(@Body() signInUserDto: SignInUserDto) {
     return this.authService.signIn(signInUserDto);

@@ -40,7 +40,7 @@ export class AuthService {
       expiresIn: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRATION_TIME'),
     });
 
-    return { accessToken, refreshToken };
+    return { id: user.id, accessToken, refreshToken };
   }
 
   async validateUser(email: string, pass: string): Promise<any> {

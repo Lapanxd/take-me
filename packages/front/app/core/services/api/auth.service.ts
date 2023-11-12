@@ -40,10 +40,10 @@ export class AuthService {
   async signIn(user: ISignInUser): Promise<any> {
     //@TODO mettre un vrai type plutôt que any
     try {
-      const response: ApiResponse<{ user: IUser; accessToken: string; refreshToken: string }> =
+      const response: ApiResponse<{ id: string; accessToken: string; refreshToken: string }> =
         await this.apisauce.post(`/auth/sign-in`, user);
 
-      if (!response) {
+      if (!response || (response && (!response.data.accessToken || !response.data.refreshToken))) {
         return;
       }
 
@@ -51,7 +51,7 @@ export class AuthService {
 
       await AsyncStorage.setItem('accessToken', response.data.accessToken);
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
-      await AsyncStorage.setItem('userId', response.data.user.id.toString());
+      await AsyncStorage.setItem('userId', response.data.id);
 
       console.log(response.data.accessToken);
 

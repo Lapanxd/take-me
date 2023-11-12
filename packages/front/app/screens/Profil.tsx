@@ -13,6 +13,7 @@ import {
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { Header } from '../components';
 import { userService } from '../core/services/api';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const Profil = () => {
   const { width } = useWindowDimensions();
@@ -26,8 +27,11 @@ export const Profil = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
 
   async function updateUser() {
-    await userService.update();
+    const user = await userService.findOne(21);
+    console.log(user);
   }
+
+  updateUser();
 
   return (
     <View>

@@ -31,6 +31,8 @@ export class UserService {
 
   async findOne(id: number): Promise<IUser> {
     try {
+      console.log(await this.getAccessToken());
+
       const response: ApiResponse<IUser> = await this.apisauce.get(`/users/${id}`, {
         headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
       });

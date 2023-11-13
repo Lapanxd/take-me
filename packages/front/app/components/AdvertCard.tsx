@@ -27,15 +27,15 @@ export const AdvertCard: React.FC<Props> = ({ name, image, description, geocode,
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <View>
+    <View style={{ padding: 7 }}>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <View style={$container}>
+        <View>
           <View style={$adcard}>
-            <Text style={$name}>{name}</Text>
             <Image source={{ uri: image }} style={$image} />
-            <Text style={$button}>
-              Regarder le détail <IconEye color={'black'} size={20} />
-            </Text>
+            <Text style={$name}>{name}</Text>
+            {/*<Text style={$button}>*/}
+            {/*  Regarder le détail <IconEye color={'black'} size={20} />*/}
+            {/*</Text>*/}
           </View>
         </View>
       </TouchableOpacity>
@@ -61,32 +61,14 @@ export const AdvertCard: React.FC<Props> = ({ name, image, description, geocode,
   );
 };
 
-const $container: ViewStyle = {
-  flex: 1,
-  backgroundColor: colors.background,
-  padding: 16,
-  marginTop: 8,
-};
-
 const $adcard: ViewStyle = {
-  backgroundColor: 'white',
-  borderRadius: 8,
-  shadowColor: '#000',
-  shadowOffset: {
-    width: 0,
-    height: 2,
-  },
-  shadowOpacity: 0.2,
-  shadowRadius: 2,
-  elevation: 2,
-  padding: 16,
+  borderRadius: 10,
   flexDirection: 'column',
   justifyContent: 'center',
-  alignItems: 'center',
 };
 
 const $name: TextStyle = {
-  fontSize: 24,
+  fontSize: 16,
   fontWeight: 'bold',
   marginTop: 4,
   marginBottom: 4,
@@ -95,10 +77,9 @@ const $name: TextStyle = {
 };
 
 const $image: ImageStyle = {
-  width: '80%',
-  height: 200,
-  marginRight: 8,
-  borderRadius: 8,
+  borderRadius: 12,
+  width: '100%',
+  height: 230,
 };
 
 const $button: TextStyle = {

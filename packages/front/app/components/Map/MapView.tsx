@@ -14,23 +14,19 @@ const customIcon = new Icon({
 // Used for web
 export const MapView: React.FC<MapViewProps> = ({ geocodes, names, region }) => {
   return (
-      <MapContainer
-        center={region}
-        zoom={13}
-        style={{ width: '100%', height: '80vh' }}
-      >
-        <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />
-        <MarkerClusterGroup chunkedLoading>
-          {geocodes.map((geocode, index) => (
-            <Marker key={index} position={geocode} icon={customIcon}>
-              <Popup>{names[index]}</Popup>
-            </Marker>
-          ))}
-        </MarkerClusterGroup>
-      </MapContainer>
+    <MapContainer center={region} zoom={13} style={{ width: '100%', height: '92.8vh' }}>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      />
+      <MarkerClusterGroup chunkedLoading>
+        {geocodes.map((geocode, index) => (
+          <Marker key={index} position={geocode} icon={customIcon}>
+            <Popup>{names[index]}</Popup>
+          </Marker>
+        ))}
+      </MarkerClusterGroup>
+    </MapContainer>
   );
 };
 

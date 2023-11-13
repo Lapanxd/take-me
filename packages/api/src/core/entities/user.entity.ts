@@ -10,23 +10,23 @@ export class User implements IUser {
   id: number;
 
   @Column()
-  @ApiProperty({ example: "John" })
+  @ApiProperty({ example: 'John' })
   firstname: string;
 
   @Column()
-  @ApiProperty({ example: "Doe" })
+  @ApiProperty({ example: 'Doe' })
   lastname: string;
 
   @Column()
-  @ApiProperty({ example: "john.doe@ynov.com"})
+  @ApiProperty({ example: 'john.doe@ynov.com' })
   email: string;
 
   @Column()
-  @ApiProperty({ example: "secret-password:)" })
+  @ApiProperty({ example: 'secret-password:)' })
   password: string;
 
   @Column({ nullable: true })
-  @ApiProperty({ example: "Bordeaux" })
+  @ApiProperty({ example: 'Bordeaux' })
   city: string;
 
   @Column({

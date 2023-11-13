@@ -4,11 +4,11 @@ import { User } from '../core/entities/user.entity';
 import { ObjectType } from '../core/entities/object-type.entity';
 import { ObjectImage } from '../core/entities/object-image.entity';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
-import { ConfigService } from "@nestjs/config";
+import { ConfigService } from '@nestjs/config';
 
 export const localConf = (configService: ConfigService): TypeOrmModuleOptions => ({
   type: 'mysql',
-  host : configService.get('DB_HOST'),
+  host: configService.get('DB_HOST'),
   port: +configService.get('DB_PORT'),
   username: configService.get('DB_USERNAME'),
   password: configService.get('DB_PASSWORD'),

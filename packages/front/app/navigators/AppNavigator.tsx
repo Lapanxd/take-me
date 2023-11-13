@@ -69,8 +69,6 @@ const AppStack = observer(function AppStack() {
     authenticationStore: { isAuthenticated },
   } = useStores();
 
-  console.log('isAuthenticated', isAuthenticated);
-
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}

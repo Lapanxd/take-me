@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Button,
-  Dimensions,
-  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -10,7 +7,6 @@ import {
   useWindowDimensions,
   View,
 } from 'react-native';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import { Header } from '../components';
 import { userService } from '../core/services/api';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -23,18 +19,70 @@ export const Profil = () => {
   const [email, setEmail] = useState('');
   const [city, setCity] = useState('');
 
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [oldPassword, setOldPassword] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmNewPassword, setConfirmNewPassword] = useState('');
 
-  async function updateUser() {
-    const user = await userService.findOne(21);
-    setLastname(user.lastname);
-    setFirstname(user.firstname);
-    setEmail(user.email);
-    setCity(user.city);
+  useEffect(() => {
+    const fetchData = async () => {
+      const userId = await AsyncStorage.getItem('userId');
+      const user = await userService.findOne(parseInt(userId));
+
+      setLastname(user.lastname);
+      setFirstname(user.firstname);
+      setEmail(user.email);
+      setCity(user.city);
+    };
+
+    fetchData();
+  }, []);
+
+  function checkData(): boolean {
+    return !(!lastname || !firstname || !email || !city);
   }
 
-  updateUser();
+  function validatePassword(): boolean {
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return passwordRegex.test(newPassword) && newPassword === confirmNewPassword;
+  }
+
+  async function updateUser() {
+    if (!checkData()) {
+      console.log('nope');
+      return;
+    }
+    const result = await userService.updateUser({
+      lastname,
+      firstname,
+      city,
+      email,
+    });
+
+    if (result) {
+    } // do something (alert or idk)
+  }
+
+  async function updatePassword() {
+    if (!validatePassword()) {
+      console.log('prout');
+      resetPasswordForm();
+      return;
+    }
+
+    const result = await userService.updatePassword(oldPassword, newPassword);
+
+    resetPasswordForm();
+
+    if (result) {
+      console.log('okeyz');
+    } // do something (alert or idk)
+  }
+
+  function resetPasswordForm() {
+    setOldPassword('');
+    setNewPassword('');
+    setConfirmNewPassword('');
+  }
 
   return (
     <View>
@@ -57,8 +105,8 @@ export const Profil = () => {
               <Text style={styles.inputLabel}>Nom</Text>
               <TextInput
                 style={styles.input}
-                onChangeText={(text) => setLastname(text)}
                 value={lastname}
+                onChangeText={(text) => setLastname(text)}
               />
             </View>
 
@@ -66,19 +114,19 @@ export const Profil = () => {
               <Text style={styles.inputLabel}>Prénom</Text>
               <TextInput
                 style={styles.input}
-                onChangeText={(text) => setFirstname(text)}
                 value={firstname}
+                onChangeText={(text) => setFirstname(text)}
               />
             </View>
           </View>
 
           <Text style={styles.inputLabel}>Adresse mail</Text>
-          <TextInput style={styles.input} onChangeText={(text) => setEmail(text)} value={email} />
+          <TextInput style={styles.input} value={email} onChangeText={(text) => setEmail(text)} />
 
           <Text style={styles.inputLabel}>Ville</Text>
-          <TextInput style={styles.input} onChangeText={(text) => setCity(text)} value={city} />
+          <TextInput style={styles.input} value={city} onChangeText={(text) => setCity(text)} />
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={updateUser}>
             <Text
               style={{ color: '#ffffff', textAlign: 'center', fontWeight: 'bold', padding: 16 }}
             >
@@ -92,15 +140,30 @@ export const Profil = () => {
             Mettre à jour mon mot de passe
           </Text>
           <Text style={styles.inputLabel}>Ancien mot de passe</Text>
-          <TextInput style={styles.input} onChangeText={(text) => setFirstname(text)} />
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setOldPassword(text)}
+            value={oldPassword}
+            secureTextEntry
+          />
 
           <Text style={styles.inputLabel}>Nouveau mot de passe</Text>
-          <TextInput style={styles.input} onChangeText={(text) => setFirstname(text)} />
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setNewPassword(text)}
+            value={newPassword}
+            secureTextEntry
+          />
 
           <Text style={styles.inputLabel}>Confirmation nouveau mot de passe</Text>
-          <TextInput style={styles.input} onChangeText={(text) => setFirstname(text)} />
+          <TextInput
+            style={styles.input}
+            onChangeText={(text) => setConfirmNewPassword(text)}
+            value={confirmNewPassword}
+            secureTextEntry
+          />
 
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={updatePassword}>
             <Text
               style={{ color: '#ffffff', textAlign: 'center', fontWeight: 'bold', padding: 16 }}
             >

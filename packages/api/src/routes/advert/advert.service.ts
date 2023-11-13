@@ -51,8 +51,8 @@ export class AdvertService {
   }
 
   async findByFilter(filters: AdvertFiltersDto): Promise<Advert[]> {
-    const { objectType, city} = filters;
-    const condition: { objectType?: ObjectType, city?, publicationDate? } = {};
+    const { objectType, city } = filters;
+    const condition: { objectType?: ObjectType; city?; publicationDate? } = {};
 
     if (objectType) {
       condition.objectType = await this.objectTypeRepository.findOneBy({

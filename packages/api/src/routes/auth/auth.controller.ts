@@ -12,7 +12,7 @@ export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UsersService,
-    private configService : ConfigService,
+    private configService: ConfigService,
   ) {}
 
   @Post('sign-up')
@@ -29,7 +29,7 @@ export class AuthController {
   @Post('refresh')
   async refreshToken(@Body() body: any) {
     const refreshToken = body.refreshToken;
-    if(!refreshToken) {
+    if (!refreshToken) {
       throw new UnauthorizedException('Refresh token is required');
     }
     return await this.authService.refreshToken(refreshToken);

@@ -54,8 +54,6 @@ export const SignUp = () => {
     setPasswordError('');
     setConfirmPasswordError('');
 
-    console.log('ici c bon');
-
     if (!firstname) {
       setFirstnameError('Prénom requis');
       console.log('prénom');

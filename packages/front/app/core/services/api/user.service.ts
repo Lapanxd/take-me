@@ -45,12 +45,36 @@ export class UserService {
     }
   }
 
-  async update(updateAdvert: IUpdateUser): Promise<void> {
+  async updateUser(updatedUser: IUpdateUser): Promise<boolean> {
     try {
-      const response: ApiResponse<void> = await this.apisauce.patch(`/adverts`, updateAdvert, {
-        headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
-      });
-      return response.data;
+      const result = await this.apisauce.put(
+        `/users/${await AsyncStorage.getItem('userId')}`,
+        updatedUser,
+        {
+          headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
+        },
+      );
+
+      return !!result;
+    } catch (err) {
+      if (__DEV__) {
+        console.tron.error(`Bad data: ${err.message}\n}`, err.stack);
+      }
+      return null;
+    }
+  }
+
+  async updatePassword(oldPassword: string, newPassword: string): Promise<boolean> {
+    try {
+      const result = await this.apisauce.put(
+        `/users/${await AsyncStorage.getItem('userId')}/password`,
+        { oldPassword, newPassword },
+        {
+          headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
+        },
+      );
+
+      return !!result;
     } catch (err) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${err.message}\n}`, err.stack);

@@ -19,8 +19,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useStores } from '../core';
 
 export const SignUp = () => {
-  const { width } = useWindowDimensions();
-  const isSmallScreen = width < 1130;
+  const { width, height } = useWindowDimensions();
+  const isSmallScreen = width < 855;
   const navigator = useNavigation() as any;
 
   const [lastname, setLastname] = useState('');
@@ -125,14 +125,17 @@ export const SignUp = () => {
   }
 
   return (
-    <ImageBackground source={require('../../assets/images/bg.jpg')} style={styles.container}>
+    <ImageBackground
+      source={require('../../assets/images/bg.jpg')}
+      style={[styles.container, { height, width: isSmallScreen ? '100%' : '70%' }]}
+    >
       <View style={isSmallScreen ? styles.columnContainerSmall : styles.columnContainerLarge}>
         {/* Colonne de gauche avec l'image */}
 
         {/* Colonne de droite avec le formulaire */}
         <View style={isSmallScreen ? styles.rightColumnSmall : styles.rightColumnLarge}>
           <Image source={require('../../assets/images/logooo.png')} style={styles.logo}></Image>
-          <View style={styles.formContainer}>
+          <View style={[styles.formContainer, { width: isSmallScreen ? '80%' : '100%' }]}>
             <Text style={styles.title}>Inscrivez-vous</Text>
             <View style={styles.inlineInput}>
               <View style={styles.inputContainer}>
@@ -182,48 +185,40 @@ export const SignUp = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
   },
   columnContainerSmall: {
-    flex: 1,
     flexDirection: 'column',
   },
   columnContainerLarge: {
     flex: 1,
-    flexDirection: 'row',
-  },
-  leftColumn: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: 'column',
   },
   logo: {
     flex: 1,
-    marginLeft: '15%',
+    marginBottom: 50,
+    alignSelf: 'center',
   },
 
   rightColumnSmall: {
-    flex: 1,
-    top: '70%',
+    top: '30%',
     alignSelf: 'center',
-    alignItems: 'center',
   },
   rightColumnLarge: {
     flex: 1,
-    marginLeft: '60%',
-    top: '50%',
+    width: '50%',
+    left: '80%',
+    top: '20%',
+    padding: 40,
   },
-  image: {
-    width: '100%', // Ajuste la largeur à la taille de la colonne
-    height: '100%', // Ajuste la hauteur à la taille de la colonne
-    resizeMode: 'cover',
-  },
+
   formContainer: {
-    width: '80%', // Ajuste la largeur à la taille de la colonne
     padding: 20,
     borderRadius: 10,
     backgroundColor: 'rgba(190, 190, 190, .5)',
+    alignSelf: 'center',
   },
+
   title: {
     fontSize: 24,
     fontWeight: 'bold',

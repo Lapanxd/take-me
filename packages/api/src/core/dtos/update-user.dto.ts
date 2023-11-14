@@ -2,7 +2,7 @@ import { IUser } from '../models/user.model';
 import { IsDefined, IsEmail, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class SignUpUserDto implements IUser {
+export class UpdateUserDto implements IUser {
   @IsDefined()
   @IsString()
   @ApiProperty({ example: 'John' })
@@ -17,11 +17,6 @@ export class SignUpUserDto implements IUser {
   @IsEmail()
   @ApiProperty({ example: 'john.doe@ynov.com' })
   email: string;
-
-  @IsDefined()
-  @IsString()
-  @ApiProperty({ example: 'secret-password:)' })
-  password: string;
 
   @IsDefined()
   @IsString()

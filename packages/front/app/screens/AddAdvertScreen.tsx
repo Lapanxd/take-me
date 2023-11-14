@@ -4,6 +4,7 @@ import { View, ViewStyle, TextStyle, Text } from 'react-native';
 import { colors } from '../theme';
 import TopDrawerNavigation from 'app/components/TopDrawerNavigation';
 import { ScrollView } from 'react-native-gesture-handler';
+import { Header } from '../components';
 
 export const AddAdvertScreen = () => {
   const handleOnSubmit = (advert) => {
@@ -13,9 +14,7 @@ export const AddAdvertScreen = () => {
   return (
     <React.Fragment>
       <View style={$container}>
-        <View style={$header}>
-          <TopDrawerNavigation />
-        </View>
+        <Header></Header>
         <ScrollView>
           <View style={$content}>
             <View style={$adcard}>

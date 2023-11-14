@@ -9,7 +9,6 @@ import { isRTL } from '../i18n';
 import { useStores } from '../core'; // @demo remove-current-line
 import { AppStackScreenProps } from '../navigators'; // @demo remove-current-line
 import { colors, spacing } from '../theme';
-import { useHeader } from '../utils/useHeader'; // @demo remove-current-line
 import { useSafeAreaInsetsStyle } from '../utils/useSafeAreaInsetsStyle';
 import TopDrawerNavigation from '../components/TopDrawerNavigation';
 
@@ -30,15 +29,6 @@ export const WelcomeScreen: FC<WelcomeScreenProps> = observer(function WelcomeSc
   function goNext() {
     navigation.navigate('SignIn');
   }
-
-  useHeader(
-    {
-      rightTx: 'common.logOut',
-      onRightPress: logout,
-    },
-    [logout],
-  );
-  // @demo remove-block-end
 
   const $bottomContainerInsets = useSafeAreaInsetsStyle(['bottom']);
 

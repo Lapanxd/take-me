@@ -4,6 +4,7 @@ import Config from 'app/config';
 import { ISignUpUser } from '../../models/SignUpUser';
 import { ISignInUser } from '../../models/SignInUser';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { IUser } from '../../models/User';
 
 export class AuthService {
   apisauce: ApisauceInstance;
@@ -26,7 +27,6 @@ export class AuthService {
 
   async signUp(user: ISignUpUser): Promise<ISignUpUser> {
     try {
-      console.log(user);
       const response: ApiResponse<ISignUpUser> = await this.apisauce.post(`/auth/sign-up`, user);
       return response.data;
     } catch (err) {
@@ -40,17 +40,16 @@ export class AuthService {
   async signIn(user: ISignInUser): Promise<any> {
     //@TODO mettre un vrai type plutôt que any
     try {
-      const response: ApiResponse<{ accessToken: string; refreshToken: string }> =
+      const response: ApiResponse<{ id: string; accessToken: string; refreshToken: string }> =
         await this.apisauce.post(`/auth/sign-in`, user);
 
-      if (!response) {
+      if (!response || (response && (!response.data.accessToken || !response.data.refreshToken))) {
         return;
       }
 
       await AsyncStorage.setItem('accessToken', response.data.accessToken);
       await AsyncStorage.setItem('refreshToken', response.data.refreshToken);
-
-      console.log(response.data.accessToken);
+      await AsyncStorage.setItem('userId', response.data.id);
 
       return { accessToken: response.data.accessToken, refreshToken: response.data.refreshToken };
     } catch (err) {

@@ -54,8 +54,6 @@ export const SignUp = () => {
     setPasswordError('');
     setConfirmPasswordError('');
 
-    console.log('ici c bon');
-
     if (!firstname) {
       setFirstnameError('Prénom requis');
       console.log('prénom');
@@ -156,18 +154,22 @@ export const SignUp = () => {
                 />
               </View>
             </View>
+
             <TextInput
               style={styles.input}
               placeholder="exemple@gmail.com"
               placeholderTextColor="#888"
             />
+
             <TextInput style={styles.input} placeholder="Ville" placeholderTextColor="#888" />
+
             <TextInput
               style={styles.input}
               placeholder="Mot de passe"
               placeholderTextColor="#888"
               secureTextEntry
             />
+
             <TextInput
               style={styles.input}
               placeholder="Mot de passe"

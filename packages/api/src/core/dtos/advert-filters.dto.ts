@@ -1,4 +1,4 @@
-import { IsOptional, IsNumber ,IsDate, IsString } from 'class-validator';
+import { IsOptional, IsNumber, IsDate, IsString } from 'class-validator';
 
 export class AdvertFiltersDto {
   @IsOptional()

@@ -22,7 +22,6 @@ export const AuthenticationStoreModel = types
     },
     checkAuthentication: flow(function* () {
       const result = yield AsyncStorage.getItem('accessToken');
-      console.log('result', !!result);
       store.isAuthenticated = !!result;
     }),
   }));

@@ -14,7 +14,7 @@ function DrawerMenuIcon(props: Props) {
         stroke={props.color}
         strokeLinecap="round"
         strokeMiterlimit={10}
-        strokeWidth={32}
+        strokeWidth={40}
         d="M80 160h352M80 256h352M80 352h352"
       />
     </Svg>

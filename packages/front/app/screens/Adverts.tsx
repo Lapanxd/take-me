@@ -45,10 +45,7 @@ export const Adverts = () => {
                 <View key={index} style={{ width: '50%' }}>
                   <AdvertCard
                     name={advert.name}
-                    image={
-                      advert.images.find((image) => image.id === 1)?.url ||
-                      'https://placehold.co/400'
-                    }
+                    image={advert.images[0]?.url || 'https://placehold.co/400'}
                     description={advert.description}
                     geocode={advert.geocode}
                     objectType={advert.objectType}

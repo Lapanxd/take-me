@@ -1,25 +1,15 @@
 import React from 'react';
-import {
-  View,
-  ViewStyle,
-  Text,
-  Image,
-  ImageStyle,
-  TextStyle,
-  Pressable,
-  useWindowDimensions,
-} from 'react-native';
+import { View, Text, Image, useWindowDimensions, TouchableOpacity, StyleSheet } from 'react-native';
 import Map from '../components/Map';
-import { ScrollView } from 'react-native-gesture-handler';
-import { colors } from '../theme';
-import CloseBurgerIcon from '../icons/CloseBurgerIcon';
+import { IObjectType } from '../core/models/ObjectType';
+import Header from './Header';
 
 interface Props {
   name: string;
   image: string;
   description: string;
   geocode: [number, number];
-  objectType: string;
+  objectType: IObjectType;
   onClose: () => void;
 }
 
@@ -32,127 +22,56 @@ export const AdvertDetail: React.FC<Props> = ({
   onClose,
 }) => {
   const { width } = useWindowDimensions();
-  const isSmallScreen = width < 800;
+  function mapWidth() {
+    if (width > 1500) return 3.2;
+    if (width > 1200) return 2;
+    if (width > 900) return 1.5;
+    if (width > 700) return 1;
+  }
 
-  const detail = (
-    <>
-      <Text style={$title}>{name}</Text>
-      <Image source={{ uri: image }} style={isSmallScreen ? $imageSmall : $imageLarge} />
-      <Text style={$label}>Description:</Text>
-      <View style={$contentDescription}>
-        <Text style={$description}>{description}</Text>
-      </View>
-      <Text style={$label}>Type:</Text>
-      <Text style={$description}>{objectType}</Text>
-    </>
-  );
-
-  const content = (
+  return (
     <View>
-      <View style={$closeButton}>
-        <Pressable onPress={onClose}>
-          <CloseBurgerIcon color={'black'} size={40} />
-        </Pressable>
-      </View>
-      <View style={isSmallScreen ? $advertContentSmall : $advertContentLarge}>
-        <View style={isSmallScreen ? $adContentSmall : $adContentLarge}>
-          {isSmallScreen ? detail : <ScrollView>{detail}</ScrollView>}
+      <Header></Header>
+      <View
+        style={{
+          flexDirection: width > 700 ? 'row' : 'column',
+          backgroundColor: '#f3f3f3',
+          gap: width > 700 ? 0 : 30,
+        }}
+      >
+        <View style={styles.advertList}>
+          <TouchableOpacity onPress={onClose}>
+            <Text style={styles.backButton}>{'< retour'}</Text>
+          </TouchableOpacity>
+          <Text style={styles.advertName}>{name}</Text>
+          <Text style={styles.advertObjectType}>Type: {objectType?.name}</Text>
+          <Image source={{ uri: image }} style={styles.advertImage} />
+          <View>
+            <Text style={styles.advertDescription}>{description}</Text>
+          </View>
         </View>
-
-        <View style={isSmallScreen ? $mapContentSmall : $mapContentLarge}>
+        <View style={{ flex: mapWidth() }}>
           <Map geocodes={[geocode]} names={[name]} selectedGeocode={geocode} />
         </View>
       </View>
     </View>
   );
-
-  return !isSmallScreen ? content : <ScrollView>{content}</ScrollView>;
 };
 
-const $closeButton: ViewStyle = {
-  flex: 1,
-  padding: 30,
-};
+const styles = StyleSheet.create({
+  advertList: {
+    flex: 1,
+    marginLeft: 15,
+    marginRight: 10,
+    height: '92.5vh',
+    backgroundColor: '#f3f3f3',
+    marginTop: 3,
+  },
+  backButton: { fontSize: 20, color: '#6e6969' },
+  advertName: { fontWeight: 'bold', fontSize: 25, marginTop: 15 },
+  advertObjectType: { marginBottom: 10 },
+  advertImage: { width: '100%', height: 300, borderRadius: 10 },
+  advertDescription: { fontSize: 16, marginTop: 15 },
+});
 
-const $advertContentSmall: ViewStyle = {
-  flexDirection: 'column',
-};
-
-const $advertContentLarge: ViewStyle = {
-  flexDirection: 'row',
-  margin: 50,
-};
-
-const $adContentLarge: ViewStyle = {
-  padding: 16,
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '50%',
-  height: '80vh',
-};
-
-const $adContentSmall: ViewStyle = {
-  padding: 16,
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: '80%',
-  height: '80vh',
-};
-
-const $title: TextStyle = {
-  fontSize: 34,
-  marginBottom: 8,
-  color: 'orange',
-  fontWeight: 'bold',
-  backgroundColor: colors.transparent,
-};
-
-const $label: TextStyle = {
-  fontSize: 16,
-  fontWeight: 'bold',
-  marginBottom: 4,
-  marginTop: 8,
-};
-
-const $contentDescription: ViewStyle = {
-  flexDirection: 'row',
-  margin: 10,
-};
-
-const $description: TextStyle = {
-  fontSize: 16,
-  marginTop: 4,
-  color: colors.text,
-  backgroundColor: colors.transparent,
-  flex: 1,
-  flexWrap: 'wrap',
-};
-
-const $imageSmall: ImageStyle = {
-  width: '100%',
-  height: 300,
-  borderRadius: 8,
-  resizeMode: 'contain',
-};
-
-const $imageLarge: ImageStyle = {
-  width: '100%',
-  height: 300,
-  marginRight: 8,
-  borderRadius: 8,
-  resizeMode: 'contain',
-};
-
-const $mapContentSmall: ViewStyle = {
-  flex: 1,
-  width: '100%',
-  height: '100vh',
-  backgroundColor: colors.background,
-};
-
-const $mapContentLarge: ViewStyle = {
-  width: '70%',
-  height: 300,
-  backgroundColor: colors.background,
-};
 export default AdvertDetail;

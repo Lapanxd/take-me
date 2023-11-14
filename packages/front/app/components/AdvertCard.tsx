@@ -14,28 +14,37 @@ import IconEye from '../icons/IconEye';
 import AdvertDetail from './AdvertDetail';
 import { IObjectType } from '../core/models/ObjectType';
 import { ScrollView } from 'react-native-gesture-handler';
+import { IAdvert } from '../core/models/Advert';
 
-interface Props {
-  name: string;
-  image: string;
-  description: string;
-  geocode: [number, number];
-  objectType: IObjectType;
-}
-
-export const AdvertCard: React.FC<Props> = ({ name, image, description, geocode, objectType }) => {
+export const AdvertCard: React.FC<IAdvert> = ({
+  name,
+  image,
+  description,
+  geocode,
+  objectType,
+}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <View style={{ padding: 7 }}>
       <TouchableOpacity onPress={() => setModalVisible(true)}>
         <View>
-          <View style={$adcard}>
-            <Image source={{ uri: image }} style={$image} />
-            <Text style={$name}>{name}</Text>
-            {/*<Text style={$button}>*/}
-            {/*  Regarder le détail <IconEye color={'black'} size={20} />*/}
-            {/*</Text>*/}
+          <View style={{ borderRadius: 10, flexDirection: 'column', justifyContent: 'center' }}>
+            <Image
+              source={{ uri: image }}
+              style={{ borderRadius: 12, width: '100%', height: 230 }}
+            />
+            <Text
+              style={{
+                fontSize: 16,
+                fontWeight: 'bold',
+                marginTop: 4,
+                marginBottom: 4,
+                color: colors.text,
+              }}
+            >
+              {name}
+            </Text>
           </View>
         </View>
       </TouchableOpacity>
@@ -59,36 +68,6 @@ export const AdvertCard: React.FC<Props> = ({ name, image, description, geocode,
       </Modal>
     </View>
   );
-};
-
-const $adcard: ViewStyle = {
-  borderRadius: 10,
-  flexDirection: 'column',
-  justifyContent: 'center',
-};
-
-const $name: TextStyle = {
-  fontSize: 16,
-  fontWeight: 'bold',
-  marginTop: 4,
-  marginBottom: 4,
-  color: colors.text,
-  backgroundColor: colors.transparent,
-};
-
-const $image: ImageStyle = {
-  borderRadius: 12,
-  width: '100%',
-  height: 230,
-};
-
-const $button: TextStyle = {
-  marginTop: 10,
-  marginBottom: 4,
-  color: colors.text,
-  backgroundColor: colors.transparent,
-  justifyContent: 'center',
-  alignItems: 'center',
 };
 
 export default AdvertCard;

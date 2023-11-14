@@ -17,7 +17,6 @@ export class UsersController {
 
   @Get(':id')
   async findById(@Param('id') id: number): Promise<User> {
-    console.log(id);
     return await this.usersService.findById(id);
   }
 
@@ -33,7 +32,6 @@ export class UsersController {
 
   @Put(':id/password')
   async updatePassword(@Param('id') id: number, @Body() {oldPassword, newPassword}) {
-    console.log(oldPassword, newPassword   )
     return await this.usersService.updatePassword(id, { oldPassword, newPassword });
   }
 }

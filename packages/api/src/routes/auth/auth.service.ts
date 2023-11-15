@@ -17,6 +17,7 @@ export class AuthService {
     const { email, password } = signInUserDto;
 
     const user = await this.userService.findByCredentials(email);
+    console.log('user : ',user);
     if (!user) throw new UnauthorizedHttp();
 
     const isValidPassword = await user.validatePassword(password);
@@ -24,17 +25,17 @@ export class AuthService {
       throw new UnauthorizedHttp();
     }
 
-    const payload = { sub: user.id, email: user.email };
+    const payload = { sub: user.id.toString(), email: user.email };
 
     const accessToken = await this.jwtService.signAsync(payload, {
-      secret: 'SamHSrSp4eiMneglcwIvCvKaTJGHtnY8',
-      expiresIn: '1h',
+      secret: this.configService.get<string>('JWT_SECRET'),
+      expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
     });
 
-    const refreshPayload = { sub: user.id };
+    const refreshPayload = { sub: user.id.toString() };
     const refreshToken = await this.jwtService.signAsync(refreshPayload, {
-      secret: 'ThXRemzvBJg58dugGmf24bey5Tsz5D74',
-      expiresIn: '7d',
+      secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+      expiresIn: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRATION_TIME'),
     });
 
     return { id: user.id, accessToken, refreshToken };
@@ -52,14 +53,14 @@ export class AuthService {
   async refreshToken(refreshToken: string): Promise<{ accessToken: string }> {
     try {
       const decoded = await this.jwtService.verifyAsync(refreshToken, {
-        secret: 'ThXRemzvBJg58dugGmf24bey5Tsz5D74',
+        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
       });
 
       const payload = { sub: decoded.sub, email: decoded.email };
 
       const accessToken = await this.jwtService.signAsync(payload, {
-        secret: 'SamHSrSp4eiMneglcwIvCvKaTJGHtnY8',
-        expiresIn: '1h',
+        secret: this.configService.get<string>('JWT_SECRET'),
+        expiresIn: this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
       });
 
       return { accessToken };

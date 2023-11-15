@@ -17,7 +17,7 @@ export class AuthService {
     const { email, password } = signInUserDto;
 
     const user = await this.userService.findByCredentials(email);
-    console.log('user : ',user);
+
     if (!user) throw new UnauthorizedHttp();
 
     const isValidPassword = await user.validatePassword(password);

@@ -8,12 +8,15 @@ import {
   TouchableOpacity,
   Dimensions,
   View,
+  Button
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import IconFolderOpen from '../icons/IconFolderOpen';
 import IconCamera from '../icons/IconCamera';
 import { useNavigation } from '@react-navigation/native';
 import GeocodeEarthAutocomplete from 'react-geocode-earth-autocomplete';
+import * as Location from 'expo-location';
+import IconLocation from 'app/icons/IconLocation';
 
 const { width, height } = Dimensions.get('window');
 
@@ -28,9 +31,11 @@ const AdvertFormScreen = () => {
     latitude: null,
     longitude: null,
   });
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [location, setLocation] = useState();
 
   const navigation = useNavigation() as any;
-
+  const [manualAddressEntry, setManualAddressEntry] = useState(false);
 
   const handleSubmit = () => {
     if (name && description) {
@@ -73,6 +78,26 @@ const AdvertFormScreen = () => {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+    })();
+  }, []);
+
+  let text = 'Récupérer ma localisation';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -97,6 +122,7 @@ const AdvertFormScreen = () => {
         value={address}
         onChange={(newAddress) => {
           setAddress(newAddress);
+          setManualAddressEntry(false);
         }}
         onSelect={(newAddress) => {
           setSelectedAddress({
@@ -104,6 +130,7 @@ const AdvertFormScreen = () => {
             latitude: newAddress.geometry?.location.lat,
             longitude: newAddress.geometry?.location.lng,
           });
+          setManualAddressEntry(false);
         }}
       >
         {(props) => (
@@ -147,12 +174,16 @@ const AdvertFormScreen = () => {
           </div>
         )}
       </GeocodeEarthAutocomplete>
-      <TextInput
+
+      <TouchableOpacity
         style={styles.input}
-        value={selectedAddress.description}
-        placeholder="Adresse"
-        editable={false}
-      />
+        onPress={() => setManualAddressEntry(true)}
+      >
+
+        <Text style={styles.txt_btn_img}>         <IconLocation color="black" size={20} />{text} </Text>
+      </TouchableOpacity>
+
+
       {image && <Image source={{ uri: image }} style={styles.image} />}
       <TouchableOpacity style={styles.imgDownload} onPress={pickImage}>
         <Text style={styles.txt_btn_img}>

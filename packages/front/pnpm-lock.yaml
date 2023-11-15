@@ -86,6 +86,9 @@ dependencies:
   expo-localization:
     specifier: ~14.3.0
     version: 14.3.0(expo@49.0.15)
+  expo-location:
+    specifier: ^16.3.0
+    version: 16.3.0(expo@49.0.15)
   expo-splash-screen:
     specifier: ~0.20.5
     version: 0.20.5(expo-modules-autolinking@1.5.1)(expo@49.0.15)
@@ -6304,6 +6307,14 @@ packages:
     dependencies:
       expo: 49.0.15(@babel/core@7.20.2)
       rtl-detect: 1.1.2
+    dev: false
+
+  /expo-location@16.3.0(expo@49.0.15):
+    resolution: {integrity: sha512-AAiuzfVxyWkARb/QYBL2GgfhbWVb8rMpUlE37Uu+q7mLwZtKwcLMfG6UK2PtpFRVS8QW1baxEOV9SxMbtXsjrw==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.15(@babel/core@7.20.2)
     dev: false
 
   /expo-modules-autolinking@1.5.1:

@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
-import { JwtService } from '@nestjs/jwt';
+import {JwtService, JwtSignOptions} from '@nestjs/jwt';
 import { SignInUserDto } from '../../core/dtos/sign-in-user.dto';
 import { UnauthorizedHttp } from '../../core/exceptions/user.exceptions';
 import { ConfigService } from '@nestjs/config';
@@ -27,16 +27,21 @@ export class AuthService {
 
     const payload = { sub: user.id.toString(), email: user.email };
 
-    const accessToken = await this.jwtService.signAsync(payload, {
+    const signOptions: JwtSignOptions = {
       secret: this.configService.get<string>('JWT_SECRET'),
       expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
-    });
+    };
+
+    const accessToken = await this.jwtService.signAsync(payload, signOptions);
 
     const refreshPayload = { sub: user.id.toString() };
-    const refreshToken = await this.jwtService.signAsync(refreshPayload, {
+
+    const refreshSignOptions: JwtSignOptions = {
       secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
       expiresIn: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRATION_TIME'),
-    });
+    };
+
+    const refreshToken = await this.jwtService.signAsync(refreshPayload, refreshSignOptions);
 
     return { accessToken, refreshToken };
   }

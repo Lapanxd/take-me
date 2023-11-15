@@ -27,14 +27,14 @@ export class AuthService {
     const payload = { sub: user.id, email: user.email };
 
     const accessToken = await this.jwtService.signAsync(payload, {
-      secret: this.configService.get<string>('JWT_SECRET'),
-      expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
+      secret: 'SamHSrSp4eiMneglcwIvCvKaTJGHtnY8',
+      expiresIn: '1h',
     });
 
     const refreshPayload = { sub: user.id };
     const refreshToken = await this.jwtService.signAsync(refreshPayload, {
-      secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-      expiresIn: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRATION_TIME'),
+      secret: 'ThXRemzvBJg58dugGmf24bey5Tsz5D74',
+      expiresIn: '7d',
     });
 
     return { id: user.id, accessToken, refreshToken };
@@ -52,14 +52,14 @@ export class AuthService {
   async refreshToken(refreshToken: string): Promise<{ accessToken: string }> {
     try {
       const decoded = await this.jwtService.verifyAsync(refreshToken, {
-        secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
+        secret: 'ThXRemzvBJg58dugGmf24bey5Tsz5D74',
       });
 
       const payload = { sub: decoded.sub, email: decoded.email };
 
       const accessToken = await this.jwtService.signAsync(payload, {
-        secret: this.configService.get<string>('JWT_SECRET'),
-        expiresIn: this.configService.get('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
+        secret: 'SamHSrSp4eiMneglcwIvCvKaTJGHtnY8',
+        expiresIn: '1h',
       });
 
       return { accessToken };

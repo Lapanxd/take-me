@@ -29,7 +29,7 @@ export class AuthService {
 
     const signOptions: JwtSignOptions = {
       secret: this.configService.get<string>('JWT_SECRET'),
-      expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
+      // expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
     };
 
     const accessToken = await this.jwtService.signAsync(payload, signOptions);
@@ -38,7 +38,7 @@ export class AuthService {
 
     const refreshSignOptions: JwtSignOptions = {
       secret: this.configService.get<string>('JWT_REFRESH_SECRET'),
-      expiresIn: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRATION_TIME'),
+      // expiresIn: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRATION_TIME'),
     };
 
     const refreshToken = await this.jwtService.signAsync(refreshPayload, refreshSignOptions);

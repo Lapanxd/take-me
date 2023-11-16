@@ -1,10 +1,10 @@
-import {Body, Controller, Get, Param, Post, Put, Query, UseGuards} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { User } from '../../core/entities/user.entity';
 import { UsersService } from './users.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { SignUpUserDto } from '../../core/dtos/sign-up-user.dto';
-import {LocalAuthGuard} from "../auth/guards/local-auth.guard";
-import {UpdateUserDto} from "../../core/dtos/update-user.dto";
+import { LocalAuthGuard } from '../auth/guards/local-auth.guard';
+import { UpdateUserDto } from '../../core/dtos/update-user.dto';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -27,11 +27,11 @@ export class UsersController {
 
   @Put(':id')
   async update(@Param('id') id: number, @Body() updateUserDto: UpdateUserDto) {
-   return await this.usersService.update(id, updateUserDto);
+    return await this.usersService.update(id, updateUserDto);
   }
 
   @Put(':id/password')
-  async updatePassword(@Param('id') id: number, @Body() {oldPassword, newPassword}) {
+  async updatePassword(@Param('id') id: number, @Body() { oldPassword, newPassword }) {
     return await this.usersService.updatePassword(id, { oldPassword, newPassword });
   }
 }

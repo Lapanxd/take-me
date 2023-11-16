@@ -41,11 +41,11 @@ export class Advert implements IAdvert {
   @ApiProperty({ example: ['url.com/img.png', 'url.com/img2.png'] })
   images: IObjectImage[];
 
-  @Column({ type: "float"})
+  @Column({ type: 'float' })
   @ApiProperty({ example: -20 })
   latitude: number;
 
-  @Column({type: "float"})
+  @Column({ type: 'float' })
   @ApiProperty({ example: -10 })
   longitude: number;
 

@@ -1,9 +1,10 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { IObjectImage } from '../models/objectImage.model';
 import { Advert } from './advert.entity';
+import { Buffer } from 'buffer';
 
 @Entity()
-export class ObjectImage implements IObjectImage {
+export class ObjectImage {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -13,11 +14,8 @@ export class ObjectImage implements IObjectImage {
   @Column()
   url: string;
 
-  @Column()
-  mime: string;
-
-  @Column()
-  base64: string;
+  @Column({ type: 'blob', nullable: true })
+  blob: Buffer;
 
   @Column({
     nullable: true,

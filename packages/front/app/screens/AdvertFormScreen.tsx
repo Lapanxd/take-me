@@ -18,6 +18,7 @@ import GeocodeEarthAutocomplete from 'react-geocode-earth-autocomplete';
 import * as Location from 'expo-location';
 import IconLocation from 'app/icons/IconLocation';
 import { IAdvert } from '../core/models/Advert';
+import { advertService } from '../core/services/api';
 
 const { width, height } = Dimensions.get('window');
 
@@ -49,16 +50,29 @@ const AdvertFormScreen = () => {
     };
   }
 
-  const handleSubmit = () => {
+  function isValidAdress() {
+    return selectedAddress.description && selectedAddress.latitude && selectedAddress.longitude;
+  }
+
+  const handleSubmit = async () => {
     if (name && description) {
+      let geocode;
+
+      if (isValidAdress()) {
+        console.log('tutut');
+        geocode = [selectedAddress.latitude, selectedAddress.longitude];
+      } else {
+        geocode = [location.coords.latitude, location.coords.longitude];
+      }
+
       const newAdvert: IAdvert = {
         name,
         description,
         images: separateImage(image),
-        geocode: [selectedAddress.latitude, selectedAddress.longitude],
+        geocode,
       };
 
-      console.log(newAdvert);
+      await advertService.create(newAdvert);
 
       // navigation.navigate('<Adverts>', {
       //   name: name,
@@ -109,6 +123,7 @@ const AdvertFormScreen = () => {
 
       let location = await Location.getCurrentPositionAsync({});
       setLocation(location);
+      console.log('location', location.coords.latitude);
     })();
   }, []);
 

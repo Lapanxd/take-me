@@ -8,14 +8,17 @@ import { ObjectImage } from '../../core/entities/object-image.entity';
 import { AdvertDto } from '../../core/dtos/advert.dto';
 import { AdvertFiltersDto } from '../../core/dtos/advert-filters.dto';
 import { cond } from 'lodash';
+import { Buffer } from 'buffer';
+import {resizeImageToBuffer} from '../../core/imageResizer';
+import sharp from "sharp";
 
 @Injectable()
 export class AdvertService {
   constructor(
-      @InjectRepository(Advert)
-      private advertRepository: Repository<Advert>,
-      @InjectRepository(ObjectType)
-      private objectTypeRepository: Repository<ObjectType>,
+    @InjectRepository(Advert)
+    private advertRepository: Repository<Advert>,
+    @InjectRepository(ObjectType)
+    private objectTypeRepository: Repository<ObjectType>,
   ) {}
 
   async create(advertDto: CreateAdvertDto): Promise<Advert> {
@@ -26,10 +29,15 @@ export class AdvertService {
       const images = [];
 
       for (const image of advertDto.images) {
+        const bufferData = Buffer.from(image.base64, 'base64');
+        const resizedBuffer = await resizeImageToBuffer(image.base64, image.mime);
         const newImage = new ObjectImage();
-        newImage.url = image.url || "";
-        newImage.mime = image.mime;
-        newImage.base64 = image.base64
+
+        newImage.blob = resizedBuffer;
+        newImage.url = image.url || '';
+
+        console.log(resizedBuffer);
+
         images.push(newImage);
       }
 

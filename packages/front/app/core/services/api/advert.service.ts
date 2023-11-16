@@ -5,6 +5,7 @@ import Config from 'app/config';
 import { IUpdateAdvert } from '../../models/UpdateAdvert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AdvertDto } from '../../advert.dto';
+import { CreateAdvertDto } from '../../create-advert.dto';
 
 export class AdvertService {
   apisauce: ApisauceInstance;
@@ -59,7 +60,20 @@ export class AdvertService {
 
   async create(createAdvert: IAdvert): Promise<IAdvert> {
     try {
-      const response: ApiResponse<IAdvert> = await this.apisauce.post(`/adverts}`, createAdvert, {
+      console.log('createAdvert', createAdvert);
+
+      const newAdvert: CreateAdvertDto = {
+        latitude: createAdvert.geocode[0],
+        longitude: createAdvert.geocode[1],
+        images: [createAdvert.images],
+        objectType: 1, //@todo refacto
+        name: createAdvert.name,
+        description: createAdvert.description,
+      };
+
+      console.log('newAdvert', newAdvert);
+
+      const response: ApiResponse<IAdvert> = await this.apisauce.post(`/adverts`, newAdvert, {
         headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
       });
       return response.data;

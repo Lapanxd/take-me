@@ -3,6 +3,7 @@ export interface IObjectImage {
   url?: string;
   mime?: string;
   base64?: string;
+  blob?: Uint8Array;
   createdAt?: Date;
   updatedAt?: Date;
 }

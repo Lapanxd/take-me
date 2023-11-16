@@ -16,4 +16,5 @@ export const localConf = (configService: ConfigService): TypeOrmModuleOptions =>
   entities: [User, Advert, ObjectType, ObjectImage],
   namingStrategy: new SnakeNamingStrategy(),
   synchronize: configService.get('TYPEORM_SYNC') === 'true',
+  // logging: true,
 });

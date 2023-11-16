@@ -5,6 +5,7 @@ async function resizeImageToBuffer(base64Image, mime) {
   const imageBuffer = Buffer.from(base64Image, 'base64');
 
   try {
+
     return await sharp(imageBuffer)
       .resize({width: 500})
       .jpeg()

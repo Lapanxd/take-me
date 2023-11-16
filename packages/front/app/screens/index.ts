@@ -12,4 +12,3 @@ export * from './Adverts';
 export * from './SignUp';
 export * from './SignIn';
 export * from './Profil';
-export * from './ProfilTest';

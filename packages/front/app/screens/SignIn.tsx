@@ -66,11 +66,13 @@ export const SignIn = () => {
               style={styles.input}
               placeholder="exemple@gmail.com"
               placeholderTextColor="#888"
+              onChangeText={(text) => setMail(text)}
             />
             <TextInput
               style={styles.input}
               placeholder="Mot de passe"
               placeholderTextColor="#888"
+              onChangeText={(text) => setPassword(text)}
               secureTextEntry
             />
             <Text style={styles.eror}> {error} </Text>

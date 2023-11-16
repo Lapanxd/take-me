@@ -39,6 +39,9 @@ export class AuthService {
 
   async signIn(user: ISignInUser): Promise<any> {
     //@TODO mettre un vrai type plutôt que any
+
+    console.log(user);
+
     try {
       const response: ApiResponse<{ id: string; accessToken: string; refreshToken: string }> =
         await this.apisauce.post(`/auth/sign-in`, user);

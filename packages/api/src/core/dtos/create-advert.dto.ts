@@ -1,6 +1,7 @@
 import { IsDefined, IsNumber, IsString } from 'class-validator';
 import { IObjectType } from '../models/objectType.model';
 import { ApiProperty } from '@nestjs/swagger';
+import {IObjectImage} from "../models/objectImage.model";
 export class CreateAdvertDto {
   @IsDefined()
   @IsString()
@@ -18,11 +19,8 @@ export class CreateAdvertDto {
   objectType: IObjectType;
 
   @IsDefined()
-  @ApiProperty({ example: { url: 'url.com/img.png' } })
-  image: {
-    mime: string,
-    base64: string,
-  };
+  @ApiProperty({ example: ['url.com/img.png', 'url.com/img2.png'] })
+  images: IObjectImage[];
 
   @IsDefined()
   @IsNumber()

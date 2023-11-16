@@ -12,10 +12,10 @@ import { cond } from 'lodash';
 @Injectable()
 export class AdvertService {
   constructor(
-    @InjectRepository(Advert)
-    private advertRepository: Repository<Advert>,
-    @InjectRepository(ObjectType)
-    private objectTypeRepository: Repository<ObjectType>,
+      @InjectRepository(Advert)
+      private advertRepository: Repository<Advert>,
+      @InjectRepository(ObjectType)
+      private objectTypeRepository: Repository<ObjectType>,
   ) {}
 
   async create(advertDto: CreateAdvertDto): Promise<Advert> {
@@ -23,28 +23,27 @@ export class AdvertService {
       const objectType = await this.objectTypeRepository.findOneBy({
         id: advertDto.objectType.id,
       });
-
       const images = [];
 
+      for (const image of advertDto.images) {
         const newImage = new ObjectImage();
-        newImage.mime = advertDto.image.mime;
-        newImage.base64 = advertDto.image.base64;
+        newImage.url = image.url || "";
+        newImage.mime = image.mime;
+        newImage.base64 = image.base64
         images.push(newImage);
+      }
 
       const advert = new Advert();
 
       advert.name = advertDto.name;
       advert.objectType = objectType;
-      advert.image = images[0];
+      advert.images = images;
       advert.latitude = advertDto.latitude;
       advert.longitude = advertDto.longitude;
       advert.description = advertDto.description;
 
-      console.log(advert)
-
       return await this.advertRepository.save(advert);
     } catch (err) {
-      console.log()
       throw new InternalServerErrorException();
     }
   }
@@ -86,10 +85,10 @@ export class AdvertService {
       if (advert.objectType) {
         updatedAdvert.objectType = advert.objectType;
       }
-      //
-      // if (advert.image) {
-      //   updatedAdvert.image = advert.image;
-      // }
+
+      if (advert.images) {
+        updatedAdvert.images = advert.images;
+      }
 
       if (advert.longitude && advert.latitude) {
         updatedAdvert.longitude = advert.longitude;

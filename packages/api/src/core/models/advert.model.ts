@@ -5,7 +5,7 @@ export interface IAdvert {
   id: number;
   name: string;
   objectType: IObjectType;
-  image: IObjectImage;
+  images: IObjectImage[];
   latitude: number;
   longitude: number;
   createdAt?: Date;

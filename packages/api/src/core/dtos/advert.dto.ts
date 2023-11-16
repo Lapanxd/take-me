@@ -26,7 +26,7 @@ export class AdvertDto {
 
   @IsOptional()
   @ApiProperty({ example: ['url.com/img.png', 'url.com/img2.png'] })
-  image: IObjectImage;
+  images: IObjectImage[];
 
   @IsOptional()
   @IsNumber()

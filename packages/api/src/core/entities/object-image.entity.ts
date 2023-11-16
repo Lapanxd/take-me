@@ -1,4 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { IObjectImage } from '../models/objectImage.model';
 import { Advert } from './advert.entity';
 
@@ -7,8 +7,7 @@ export class ObjectImage implements IObjectImage {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => Advert, (advert) => advert.image)
-  @JoinColumn()
+  @ManyToOne(() => Advert, (advert) => advert.images)
   advert: Advert;
 
   @Column()

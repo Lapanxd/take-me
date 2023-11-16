@@ -18,7 +18,6 @@ import { navigate } from 'app/navigators';
 import { authService } from 'app/core/services/api/auth.service';
 const background = require('../../assets/images/bg.jpg');
 const logo = require('../../assets/images/logooo.png');
-const screenWidth = Dimensions.get('window').width;
 import { useStores } from '../core/helpers/useStores';
 
 export const SignIn = () => {

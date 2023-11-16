@@ -40,7 +40,7 @@ export class AdvertService {
           : { mime: '', base64: '' };
 
         const geocode =
-          advert.latitude && advert.longitude ? [advert.latitude, advert.longitude] : [];
+          advert.latitude && advert.longitude ? [advert.latitude, advert.longitude] : [0, 0];
 
         return {
           ...advert,

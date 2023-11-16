@@ -20,13 +20,10 @@ export const Adverts = () => {
 
   useEffect(() => {
     advertService.findAll().then((adverts) => {
-      console.log(adverts);
       if (adverts) {
         setAdverts(adverts);
         setGeocodes(adverts.map((advert) => advert.geocode));
         setNames(adverts.map((item) => item.name));
-
-        console.log('adverts', adverts);
       }
     });
   }, []);

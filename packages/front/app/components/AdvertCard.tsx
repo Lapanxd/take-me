@@ -27,7 +27,9 @@ export const AdvertCard: React.FC<IAdvert> = ({
   const [advertImage, setAdvertImage] = useState('');
 
   useEffect(() => {
-    setAdvertImage(`data:${image.mime};base64,${image.base64}`);
+    image.base64
+      ? setAdvertImage(`data:${image.mime};base64,${image.base64}`)
+      : setAdvertImage('https://placehold.co/600x400');
   }, []);
 
   return (

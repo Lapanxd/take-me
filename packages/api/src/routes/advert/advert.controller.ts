@@ -32,6 +32,7 @@ export class AdvertController {
     isArray: false,
   })
   async create(@Body() createAdvertDto: CreateAdvertDto): Promise<Advert> {
+    console.log("controller", createAdvertDto);
     return await this.advertService.create(createAdvertDto);
   }
 

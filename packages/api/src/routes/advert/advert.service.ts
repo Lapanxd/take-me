@@ -24,17 +24,18 @@ export class AdvertService {
         id: advertDto.objectType.id,
       });
 
-      console.log(advertDto)
+      const images = [];
+
+        const newImage = new ObjectImage();
+        newImage.mime = advertDto.image.mime;
+        newImage.base64 = advertDto.image.base64;
+        images.push(newImage);
 
       const advert = new Advert();
-      const image = new ObjectImage();
-
-      image.mime = advertDto.image.mime;
-      image.base64 = advertDto.image.base64;
 
       advert.name = advertDto.name;
       advert.objectType = objectType;
-      advert.image = image;
+      advert.image = images[0];
       advert.latitude = advertDto.latitude;
       advert.longitude = advertDto.longitude;
       advert.description = advertDto.description;

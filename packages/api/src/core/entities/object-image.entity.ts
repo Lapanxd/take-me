@@ -8,6 +8,7 @@ export class ObjectImage implements IObjectImage {
   id: number;
 
   @OneToOne(() => Advert, (advert) => advert.image)
+  @JoinColumn()
   advert: Advert;
 
   @Column()

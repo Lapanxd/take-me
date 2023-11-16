@@ -16,7 +16,7 @@ async function resizeImageToBuffer(base64Image, mime) {
 }
 
 function bufferToBase64(buffer, mime) {
-  const base64String = buffer.toString('base64');
+  const base64String = buffer?.toString('base64');
   return {
     mime, base64: base64String
   }

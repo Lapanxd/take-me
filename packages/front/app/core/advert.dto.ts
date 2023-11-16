@@ -8,6 +8,6 @@ export interface AdvertDto {
   objectType?: IObjectType;
   images?: IObjectImage;
   geocode?: number[];
-  latitude: number;
-  longitude: number;
+  latitude?: number;
+  longitude?: number;
 }

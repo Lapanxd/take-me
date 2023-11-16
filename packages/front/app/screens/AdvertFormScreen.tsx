@@ -19,6 +19,7 @@ import * as Location from 'expo-location';
 import IconLocation from 'app/icons/IconLocation';
 import { IAdvert } from '../core/models/Advert';
 import { advertService } from '../core/services/api';
+import { AdvertDto } from '../core/advert.dto';
 
 const { width, height } = Dimensions.get('window');
 
@@ -59,13 +60,12 @@ const AdvertFormScreen = () => {
       let geocode;
 
       if (isValidAdress()) {
-        console.log('tutut');
         geocode = [selectedAddress.latitude, selectedAddress.longitude];
       } else {
         geocode = [location.coords.latitude, location.coords.longitude];
       }
 
-      const newAdvert: IAdvert = {
+      const newAdvert: AdvertDto = {
         name,
         description,
         images: separateImage(image),
@@ -74,10 +74,7 @@ const AdvertFormScreen = () => {
 
       await advertService.create(newAdvert);
 
-      // navigation.navigate('<Adverts>', {
-      //   name: name,
-      //   description: description,
-      // });
+      navigation.navigate('Adverts');
     } else {
       setError('Veuillez remplir tous les champs');
     }
@@ -211,7 +208,6 @@ const AdvertFormScreen = () => {
         <Text style={styles.txt_btn_img}>
           {' '}
           <IconLocation color="black" size={20} />
-          {text}{' '}
         </Text>
       </TouchableOpacity>
 

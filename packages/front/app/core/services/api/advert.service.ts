@@ -34,12 +34,22 @@ export class AdvertService {
     try {
       const response: ApiResponse<AdvertDto[]> = await this.apisauce.get(`/adverts`);
 
-      console.log(response.data);
+      const test = response.data.map((advert) => {
+        const images = advert.images
+          ? { mime: advert.images[0].mime, base64: advert.images[0].base64 }
+          : { mime: '', base64: '' };
 
-      return response.data.map((advert) => ({
-        ...advert,
-        geocode: [advert.latitude, advert.longitude],
-      }));
+        const geocode =
+          advert.latitude && advert.longitude ? [advert.latitude, advert.longitude] : [];
+
+        return {
+          ...advert,
+          images,
+          geocode,
+        };
+      });
+
+      return test;
     } catch (err) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${err.message}\n}`, err.stack);
@@ -60,10 +70,8 @@ export class AdvertService {
     }
   }
 
-  async create(createAdvert: IAdvert): Promise<IAdvert> {
+  async create(createAdvert: AdvertDto): Promise<IAdvert> {
     try {
-      console.log('createAdvert', createAdvert);
-
       const newAdvert: CreateAdvertDto = {
         latitude: createAdvert.geocode[0],
         longitude: createAdvert.geocode[1],
@@ -72,8 +80,6 @@ export class AdvertService {
         name: createAdvert.name,
         description: createAdvert.description,
       };
-
-      console.log('newAdvert', newAdvert);
 
       const response: ApiResponse<IAdvert> = await this.apisauce.post(`/adverts`, newAdvert, {
         headers: { Authorization: `Bearer ${await this.getAccessToken()}` },

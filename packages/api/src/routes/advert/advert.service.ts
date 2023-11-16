@@ -7,7 +7,6 @@ import {ObjectType} from '../../core/entities/object-type.entity';
 import {ObjectImage} from '../../core/entities/object-image.entity';
 import {AdvertDto} from '../../core/dtos/advert.dto';
 import {AdvertFiltersDto} from '../../core/dtos/advert-filters.dto';
-import {Buffer} from 'buffer';
 import {bufferToBase64, resizeImageToBuffer} from '../../core/image.service';
 
 @Injectable()
@@ -27,7 +26,6 @@ export class AdvertService {
       const images = [];
 
       for (const image of advertDto.images) {
-        const bufferData = Buffer.from(image.base64, 'base64');
         const resizedBuffer = await resizeImageToBuffer(image.base64, image.mime);
         const newImage = new ObjectImage();
 
@@ -56,10 +54,10 @@ export class AdvertService {
     const adverts = await this.advertRepository.find();
     return adverts.map(advert => ({
       ...advert,
-      images: advert.images.map(image => {
+      images: advert.images.length ? advert.images.map(image => {
         const fromBlob = bufferToBase64(image.blob, 'image/jpeg');
         return {...image, mime: fromBlob.mime, base64: fromBlob.base64};
-      }),
+      }) : null,
     }));
   }
 

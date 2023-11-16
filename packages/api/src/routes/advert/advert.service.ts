@@ -1,16 +1,14 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Advert } from '../../core/entities/advert.entity';
-import { Like, Repository } from 'typeorm';
-import { CreateAdvertDto } from '../../core/dtos/create-advert.dto';
-import { ObjectType } from '../../core/entities/object-type.entity';
-import { ObjectImage } from '../../core/entities/object-image.entity';
-import { AdvertDto } from '../../core/dtos/advert.dto';
-import { AdvertFiltersDto } from '../../core/dtos/advert-filters.dto';
-import { cond } from 'lodash';
-import { Buffer } from 'buffer';
-import {resizeImageToBuffer} from '../../core/imageResizer';
-import sharp from "sharp";
+import {Injectable, InternalServerErrorException} from '@nestjs/common';
+import {InjectRepository} from '@nestjs/typeorm';
+import {Advert} from '../../core/entities/advert.entity';
+import {Repository} from 'typeorm';
+import {CreateAdvertDto} from '../../core/dtos/create-advert.dto';
+import {ObjectType} from '../../core/entities/object-type.entity';
+import {ObjectImage} from '../../core/entities/object-image.entity';
+import {AdvertDto} from '../../core/dtos/advert.dto';
+import {AdvertFiltersDto} from '../../core/dtos/advert-filters.dto';
+import {Buffer} from 'buffer';
+import {bufferToBase64, resizeImageToBuffer} from '../../core/image.service';
 
 @Injectable()
 export class AdvertService {
@@ -29,11 +27,8 @@ export class AdvertService {
       const images = [];
 
       for (const image of advertDto.images) {
-        console.log("here")
         const bufferData = Buffer.from(image.base64, 'base64');
-        console.log(bufferData.length)
         const resizedBuffer = await resizeImageToBuffer(image.base64, image.mime);
-        console.log(resizedBuffer.length)
         const newImage = new ObjectImage();
 
         newImage.blob = resizedBuffer;
@@ -58,7 +53,14 @@ export class AdvertService {
   }
 
   async findAll(): Promise<Advert[]> {
-    return await this.advertRepository.find();
+    const adverts = await this.advertRepository.find();
+    return adverts.map(advert => ({
+      ...advert,
+      images: advert.images.map(image => {
+        const fromBlob = bufferToBase64(image.blob, 'image/jpeg');
+        return {...image, mime: fromBlob.mime, base64: fromBlob.base64};
+      }),
+    }));
   }
 
   async findByFilter(filters: AdvertFiltersDto): Promise<Advert[]> {

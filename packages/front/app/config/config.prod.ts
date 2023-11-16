@@ -6,5 +6,5 @@
  * https://reactnative.dev/docs/security#storing-sensitive-info
  */
 export default {
-  API_URL: 'take-me-api.vercel.app',
+  API_URL: 'https://take-me-api.vercel.app',
 };

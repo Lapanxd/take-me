@@ -34,12 +34,12 @@ export class Advert implements IAdvert {
   @ManyToOne(() => ObjectType, (objectType) => objectType.advert)
   objectType: IObjectType;
 
-  @OneToMany(() => ObjectImage, (objectImage: ObjectImage) => objectImage.advert, {
+  @ApiProperty({ example: 'url.com/img.png' })
+  @OneToOne(() => ObjectImage, (objectImage: ObjectImage) => objectImage.advert, {
     cascade: true,
     eager: true,
   })
-  @ApiProperty({ example: ['url.com/img.png', 'url.com/img2.png'] })
-  images: IObjectImage[];
+  image: IObjectImage;
 
   @Column({ type: "float"})
   @ApiProperty({ example: -20 })

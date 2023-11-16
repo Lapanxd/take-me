@@ -23,25 +23,27 @@ export class AdvertService {
       const objectType = await this.objectTypeRepository.findOneBy({
         id: advertDto.objectType.id,
       });
-      const images = [];
 
-      for (const image of advertDto.images) {
-        const newImage = new ObjectImage();
-        newImage.url = image;
-        images.push(newImage);
-      }
+      console.log(advertDto)
 
       const advert = new Advert();
+      const image = new ObjectImage();
+
+      image.mime = advertDto.image.mime;
+      image.base64 = advertDto.image.base64;
 
       advert.name = advertDto.name;
       advert.objectType = objectType;
-      advert.images = images;
+      advert.image = image;
       advert.latitude = advertDto.latitude;
       advert.longitude = advertDto.longitude;
       advert.description = advertDto.description;
 
+      console.log(advert)
+
       return await this.advertRepository.save(advert);
     } catch (err) {
+      console.log()
       throw new InternalServerErrorException();
     }
   }
@@ -83,10 +85,10 @@ export class AdvertService {
       if (advert.objectType) {
         updatedAdvert.objectType = advert.objectType;
       }
-
-      if (advert.images) {
-        updatedAdvert.images = advert.images;
-      }
+      //
+      // if (advert.image) {
+      //   updatedAdvert.image = advert.image;
+      // }
 
       if (advert.longitude && advert.latitude) {
         updatedAdvert.longitude = advert.longitude;

@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   Dimensions,
   View,
-  Button
+  Button,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import IconFolderOpen from '../icons/IconFolderOpen';
@@ -17,6 +17,7 @@ import { useNavigation } from '@react-navigation/native';
 import GeocodeEarthAutocomplete from 'react-geocode-earth-autocomplete';
 import * as Location from 'expo-location';
 import IconLocation from 'app/icons/IconLocation';
+import { IAdvert } from '../core/models/Advert';
 
 const { width, height } = Dimensions.get('window');
 
@@ -37,12 +38,32 @@ const AdvertFormScreen = () => {
   const navigation = useNavigation() as any;
   const [manualAddressEntry, setManualAddressEntry] = useState(false);
 
+  function separateImage(image: string) {
+    let parts = image.split(',');
+    let mime = parts[0].split(':')[1].split(';')[0];
+    let base64 = parts[1];
+
+    return {
+      mime,
+      base64,
+    };
+  }
+
   const handleSubmit = () => {
     if (name && description) {
-      navigation.navigate('<Adverts>', {
-        name: name,
-        description: description,
-      });
+      const newAdvert: IAdvert = {
+        name,
+        description,
+        images: separateImage(image),
+        geocode: [selectedAddress.latitude, selectedAddress.longitude],
+      };
+
+      console.log(newAdvert);
+
+      // navigation.navigate('<Adverts>', {
+      //   name: name,
+      //   description: description,
+      // });
     } else {
       setError('Veuillez remplir tous les champs');
     }
@@ -80,7 +101,6 @@ const AdvertFormScreen = () => {
 
   useEffect(() => {
     (async () => {
-
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         setErrorMsg('Permission to access location was denied');
@@ -114,10 +134,9 @@ const AdvertFormScreen = () => {
         placeholder="Description"
       />
 
-
       <GeocodeEarthAutocomplete
         searchOptions={{
-          api_key: "ge-13910afc8a883b7a",
+          api_key: 'ge-13910afc8a883b7a',
         }}
         value={address}
         onChange={(newAddress) => {
@@ -153,12 +172,10 @@ const AdvertFormScreen = () => {
             <div>
               {props.loading && <div>Loading...</div>}
               {props.suggestions.map((suggestion) => {
-                const className = suggestion.active
-                  ? 'suggestion-item--active'
-                  : 'suggestion-item';
+                const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                 const style = suggestion.active
-                  ? { backgroundColor: '#fafafa', cursor: 'pointer', }
-                  : { backgroundColor: '#ffffff', cursor: 'pointer', };
+                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
                 return (
                   <div
                     {...props.getSuggestionItemProps(suggestion, {
@@ -175,14 +192,13 @@ const AdvertFormScreen = () => {
         )}
       </GeocodeEarthAutocomplete>
 
-      <TouchableOpacity
-        style={styles.input}
-        onPress={() => setManualAddressEntry(true)}
-      >
-
-        <Text style={styles.txt_btn_img}>         <IconLocation color="black" size={20} />{text} </Text>
+      <TouchableOpacity style={styles.input} onPress={() => setManualAddressEntry(true)}>
+        <Text style={styles.txt_btn_img}>
+          {' '}
+          <IconLocation color="black" size={20} />
+          {text}{' '}
+        </Text>
       </TouchableOpacity>
-
 
       {image && <Image source={{ uri: image }} style={styles.image} />}
       <TouchableOpacity style={styles.imgDownload} onPress={pickImage}>

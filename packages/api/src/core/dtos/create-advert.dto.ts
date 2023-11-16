@@ -18,8 +18,11 @@ export class CreateAdvertDto {
   objectType: IObjectType;
 
   @IsDefined()
-  @ApiProperty({ example: ['url.com/img.png', 'url.com/img2.png'] })
-  images: string[];
+  @ApiProperty({ example: { url: 'url.com/img.png' } })
+  image: {
+    mime: string,
+    base64: string,
+  };
 
   @IsDefined()
   @IsNumber()

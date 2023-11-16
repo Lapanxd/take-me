@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from 'typeorm';
 import { IObjectImage } from '../models/objectImage.model';
 import { Advert } from './advert.entity';
 
@@ -7,11 +7,17 @@ export class ObjectImage implements IObjectImage {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Advert, (advert) => advert.images)
+  @OneToOne(() => Advert, (advert) => advert.image)
   advert: Advert;
 
   @Column()
   url: string;
+
+  @Column()
+  mime: string;
+
+  @Column()
+  base64: string;
 
   @Column({
     nullable: true,

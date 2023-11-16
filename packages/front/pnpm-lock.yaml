@@ -131,6 +131,9 @@ dependencies:
   react-native-drawer:
     specifier: ^2.5.1
     version: 2.5.1
+  react-native-dropdown-picker:
+    specifier: ^5.4.6
+    version: 5.4.6(react-native@0.72.6)(react@18.2.0)
   react-native-geocoding:
     specifier: ^0.5.0
     version: 0.5.0
@@ -11392,6 +11395,16 @@ packages:
     dependencies:
       prop-types: 15.8.1
       tween-functions: 1.2.0
+    dev: false
+
+  /react-native-dropdown-picker@5.4.6(react-native@0.72.6)(react@18.2.0):
+    resolution: {integrity: sha512-T1XBHbE++M6aRU3wFYw3MvcOuabhWZ29RK/Ivdls2r1ZkZ62iEBZknLUPeVLMX3x6iUxj4Zgr3X2DGlEGXeHsA==}
+    peerDependencies:
+      react: '*'
+      react-native: '*'
+    dependencies:
+      react: 18.2.0
+      react-native: 0.72.6(@babel/core@7.20.2)(@babel/preset-env@7.20.2)(react@18.2.0)
     dev: false
 
   /react-native-flipper@0.164.0(react-native@0.72.6)(react@18.2.0):

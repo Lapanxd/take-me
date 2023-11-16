@@ -1,6 +1,6 @@
 import { NativeStackNavigationProp, NativeStackScreenProps } from '@react-navigation/native-stack';
 import AdvertCard from '../components/AdvertCard';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   TextStyle,
   View,
@@ -8,8 +8,9 @@ import {
   FlatList,
   Text,
   useWindowDimensions,
-  Button,
+  TextInput,
   TouchableOpacity,
+  Picker
 } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { colors, spacing } from '../theme';
@@ -35,7 +36,7 @@ export const Adverts = () => {
       geocode: [44.858, -0.5667],
       objectType: {
         id: 1,
-        name: 'meuble',
+        name: 'Jardin',
       },
       image:
         'https://images.unsplash.com/photo-1562113530-57ba467cea38?auto=format&fit=crop&q=80&w=1299&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
@@ -46,7 +47,7 @@ export const Adverts = () => {
       geocode: [44.8375, -0.5667],
       objectType: {
         id: 1,
-        name: 'meuble',
+        name: 'Vaisselles',
       },
       image:
         'https://www.lafoirfouille.fr/medias/sys_master/images/images/h20/hc8/8892827336734/10000180640-0-1200Wx1200H.jpg',
@@ -56,7 +57,7 @@ export const Adverts = () => {
       description: 'A nettoyer, bon état',
       objectType: {
         id: 1,
-        name: 'meuble',
+        name: 'Salon',
       },
       geocode: [44.8279, -0.567],
       image: 'https://rouen.blogs.com/.a/6a00e551daa20b88330133ee6b474d970b-700wi',
@@ -86,12 +87,20 @@ export const Adverts = () => {
 
   const geocodes = annonces.map((item) => item.geocode);
   const names = annonces.map((item) => item.adname);
+  const [selectedType, setSelectedType] = useState(null);
+
+  const filteredAds = annonces.filter((item) => {
+    if (!selectedType) {
+      return true; // No type selected, show all ads
+    }
+    return item.objectType.name === selectedType;
+  });
 
   const detail = (
     <>
       {/* <ScrollView> */}
       <FlatList
-        data={annonces}
+     data={filteredAds}
         renderItem={({ item }) => (
           <AdvertCard
             name={item.adname}
@@ -107,10 +116,22 @@ export const Adverts = () => {
     </>
   );
 
+
+
   return (
     <View style={$container}>
       <Header></Header>
       <Text style={$welcomeHeading}>Toutes les annonces</Text>
+      <Picker
+      
+        selectedValue={selectedType}
+        onValueChange={(itemValue) => setSelectedType(itemValue)}
+      >
+         <Picker.Item label="Tous les types" value={null} />
+        {/* Add other types dynamically based on your data */}
+        <Picker.Item label="Meuble" value="meuble" />
+        {/* Add more types as needed */}
+      </Picker>
       <View style={isSmallScreen ? $advertsContentSmall : $advertsContentLarge}>
         <View style={isSmallScreen ? $advertsListSmall : $advertsListLarge}>{detail}</View>
         {isSmallScreen && (

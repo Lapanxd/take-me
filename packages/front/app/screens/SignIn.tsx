@@ -36,12 +36,25 @@ export const SignIn = () => {
   } = useStores();
 
   async function connexion() {
-    await authService.signIn({
-      email: mail,
-      password,
-    });
+    try {
+      if (!mail || !password) {
+        setError('Veuillez saisir votre adresse e-mail et votre mot de passe.');
+        return;
+      }
 
-    await checkAuthentication();
+      await authService.signIn({
+        email: mail,
+        password: password,
+      });
+
+      await checkAuthentication();
+
+      setMail('');
+      setPassword('');
+      setError('');
+    } catch (error) {
+      setError("Une erreur s'est produite lors de la connexion. Veuillez réessayer.");
+    }
   }
 
   function inscription() {
@@ -66,12 +79,14 @@ export const SignIn = () => {
               style={styles.input}
               placeholder="exemple@gmail.com"
               placeholderTextColor="#888"
+              value={mail}
               onChangeText={(text) => setMail(text)}
             />
             <TextInput
               style={styles.input}
               placeholder="Mot de passe"
               placeholderTextColor="#888"
+              value={password}
               onChangeText={(text) => setPassword(text)}
               secureTextEntry
             />

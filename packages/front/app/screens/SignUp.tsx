@@ -26,11 +26,13 @@ export const SignUp = () => {
   const [lastname, setLastname] = useState('');
   const [firstname, setFirstname] = useState('');
   const [mail, setMail] = useState('');
+  const [city, setCity] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [lastnameError, setLastnameError] = useState('');
   const [firstnameError, setFirstnameError] = useState('');
   const [mailError, setMailError] = useState('');
+  const [cityError, setCityError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
 
@@ -51,22 +53,23 @@ export const SignUp = () => {
     setLastnameError('');
     setFirstnameError('');
     setMailError('');
+    setCityError('');
     setPasswordError('');
     setConfirmPasswordError('');
 
-    if (!firstname) {
+    if (!formData.firstname) {
       setFirstnameError('Prénom requis');
       console.log('prénom');
       return;
     }
 
     if (!formData.lastname) {
-      setLastnameError('Nom requis');
-      console.log('nom');
+      setFirstnameError('Nom requis');
+      console.log('prénom');
       return;
     }
 
-    if (!mail) {
+    if (!formData.email) {
       setMailError('Adresse mail requis');
       console.log('mail');
     } else if (!isEmailValid(mail)) {
@@ -74,11 +77,23 @@ export const SignUp = () => {
       return;
     }
 
-    if (!password && !confirmPassword) {
+    if (!formData.city) {
+      setMailError('Ville requise');
+      console.log('city');
+    } else if (!isEmailValid(mail)) {
+      setMailError('Adresse mail non valide');
+      return;
+    }
+
+    if (!formData.password && !formData.confirmPassword) {
       setPasswordError('Mot de passe requis');
       console.log('pwd');
       return;
-    } else if (password && confirmPassword && !isPasswordsMatching(password, confirmPassword)) {
+    } else if (
+      formData.password &&
+      formData.confirmPassword &&
+      !isPasswordsMatching(formData.password, formData.confirmPassword)
+    ) {
       setConfirmPasswordError('Confirmation de mot de passe requis');
       console.log('pwd');
       return;
@@ -94,6 +109,7 @@ export const SignUp = () => {
       firstname,
       lastname,
       email: mail,
+      city,
       password,
       confirmPassword,
     });
@@ -101,11 +117,11 @@ export const SignUp = () => {
     if (isFormValid) {
       try {
         const user = await authService.signUp({
-          firstname: firstname,
-          lastname: lastname,
+          firstname,
+          lastname,
           email: mail,
-          password: password,
-          city: 'Bordeaux',
+          password,
+          city,
         });
 
         if (user) {
@@ -141,7 +157,10 @@ export const SignUp = () => {
                   style={styles.input}
                   placeholder="Nom "
                   placeholderTextColor="rgba(128, 128, 128, .5)"
+                  value={lastname}
+                  onChangeText={(text) => setLastname(text)}
                 />
+                <Text style={styles.eror}>{lastnameError}</Text>
               </View>
 
               <View style={styles.inputContainer}>
@@ -149,7 +168,10 @@ export const SignUp = () => {
                   style={styles.input}
                   placeholder="Prénom"
                   placeholderTextColor="rgba(128, 128, 128, .5)"
+                  value={firstname}
+                  onChangeText={(text) => setFirstname(text)}
                 />
+                <Text style={styles.eror}>{firstnameError}</Text>
               </View>
             </View>
 
@@ -157,23 +179,39 @@ export const SignUp = () => {
               style={styles.input}
               placeholder="exemple@gmail.com"
               placeholderTextColor="#888"
+              value={mail}
+              onChangeText={(text) => setMail(text)}
             />
+            <Text style={styles.eror}>{mailError}</Text>
 
-            <TextInput style={styles.input} placeholder="Ville" placeholderTextColor="#888" />
+            <TextInput
+              style={styles.input}
+              placeholder="Ville"
+              placeholderTextColor="#888"
+              value={city}
+              onChangeText={(text) => setCity(text)}
+            />
+            <Text style={styles.eror}>{cityError}</Text>
 
             <TextInput
               style={styles.input}
               placeholder="Mot de passe"
               placeholderTextColor="#888"
               secureTextEntry
+              value={password}
+              onChangeText={(text) => setPassword(text)}
             />
+            <Text style={styles.eror}>{passwordError}</Text>
 
             <TextInput
               style={styles.input}
-              placeholder="Mot de passe"
+              placeholder="Confirmer le mot de passe"
               placeholderTextColor="#888"
               secureTextEntry
+              value={confirmPassword}
+              onChangeText={(text) => setConfirmPassword(text)}
             />
+            <Text style={styles.eror}>{confirmPasswordError}</Text>
             <TouchableOpacity style={styles.button} onPress={inscription}>
               <Text style={styles.buttonText}>S'inscrire</Text>
             </TouchableOpacity>
@@ -256,6 +294,9 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
+  },
+  eror: {
+    color: 'red',
   },
 });
 

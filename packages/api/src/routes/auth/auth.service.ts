@@ -43,7 +43,7 @@ export class AuthService {
 
     const refreshToken = await this.jwtService.signAsync(refreshPayload, refreshSignOptions);
 
-    return { id: user.id, accessToken, refreshToken };
+    return { accessToken, refreshToken };
   }
 
   async validateUser(email: string, pass: string): Promise<any> {

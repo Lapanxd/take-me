@@ -1,6 +1,8 @@
 export interface IObjectImage {
   id: number;
-  url: string;
+  url?: string;
+  mime?: string;
+  base64: string;
   createdAt?: Date;
   updatedAt?: Date;
 }

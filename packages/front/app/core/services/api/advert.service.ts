@@ -34,9 +34,11 @@ export class AdvertService {
     try {
       const response: ApiResponse<AdvertDto[]> = await this.apisauce.get(`/adverts`);
 
+      console.log(response.data);
+
       return response.data.map((advert) => ({
-        geocode: [advert.latitude, advert.longitude],
         ...advert,
+        geocode: [advert.latitude, advert.longitude],
       }));
     } catch (err) {
       if (__DEV__) {

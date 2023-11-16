@@ -21,6 +21,8 @@ export const Adverts = () => {
   useEffect(() => {
     advertService.findAll().then((adverts) => {
       setAdverts(adverts);
+
+      console.log(adverts);
       setGeocodes(adverts.map((advert) => advert.geocode));
       setNames(adverts.map((item) => item.name));
     });

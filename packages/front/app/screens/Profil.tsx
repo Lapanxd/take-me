@@ -48,7 +48,6 @@ export const Profil = () => {
 
   async function updateUser() {
     if (!checkData()) {
-      console.log('nope');
       return;
     }
     const result = await userService.updateUser({
@@ -64,7 +63,6 @@ export const Profil = () => {
 
   async function updatePassword() {
     if (!validatePassword()) {
-      console.log('prout');
       resetPasswordForm();
       return;
     }
@@ -74,7 +72,6 @@ export const Profil = () => {
     resetPasswordForm();
 
     if (result) {
-      console.log('okeyz');
     } // do something (alert or idk)
   }
 

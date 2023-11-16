@@ -6,8 +6,6 @@ export interface IAdvert {
   name: string;
   description: string;
   objectType?: IObjectType;
-  images?: IObjectImage[];
-  latitude?: number;
-  longitude?: number;
-  geocode: number;
+  images?: string[];
+  geocode: number[];
 }

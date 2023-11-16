@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { View, ViewStyle } from 'react-native';
 
@@ -11,25 +10,20 @@ export interface MapProps {
 }
 
 export type MapViewProps = MapProps & {
-  region: [number, number]
-}
+  region: [number, number];
+};
 
 export const Map: React.FC<MapProps> = (props) => {
   return (
     <View style={$mapcontent}>
-      <MapView
-        region={[44.8378, -0.5667]}
-        {...props}
-      />
+      <MapView region={[44.8378, -0.5667]} {...props} />
     </View>
   );
 };
 
 const $mapcontent: ViewStyle = {
   flexDirection: 'column',
-  width: '100%',
-  height: '100%',
-  backgroundColor: colors.transparent,
+  backgroundColor: 'red',
 };
 
 export default Map;

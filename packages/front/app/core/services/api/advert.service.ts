@@ -1,10 +1,10 @@
 import { IAdvert } from '../../models/Advert';
-import { GeneralApiProblem, getGeneralApiProblem } from './apiProblem';
 import { ApiResponse, ApisauceInstance, create } from 'apisauce';
 import { ApiConfig } from './api.types';
 import Config from 'app/config';
 import { IUpdateAdvert } from '../../models/UpdateAdvert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { AdvertDto } from '../../advert.dto';
 
 export class AdvertService {
   apisauce: ApisauceInstance;
@@ -31,8 +31,12 @@ export class AdvertService {
 
   async findAll(): Promise<IAdvert[]> {
     try {
-      const response: ApiResponse<IAdvert[]> = await this.apisauce.get(`/adverts`);
-      return response.data;
+      const response: ApiResponse<AdvertDto[]> = await this.apisauce.get(`/adverts`);
+
+      return response.data.map((advert) => ({
+        geocode: [advert.latitude, advert.longitude],
+        ...advert,
+      }));
     } catch (err) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${err.message}\n}`, err.stack);

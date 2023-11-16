@@ -72,7 +72,7 @@ const AppStack = observer(function AppStack() {
   return (
     <Stack.Navigator
       screenOptions={{ headerShown: false, navigationBarColor: colors.background }}
-      initialRouteName={isAuthenticated ? 'Connect' : 'Adverts'}
+      initialRouteName={isAuthenticated ? 'Adverts' : 'Adverts'}
     >
       {isAuthenticated ? (
         <>

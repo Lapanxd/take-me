@@ -5,6 +5,7 @@ import Config from 'app/config';
 import { IUpdateAdvert } from '../../models/UpdateAdvert';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AdvertDto } from '../../advert.dto';
+import { CreateAdvertDto } from '../../create-advert.dto';
 
 export class AdvertService {
   apisauce: ApisauceInstance;
@@ -33,10 +34,22 @@ export class AdvertService {
     try {
       const response: ApiResponse<AdvertDto[]> = await this.apisauce.get(`/adverts`);
 
-      return response.data.map((advert) => ({
-        geocode: [advert.latitude, advert.longitude],
-        ...advert,
-      }));
+      const test = response.data.map((advert) => {
+        const images = advert.images
+          ? { mime: advert.images[0].mime, base64: advert.images[0].base64 }
+          : { mime: '', base64: '' };
+
+        const geocode =
+          advert.latitude && advert.longitude ? [advert.latitude, advert.longitude] : [];
+
+        return {
+          ...advert,
+          images,
+          geocode,
+        };
+      });
+
+      return test;
     } catch (err) {
       if (__DEV__) {
         console.tron.error(`Bad data: ${err.message}\n}`, err.stack);
@@ -57,9 +70,18 @@ export class AdvertService {
     }
   }
 
-  async create(createAdvert: IAdvert): Promise<IAdvert> {
+  async create(createAdvert: AdvertDto): Promise<IAdvert> {
     try {
-      const response: ApiResponse<IAdvert> = await this.apisauce.post(`/adverts}`, createAdvert, {
+      const newAdvert: CreateAdvertDto = {
+        latitude: createAdvert.geocode[0],
+        longitude: createAdvert.geocode[1],
+        images: [createAdvert.images],
+        objectType: 1, //@todo refacto
+        name: createAdvert.name,
+        description: createAdvert.description,
+      };
+
+      const response: ApiResponse<IAdvert> = await this.apisauce.post(`/adverts`, newAdvert, {
         headers: { Authorization: `Bearer ${await this.getAccessToken()}` },
       });
       return response.data;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   View,
@@ -24,6 +24,11 @@ export const AdvertCard: React.FC<IAdvert> = ({
   objectType,
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [advertImage, setAdvertImage] = useState('');
+
+  useEffect(() => {
+    setAdvertImage(`data:${image.mime};base64,${image.base64}`);
+  }, []);
 
   return (
     <View style={{ padding: 7 }}>
@@ -31,7 +36,7 @@ export const AdvertCard: React.FC<IAdvert> = ({
         <View>
           <View style={{ borderRadius: 10, flexDirection: 'column', justifyContent: 'center' }}>
             <Image
-              source={{ uri: image }}
+              source={{ uri: advertImage }}
               style={{ borderRadius: 12, width: '100%', height: 230 }}
             />
             <Text
@@ -59,7 +64,7 @@ export const AdvertCard: React.FC<IAdvert> = ({
       >
         <AdvertDetail
           name={name}
-          image={image}
+          image={advertImage}
           description={description}
           geocode={geocode}
           objectType={objectType}

@@ -19,6 +19,7 @@ export const AuthenticationStoreModel = types
     logout() {
       store.authToken = undefined;
       store.refreshToken = undefined;
+      store.isAuthenticated = false;
     },
     checkAuthentication: flow(function* () {
       const result = yield AsyncStorage.getItem('accessToken');

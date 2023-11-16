@@ -8,12 +8,18 @@ import {
   TouchableOpacity,
   Dimensions,
   View,
+  Button,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import IconFolderOpen from '../icons/IconFolderOpen';
 import IconCamera from '../icons/IconCamera';
 import { useNavigation } from '@react-navigation/native';
 import GeocodeEarthAutocomplete from 'react-geocode-earth-autocomplete';
+import * as Location from 'expo-location';
+import IconLocation from 'app/icons/IconLocation';
+import { IAdvert } from '../core/models/Advert';
+import { advertService } from '../core/services/api';
+import { AdvertDto } from '../core/advert.dto';
 
 const { width, height } = Dimensions.get('window');
 
@@ -28,16 +34,47 @@ const AdvertFormScreen = () => {
     latitude: null,
     longitude: null,
   });
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [location, setLocation] = useState();
 
   const navigation = useNavigation() as any;
+  const [manualAddressEntry, setManualAddressEntry] = useState(false);
 
+  function separateImage(image: string) {
+    let parts = image.split(',');
+    let mime = parts[0].split(':')[1].split(';')[0];
+    let base64 = parts[1];
 
-  const handleSubmit = () => {
+    return {
+      mime,
+      base64,
+    };
+  }
+
+  function isValidAdress() {
+    return selectedAddress.description && selectedAddress.latitude && selectedAddress.longitude;
+  }
+
+  const handleSubmit = async () => {
     if (name && description) {
-      navigation.navigate('<Adverts>', {
-        name: name,
-        description: description,
-      });
+      let geocode;
+
+      if (isValidAdress()) {
+        geocode = [selectedAddress.latitude, selectedAddress.longitude];
+      } else {
+        geocode = [location.coords.latitude, location.coords.longitude];
+      }
+
+      const newAdvert: AdvertDto = {
+        name,
+        description,
+        images: separateImage(image),
+        geocode,
+      };
+
+      await advertService.create(newAdvert);
+
+      navigation.navigate('Adverts');
     } else {
       setError('Veuillez remplir tous les champs');
     }
@@ -73,6 +110,26 @@ const AdvertFormScreen = () => {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      let { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setErrorMsg('Permission to access location was denied');
+        return;
+      }
+
+      let location = await Location.getCurrentPositionAsync({});
+      setLocation(location);
+      console.log('location', location.coords.latitude);
+    })();
+  }, []);
+
+  let text = 'Récupérer ma localisation';
+  if (errorMsg) {
+    text = errorMsg;
+  } else if (location) {
+    text = JSON.stringify(location);
+  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -89,14 +146,14 @@ const AdvertFormScreen = () => {
         placeholder="Description"
       />
 
-
       <GeocodeEarthAutocomplete
         searchOptions={{
-          api_key: "ge-13910afc8a883b7a",
+          api_key: 'ge-13910afc8a883b7a',
         }}
         value={address}
         onChange={(newAddress) => {
           setAddress(newAddress);
+          setManualAddressEntry(false);
         }}
         onSelect={(newAddress) => {
           setSelectedAddress({
@@ -104,6 +161,7 @@ const AdvertFormScreen = () => {
             latitude: newAddress.geometry?.location.lat,
             longitude: newAddress.geometry?.location.lng,
           });
+          setManualAddressEntry(false);
         }}
       >
         {(props) => (
@@ -126,12 +184,10 @@ const AdvertFormScreen = () => {
             <div>
               {props.loading && <div>Loading...</div>}
               {props.suggestions.map((suggestion) => {
-                const className = suggestion.active
-                  ? 'suggestion-item--active'
-                  : 'suggestion-item';
+                const className = suggestion.active ? 'suggestion-item--active' : 'suggestion-item';
                 const style = suggestion.active
-                  ? { backgroundColor: '#fafafa', cursor: 'pointer', }
-                  : { backgroundColor: '#ffffff', cursor: 'pointer', };
+                  ? { backgroundColor: '#fafafa', cursor: 'pointer' }
+                  : { backgroundColor: '#ffffff', cursor: 'pointer' };
                 return (
                   <div
                     {...props.getSuggestionItemProps(suggestion, {
@@ -147,12 +203,14 @@ const AdvertFormScreen = () => {
           </div>
         )}
       </GeocodeEarthAutocomplete>
-      <TextInput
-        style={styles.input}
-        value={selectedAddress.description}
-        placeholder="Adresse"
-        editable={false}
-      />
+
+      <TouchableOpacity style={styles.input} onPress={() => setManualAddressEntry(true)}>
+        <Text style={styles.txt_btn_img}>
+          {' '}
+          <IconLocation color="black" size={20} />
+        </Text>
+      </TouchableOpacity>
+
       {image && <Image source={{ uri: image }} style={styles.image} />}
       <TouchableOpacity style={styles.imgDownload} onPress={pickImage}>
         <Text style={styles.txt_btn_img}>

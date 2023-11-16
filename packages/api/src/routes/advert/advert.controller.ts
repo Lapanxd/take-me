@@ -1,24 +1,12 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Param,
-  Query,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
-import { AdvertService } from './advert.service';
-import { Advert } from '../../core/entities/advert.entity';
-import { CreateAdvertDto } from '../../core/dtos/create-advert.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { AdvertDto } from '../../core/dtos/advert.dto';
-import { ApiOkResponse } from '@nestjs/swagger';
-import { Request } from 'express';
-import { ValidationPipe } from '../../core/pipes/validation.pipe';
-import { AdvertFiltersDto } from '../../core/dtos/advert-filters.dto';
+import {Body, Controller, Delete, Get, HttpCode, Param, Patch, Post, Query, UseGuards,} from '@nestjs/common';
+import {AdvertService} from './advert.service';
+import {Advert} from '../../core/entities/advert.entity';
+import {CreateAdvertDto} from '../../core/dtos/create-advert.dto';
+import {JwtAuthGuard} from '../auth/guards/jwt-auth.guard';
+import {AdvertDto} from '../../core/dtos/advert.dto';
+import {ApiOkResponse} from '@nestjs/swagger';
+import {ValidationPipe} from '../../core/pipes/validation.pipe';
+import {AdvertFiltersDto} from '../../core/dtos/advert-filters.dto';
 
 @Controller('adverts')
 export class AdvertController {
@@ -41,7 +29,7 @@ export class AdvertController {
     isArray: true,
   })
   async findAll(): Promise<Advert[]> {
-    return await this.advertService.findAll();
+    return await this.advertService.findAll()
   }
 
   @Get('filtered')

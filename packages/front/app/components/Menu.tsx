@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View, TextStyle, ViewStyle, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParams } from '../navigators/MenuNavigator';
 import { useStores } from '../core';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface MenuProps {
   onClose: () => void; // Fonction pour fermer le burger menu
@@ -11,15 +12,31 @@ interface MenuProps {
 
 const Menu: React.FC<MenuProps> = ({ onClose }) => {
   const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
+  const [refreshing, setRefreshing] = useState(false);
 
   const {
-    authenticationStore: { isAuthenticated },
+    authenticationStore: { isAuthenticated, logout },
   } = useStores();
 
   const navigateAndClose = (screenName: keyof RootStackParams) => {
     navigation.navigate(screenName);
     onClose(); // Appel de la fonction de fermeture
   };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  };
+
+  async function onLogout() {
+    await AsyncStorage.removeItem('accessToken');
+    await AsyncStorage.removeItem('refreshToken');
+    await AsyncStorage.removeItem('userId');
+    logout();
+    onRefresh();
+  }
 
   return (
     <View style={$container}>
@@ -32,9 +49,14 @@ const Menu: React.FC<MenuProps> = ({ onClose }) => {
       </TouchableOpacity>
 
       {isAuthenticated ? (
-        <TouchableOpacity onPress={() => navigateAndClose('Profil')}>
-          <Text style={$link}>Profil</Text>
-        </TouchableOpacity>
+        <>
+          <TouchableOpacity onPress={() => navigateAndClose('Profil')}>
+            <Text style={$link}>Profil</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => onLogout()}>
+            <Text style={$link}>Déconnexion</Text>
+          </TouchableOpacity>
+        </>
       ) : (
         <View style={{ marginTop: 20 }}>
           <TouchableOpacity onPress={() => navigateAndClose('Connect')}>

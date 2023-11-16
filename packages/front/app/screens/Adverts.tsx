@@ -20,9 +20,14 @@ export const Adverts = () => {
 
   useEffect(() => {
     advertService.findAll().then((adverts) => {
-      setAdverts(adverts);
-      setGeocodes(adverts.map((advert) => advert.geocode));
-      setNames(adverts.map((item) => item.name));
+      console.log(adverts);
+      if (adverts) {
+        setAdverts(adverts);
+        setGeocodes(adverts.map((advert) => advert.geocode));
+        setNames(adverts.map((item) => item.name));
+
+        console.log('adverts', adverts);
+      }
     });
   }, []);
 
@@ -45,7 +50,7 @@ export const Adverts = () => {
                 <View key={index} style={{ width: '50%' }}>
                   <AdvertCard
                     name={advert.name}
-                    image={advert.images[0]?.url || 'https://placehold.co/400'}
+                    image={advert.images}
                     description={advert.description}
                     geocode={advert.geocode}
                     objectType={advert.objectType}

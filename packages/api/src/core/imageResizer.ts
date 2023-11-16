@@ -1,4 +1,4 @@
-import sharp from 'sharp';
+import * as sharp from 'sharp';
 import {Buffer} from 'buffer';
 
 async function resizeImageToBuffer(base64Image, mime) {

@@ -29,14 +29,15 @@ export class AdvertService {
       const images = [];
 
       for (const image of advertDto.images) {
+        console.log("here")
         const bufferData = Buffer.from(image.base64, 'base64');
+        console.log(bufferData.length)
         const resizedBuffer = await resizeImageToBuffer(image.base64, image.mime);
+        console.log(resizedBuffer.length)
         const newImage = new ObjectImage();
 
         newImage.blob = resizedBuffer;
         newImage.url = image.url || '';
-
-        console.log(resizedBuffer);
 
         images.push(newImage);
       }

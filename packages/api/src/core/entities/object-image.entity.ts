@@ -14,7 +14,7 @@ export class ObjectImage {
   @Column()
   url: string;
 
-  @Column({ type: 'blob', nullable: true })
+  @Column({ type: 'mediumblob', nullable: true })
   blob: Buffer;
 
   @Column({

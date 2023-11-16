@@ -63,6 +63,9 @@ export class AdvertService {
     }
 
     //@TODO filter by city
+    if (city) {
+      condition.city = await this.advertRepository.find({ where: { city } });
+    }
 
     return await this.advertRepository.find({ where: condition });
   }
